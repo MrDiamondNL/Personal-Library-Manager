@@ -1,5 +1,7 @@
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom"
 import './App.css'
+import data from "../data/dbtest.json"
+import { useEffect, useState } from "react"
 
 //Layouts
 import RootLayout from "./layouts/RootLayout"
@@ -22,8 +24,16 @@ const router = createBrowserRouter(
   )
 )
 
-function App() {
 
+
+function App() {
+  const [library, setLibrary] = useState([data]);
+
+  // useEffect(() => {
+  //   library = setLibrary(data);
+  // }, [])
+
+  console.log(library);
 
   return (
     <RouterProvider router={router} />
