@@ -2,6 +2,7 @@ import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } 
 import './App.css'
 import data from "../data/dbtest.json"
 import { useEffect, useState } from "react"
+import { QueryClient, QueryClientProvider } from "react-query"
 
 //Layouts
 import RootLayout from "./layouts/RootLayout"
@@ -27,16 +28,14 @@ const router = createBrowserRouter(
 
 
 function App() {
-  const [library, setLibrary] = useState([data]);
 
-  // useEffect(() => {
-  //   library = setLibrary(data);
-  // }, [])
-
-  console.log(library);
+  const queryClient = new QueryClient();
 
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+
   )
 }
 

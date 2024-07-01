@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function CardContainer() {
+export default function CardContainer({ title, description }) {
+    // console.log(title, description);
     return (
         <div className="card-container">
-            Stuff goes here
+            <p>{title}</p>
+            <p>{description}</p>
         </div>
     )
 }
