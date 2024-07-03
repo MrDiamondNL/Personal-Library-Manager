@@ -10,7 +10,9 @@ export default function All() {
         "lib",
         fetchLib
     )
-    if (!data) return null;
+    if (!data) return (
+        <div>Loading...</div>
+    );
 
     data.library.sort((a, b) => {
         if (a.title < b.title) {
