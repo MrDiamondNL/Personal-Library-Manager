@@ -57,13 +57,13 @@
         {
             "id": 10,
             "title": "Manual 4",
-            "category": "Book",
+            "category": "Manual",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras maximus."
         },        
         {
             "id": 11,
             "title": "Manual 5",
-            "category": "Book",
+            "category": "Manual",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras maximus."
         }        
     ]
