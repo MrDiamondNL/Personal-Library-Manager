@@ -3,8 +3,13 @@ import { useQuery } from "react-query"
 import libraryData from "../../data/dbtest.json"
 
 export default function All() {
-    const fetchLib = () => {
-        return libraryData;
+    const fetchLib = async () => {
+        const res = await fetch("http://localhost:5000/");
+        // console.log(res.json());
+        if (!res.ok) {
+            throw new Error("Response was not ok");
+        }
+        return res.json();
     }
     const { data } = useQuery(
         "lib",
@@ -24,7 +29,7 @@ export default function All() {
         return 0;
     });
 
-    return data.library.map((book) => (
+    return data.map((book) => (
         <CardContainer {...book} key={book.id} />
     ))
 }

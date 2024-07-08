@@ -16,6 +16,8 @@ export default function RootLayout() {
             <main>
                 <Outlet />
             </main>
+
+            <div className="add-item-menu">add</div>
         </div>
     )
 }

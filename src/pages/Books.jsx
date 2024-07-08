@@ -10,6 +10,7 @@ export default function Books() {
         "lib",
         fetchLib
     )
+
     if (!data) return null;
 
     const libraryBooks = (data.library.filter(obj => obj.category.includes("Book")));
