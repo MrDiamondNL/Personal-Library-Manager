@@ -22,7 +22,7 @@ mongoose.connect("mongodb://localhost:27017/personal-library-manager")
 app.get("/", async (req, res) => {
     await Item.find()
     .then((result) => {
-        // console.log(result);
+        console.log(result);
         res.send(result);
     })
     .catch(err => {
