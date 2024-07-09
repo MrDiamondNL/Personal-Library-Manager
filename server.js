@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
     
     db.collection("library")
     .find()
-    .forEach()
+    .toArray()
     .then((result) => {
         res.json(result);
     })

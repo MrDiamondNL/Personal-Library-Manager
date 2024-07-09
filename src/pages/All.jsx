@@ -19,17 +19,17 @@ export default function All() {
         <div>Loading...</div>
     );
 
-    // data.library.sort((a, b) => {
-    //     if (a.title < b.title) {
-    //         return -1;
-    //     }
-    //     if (a.title > b.title) {
-    //         return 1;
-    //     }
-    //     return 0;
-    // });
+    data.sort((a, b) => {
+        if (a.title < b.title) {
+            return -1;
+        }
+        if (a.title > b.title) {
+            return 1;
+        }
+        return 0;
+    });
 
-    return data.library.map((book) => (
+    return data.map((book) => (
         <CardContainer {...book} key={book.id} />
     ))
 }
