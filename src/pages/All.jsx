@@ -29,7 +29,7 @@ export default function All() {
     //     return 0;
     // });
 
-    return data.map((book) => (
+    return data.library.map((book) => (
         <CardContainer {...book} key={book.id} />
     ))
 }
