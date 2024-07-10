@@ -30,12 +30,5 @@ header nav a {
 }
 
 .add-item-menu {
-  position: relative;
-  bottom: 0px;
-  right: 10px;
-  background-color: aqua;
-  border: 1px solid black;
-  margin-bottom: 20px;
-  width: 50px;
-  height: 50px;
+  
 }

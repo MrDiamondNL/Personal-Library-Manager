@@ -1,5 +1,5 @@
 import CardContainer from "../components/CardContainer"
-import libraryData from "../../data/dbtest.json"
+// import libraryData from "../../data/dbtest.json"
 import { useQuery } from "react-query";
 
 export default function Misc() {

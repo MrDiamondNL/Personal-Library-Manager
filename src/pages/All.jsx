@@ -1,6 +1,6 @@
 import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query"
-import libraryData from "../../data/dbtest.json"
+// import libraryData from "../../data/dbtest.json"
 
 export default function All() {
     const fetchLib = async () => {
