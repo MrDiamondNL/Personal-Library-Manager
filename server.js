@@ -54,14 +54,27 @@ connectToDb().then(result => {
     
 // })
 
+app.get("/", (req, res) => {
+    Item.find()
+        .then((result) => {
+            res.status(201).send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send("Could not fetch collection");
+        })
+})
+
 app.post("/library", (req, res) => {
     let newItem = new Item(req.body);
     newItem.save()
-        .then(result => {
+        .then(() => {
             console.log("item added succesfully");
+            res.status(201).send("Item added successfully");
         })
         .catch(err => {
             console.log(err);
+            res.status(500).send("error adding item");
         });
 
     // db.collection(activeDb).insertOne(newItem)

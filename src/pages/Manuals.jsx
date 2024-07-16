@@ -3,8 +3,13 @@ import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query";
 
 export default function Manuals() {
-    const fetchLib = () => {
-        return libraryData;
+    const fetchLib = async () => {
+        const res = await fetch(`http://localhost:5000/`);
+        console.log(res);
+        if (!res.ok) {
+            throw new Error("Response was not ok");
+        }
+        return res.json();
     }
     const { data } = useQuery(
         "lib",
@@ -17,6 +22,6 @@ export default function Manuals() {
 
 
     return libraryManuals.map((book) => (
-        <CardContainer {...book} key={book.id} />
+        <CardContainer {...book} key={book._id} />
     ))
 }
