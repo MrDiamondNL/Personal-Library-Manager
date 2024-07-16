@@ -2,25 +2,33 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Item = require("./models/Item.js");
-const { connectToDb, getDb } = require("./db.js");
+const connectToDb = require("./db.js");
 
 const app = express();
 const port = 5000;
+let activeDb = "library"
 
-app.use(cors()); //commented out to see what happens
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //connect to the database
-let db
+connectToDb().then(result => {
+    app.listen(port, () => {
+        console.log(`Server is running on localhost:${port}`);
+    });
+});
 
-connectToDb((err) => {
-    if (!err) {
-        app.listen(port, () => {
-            console.log(`Server is running on localhost:${port}`);
-        });
-        db = getDb();
-    }
-})
+// let db
+
+// connectToDb((err) => {
+    // if (!err) {
+    //     app.listen(port, () => {
+    //         console.log(`Server is running on localhost:${port}`);
+    //     });
+//         db = getDb();
+//     }
+// })
 
 // mongoose.connect("mongodb://localhost:27017/personal-library-manager")
 //     .then(() => {
@@ -31,19 +39,37 @@ connectToDb((err) => {
 //     });
 
 //endpoints
-app.get("/", (req, res) => {
+// app.get("/", (req, res) => {
     
-    db.collection("library")
-    .find()
-    .toArray()
-    .then((result) => {
-        res.json(result);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+//     db.collection(activeDb)
+//     .find()
+//     .toArray()
+//     .then((result) => {
+//         res.json(result);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
     
     
-})
+// })
 
+app.post("/library", (req, res) => {
+    let newItem = new Item(req.body);
+    newItem.save()
+        .then(result => {
+            console.log("item added succesfully");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    // db.collection(activeDb).insertOne(newItem)
+    //     .then(result => {
+    //         res.status(201).json(result);
+    //     })
+    //     .catch(err => {
+    //         res.status(500).json({err: "Could not create a new entry"});
+    //     })
+})
 

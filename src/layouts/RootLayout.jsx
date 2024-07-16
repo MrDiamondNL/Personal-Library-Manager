@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom"
+import CardContainer from "../components/CardContainer"
 
 export default function RootLayout() {
     return (
@@ -14,7 +15,9 @@ export default function RootLayout() {
             </header>
 
             <main>
-                <Outlet />
+                <div className="library__container">
+                    <Outlet />
+                </div>
             </main>
 
             <div className="add-item-menu">add</div>

@@ -13,7 +13,7 @@ export default function Books() {
 
     if (!data) return null;
 
-    const libraryBooks = (data.library.filter(obj => obj.category.includes("Book")));
+    const libraryBooks = (data.filter(obj => obj.category.includes("Book")));
 
 
 

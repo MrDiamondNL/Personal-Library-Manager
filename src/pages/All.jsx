@@ -3,8 +3,10 @@ import { useQuery } from "react-query"
 // import libraryData from "../../data/dbtest.json"
 
 export default function All() {
+    let selectedDb = "library"
+
     const fetchLib = async () => {
-        const res = await fetch("http://localhost:5000/");
+        const res = await fetch(`http://localhost:5000/`);
         console.log(res);
         if (!res.ok) {
             throw new Error("Response was not ok");

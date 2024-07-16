@@ -12,7 +12,7 @@ export default function Manuals() {
     )
     if (!data) return null;
 
-    const libraryManuals = (data.library.filter(obj => obj.category.includes("Manual")));
+    const libraryManuals = (data.filter(obj => obj.category.includes("Manual")));
 
 
 

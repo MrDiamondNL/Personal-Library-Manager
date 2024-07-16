@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+
+* {
+  font-family: "Roboto Serif", serif;
+}
+
+#root {
+  padding: 32px 10px;
+  padding-bottom: 50px;
+}
+
+.root-layout {
+  /* display: flex; */
+  position: relative;
+}
+
+h2.library-title {
+  width: 100%;
+  height: 50px;
+  margin: 5px auto; 
+}
+
+.library__container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.card-container {
+  display: flex;
+  border: 2px solid black;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  img {
+    height: 100%;
+
+  }
+}
+
+.card-container__info {
+  display: flex;
+  flex-direction: column;
+  text-align: start;  
+
+  h3 {
+    margin: 0;
+  }
+
+  p{
+    margin: 0;
+  }
+}
+
+
+
+header nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  font-size: 1.2em;
+}
+
+header nav a {
+  text-decoration: none;
+}
+
+.add-item-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+}

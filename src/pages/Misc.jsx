@@ -12,7 +12,7 @@ export default function Misc() {
     )
     if (!data) return null;
 
-    const libraryMisc = (data.library.filter(obj => obj.category.includes("Misc")));
+    const libraryMisc = (data.filter(obj => obj.category.includes("Misc")));
 
 
 
