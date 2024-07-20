@@ -75,14 +75,13 @@ app.post("/library", (req, res) => {
         .catch(err => {
             console.log(err);
             res.status(500).send("error adding item");
-        });
+        });    
+})
 
-    // db.collection(activeDb).insertOne(newItem)
+// db.collection(activeDb).insertOne(newItem)
     //     .then(result => {
     //         res.status(201).json(result);
     //     })
     //     .catch(err => {
     //         res.status(500).json({err: "Could not create a new entry"});
     //     })
-})
-

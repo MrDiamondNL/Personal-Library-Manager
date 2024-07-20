@@ -13,6 +13,7 @@ import All from "./pages/All";
 import Books from "./pages/Books";
 import Manuals from "./pages/Manuals";
 import Misc from "./pages/Misc";
+import ItemEntry from "./pages/ItemEntry"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="/books" element={<Books />} />
       <Route path="/manuals" element={<Manuals />} />
       <Route path="/misc" element={<Misc />} />
+      <Route path="/item_entry" element={<ItemEntry />} />
     </Route>
   )
 )

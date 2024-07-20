@@ -7,11 +7,28 @@
 #root {
   padding: 32px 10px;
   padding-bottom: 50px;
+  background-color: white;
 }
 
 .root-layout {
-  /* display: flex; */
+  // display: flex; 
   position: relative;
+}
+
+header {
+  background-color: #FFFBFE;
+}
+
+.menu_title_wrapper {
+  display: flex;  
+}
+
+.menu_toggle {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
 }
 
 h2.library-title {
@@ -30,7 +47,7 @@ h2.library-title {
   display: flex;
   border: 2px solid black;
   height: 100px;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   gap: 10px;
   img {
@@ -73,4 +90,26 @@ header nav a {
   bottom: 20px;
   right: 20px;
 
+}
+
+.item_entry_container {
+  display: flex;
+  flex-direction: column;
+  // gap: 30px;
+  h3 {
+    // width: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    // gap: 10px;
+    // align-items: left;
+  }
+  label {
+    text-align: left;
+  }
+  input {
+    margin: 10px 0px;
+  }
 }

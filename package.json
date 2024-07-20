@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.11.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
