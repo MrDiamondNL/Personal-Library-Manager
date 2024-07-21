@@ -6,10 +6,10 @@ let dbConnection;
 const connectToDb = async () => {
     try {
         await mongoose.connect("mongodb://localhost:27017/personal-library-manager");
-        console.log("Connected to database")
+        console.log("Connected to database");
     } catch (err) {
         console.log("error connting to database", err);
-        process.exit(1)
+        process.exit(1);
     }
 }
 
