@@ -24,6 +24,87 @@ header {
   }
 }
 
+.navigation-active {
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 60vw;
+  z-index: 100;
+  padding: 20px;
+  // display: flex;
+  animation: navigation-open 0.5s ease-in-out;
+  // animation: navigation-closed 0.5s ease-in-out;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: start;
+  }
+}
+@keyframes navigation-open {
+  0% {
+    left: -60vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.navigation {
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: -60vw;
+  height: 100vh;
+  width: 60vw;
+  z-index: 100;
+  padding: 0px;
+  display: flex;
+  // animation: navigation-open 0.5s ease-in-out;
+  animation: navigation-closed 0.5s ease-in-out;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: start;
+  }
+}
+
+@keyframes navigation-closed {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -70vw;
+  }
+}
+
+@keyframes navigation__backdrop-open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+// .navigation__backdrop {
+//   width: 100vw;
+//   height: 100vh;
+//   z-index: 99;  
+//   opacity: 0.2;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   backdrop-filter: blur(5px);
+//   background-color: black;
+//   animation: navigation__backdrop-open 0.5s ease-in-out;
+// }
+
 .menu_title_wrapper {
   display: flex; 
   justify-content: space-between;
@@ -129,5 +210,9 @@ header nav a {
   }
   input {
     margin: 10px 0px;
+  }
+
+  button {
+    margin-top: 20px;
   }
 }

@@ -1,8 +1,10 @@
 import CardContainer from "../components/CardContainer"
+import { useQuery } from "react-query"
 // import libraryData from "../../data/dbtest.json"
-import { useQuery } from "react-query";
 
-export default function Misc() {
+export default function SearchPAge() {
+    let selectedDb = "library"
+
     const fetchLib = async () => {
         const res = await fetch(`http://localhost:5000/`);
         console.log(res);
@@ -11,18 +13,25 @@ export default function Misc() {
         }
         return res.json();
     }
-
     const { data } = useQuery(
         "lib",
         fetchLib
     )
-    if (!data) return null;
+    if (!data) return (
+        <div>Loading...</div>
+    );
 
-    const libraryMisc = (data.filter(obj => obj.category.includes("Misc")));
+    data.sort((a, b) => {
+        if (a.title < b.title) {
+            return -1;
+        }
+        if (a.title > b.title) {
+            return 1;
+        }
+        return 0;
+    });
 
-
-
-    return libraryMisc.map((book) => (
+    return data.map((book) => (
         <CardContainer {...book} key={book._id} />
     ))
 }
