@@ -6,10 +6,13 @@ import { useRef, useState } from "react";
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
     const [navOpen, setNavOpen] = useState(false);
+    const [openAddItem, setOpenAddItem] = useState(false);
     const [query, setQuery] = useState("");
     const navigate = useNavigate();
     const divRef = useRef(null);
+    const addRef = useRef(null);
     const location = useLocation();
+
 
 
     const toggleSearch = () => {
@@ -19,26 +22,35 @@ export default function RootLayout() {
 
     const toggleOpen = () => {
         setNavOpen(!navOpen);
-        document.addEventListener("mousedown", handleClickOutside);
-        console.log(navOpen);
+        document.addEventListener("mousedown", handleClickOutsideNav);
     }
 
-    const handleClickOutside = (event) => {
+    const handleClickOutsideNav = (event) => {
         if (divRef.current && !divRef.current.contains(event.target)) {
-            console.log("Clicked outside of custom div")
             setNavOpen(false);
-            console.log(navOpen);
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutsideNav);
+        }
+    }
+
+    const showAddItemMenu = () => {
+        setOpenAddItem(!openAddItem);
+        document.addEventListener("mousedown", handleClickOutsideAddMenu);
+    }
+
+    const handleClickOutsideAddMenu = (event) => {
+        if (addRef.current && !addRef.current.contains(event.target)) {
+            setOpenAddItem(false);
+            document.removeEventListener("mousedown", handleClickOutsideAddMenu);
         }
     }
 
     const handleChange = (event) => {
         const newQuery = event.target.value;
         setQuery(newQuery);
-        if (newQuery !== "" && location.pathname !== "search_page") {
+        if (newQuery !== "" && location.pathname !== "/search_page") {
             navigate("/search_page", { state: { query: newQuery } });
         }
-        if (newQuery == "" && location.pathname == "search_page") {
+        if (newQuery == "" && location.pathname == "/search_page") {
             navigate("/");
         }
     }
@@ -81,8 +93,12 @@ export default function RootLayout() {
                 </div>
             </main>
 
-            <div className="add-item-menu">
-                <NavLink className="add_item_navlink" to="item_entry"><IconFilePlus stroke={1.25} /></NavLink>
+            <div className="show-add-item-menu" onClick={showAddItemMenu}><IconFilePlus stroke={1.25} />
+                <div className={`add-item-menu${openAddItem ? "-active" : ""}`}>
+                    <NavLink className="add_item_navlink" to="item_entry">Add Manually</NavLink>
+                    <div>Add by barcode</div>
+                </div>
+
             </div>
         </div>
     )

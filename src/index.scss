@@ -32,7 +32,7 @@ header {
   height: 100vh;
   width: 60vw;
   z-index: 100;
-  padding: 20px;
+  padding: 0px;
   // display: flex;
   animation: navigation-open 0.5s ease-in-out;
   // animation: navigation-closed 0.5s ease-in-out;
@@ -42,6 +42,7 @@ header {
     flex-direction: column;
     gap: 10px;
     text-align: start;
+    padding: 20px;
   }
 }
 @keyframes navigation-open {
@@ -71,6 +72,7 @@ header {
     flex-direction: column;
     gap: 10px;
     text-align: start;
+    padding: 20px;
   }
 }
 
@@ -184,11 +186,43 @@ header nav a {
   text-decoration: none;
 }
 
-.add-item-menu {
+.show-add-item-menu {
   position: fixed;
   bottom: 20px;
   right: 20px;
 
+}
+
+.add-item-menu {
+  position: relative;
+  display: none;
+}
+
+.add-item-menu-active {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 5;
+  border: solid 1px black;
+  border-radius: 2px;
+  position: fixed;
+  bottom: 45px;
+  right: 40px;
+  width: 150px;
+  height: 100px;
+  animation: add-item-open 0.5s ease-in-out;
+}
+
+@keyframes add-item-open {
+  0% {
+    width: 0%;
+    height: 0%;
+    font-size: 0em;
+  }
+  100% {
+    // width: 150px;
+    // height: 100px;
+  }
 }
 
 .item_entry_container {
