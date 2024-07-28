@@ -1,9 +1,11 @@
+import { useLocation } from "react-router-dom"
 import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query"
-// import libraryData from "../../data/dbtest.json"
 
-export default function SearchPAge() {
+export default function SearchPage() {
     let selectedDb = "library"
+    const location = useLocation();
+    const { query } = location.state || { query: "" };
 
     const fetchLib = async () => {
         const res = await fetch(`http://localhost:5000/`);
@@ -31,7 +33,12 @@ export default function SearchPAge() {
         return 0;
     });
 
-    return data.map((book) => (
+    const searchedData = data.filter((book) =>
+        book.title.toLowerCase().includes(query.toLowerCase()) ||
+        book.author.toLowerCase().includes(query.toLowerCase())
+    );
+
+    return searchedData.map((book) => (
         <CardContainer {...book} key={book._id} />
     ))
 }

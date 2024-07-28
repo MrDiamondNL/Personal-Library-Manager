@@ -1,22 +1,29 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom"
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
 import CardContainer from "../components/CardContainer"
 import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
 import { useRef, useState } from "react";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
+    const [navOpen, setNavOpen] = useState(false);
+    const [query, setQuery] = useState("");
+    const navigate = useNavigate();
+    const divRef = useRef(null);
+    const location = useLocation();
+
+
     const toggleSearch = () => {
         setOpenSearch(!openSearch);
     }
 
-    const [navOpen, setNavOpen] = useState(false);
+
     const toggleOpen = () => {
         setNavOpen(!navOpen);
         document.addEventListener("mousedown", handleClickOutside);
         console.log(navOpen);
     }
 
-    const handleClickOutside = () => {
+    const handleClickOutside = (event) => {
         if (divRef.current && !divRef.current.contains(event.target)) {
             console.log("Clicked outside of custom div")
             setNavOpen(false);
@@ -25,10 +32,16 @@ export default function RootLayout() {
         }
     }
 
-    let divRef = useRef(null);
-
-    const [query, setQuery] = useState("");
-    const navigate = useNavigate;
+    const handleChange = (event) => {
+        const newQuery = event.target.value;
+        setQuery(newQuery);
+        if (newQuery !== "" && location.pathname !== "search_page") {
+            navigate("/search_page", { state: { query: newQuery } });
+        }
+        if (newQuery == "" && location.pathname == "search_page") {
+            navigate("/");
+        }
+    }
 
     return (
         <div className="root-layout">
@@ -37,7 +50,7 @@ export default function RootLayout() {
                     <div className="menu_toggle" onClick={toggleOpen}><IconMenu2 stroke={1.75} /></div>
                     {openSearch ? (
                         <div className="search_bar">
-                            <input type="text" placeholder="Search library..."></input>
+                            <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
                         </div>
                     ) : null}
                     <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
