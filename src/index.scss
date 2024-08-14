@@ -24,27 +24,27 @@ header {
   }
 }
 
-.navigation-active {
-  position: fixed;
-  background-color: white;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 60vw;
-  z-index: 100;
-  padding: 0px;
+// .navigation .active {
+//   position: fixed;
+//   background-color: white;
+//   top: 0;
+//   left: 0;
+//   height: 100vh;
+//   width: 60vw;
+//   z-index: 100;
+//   padding: 0px;
   // display: flex;
-  animation: navigation-open 0.5s ease-in-out;
+  //animation: navigation-open 0.5s ease-in-out;
   // animation: navigation-closed 0.5s ease-in-out;
 
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: start;
-    padding: 20px;
-  }
-}
+//   nav {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 10px;
+//     text-align: start;
+//     padding: 20px;
+//   }
+// }
 @keyframes navigation-open {
   0% {
     left: -60vw;
@@ -63,9 +63,16 @@ header {
   width: 60vw;
   z-index: 100;
   padding: 0px;
-  display: flex;
-  // animation: navigation-open 0.5s ease-in-out;
-  animation: navigation-closed 0.5s ease-in-out;
+  display: flex;  
+  
+
+  &.active {
+    animation: navigation-open 0.5s ease-in-out forwards;
+  }
+
+   &.closed {
+    animation: navigation-closed 0.5s ease-in-out;
+   }
 
   nav {
     display: flex;

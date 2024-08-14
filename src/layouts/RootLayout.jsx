@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
-    const [navOpen, setNavOpen] = useState(false);
+    const [navOpen, setNavOpen] = useState(null);
     const [openAddItem, setOpenAddItem] = useState(false);
     const [query, setQuery] = useState("");
     const navigate = useNavigate();
@@ -21,7 +21,9 @@ export default function RootLayout() {
 
 
     const toggleOpen = () => {
-        setNavOpen(!navOpen);
+        if (navOpen === null) {
+            setNavOpen(true);
+        } else setNavOpen(!navOpen);
         document.addEventListener("mousedown", handleClickOutsideNav);
     }
 
@@ -47,10 +49,10 @@ export default function RootLayout() {
     const handleChange = (event) => {
         const newQuery = event.target.value;
         setQuery(newQuery);
-        if (newQuery !== "" && location.pathname !== "/search_page") {
+        if (newQuery !== "") {
             navigate("/search_page", { state: { query: newQuery } });
         }
-        if (newQuery == "" && location.pathname == "/search_page") {
+        if (newQuery === "" && location.pathname === "/search_page") {
             navigate("/");
         }
     }
@@ -60,6 +62,7 @@ export default function RootLayout() {
             <header>
                 <div className="menu_title_wrapper">
                     <div className="menu_toggle" onClick={toggleOpen}><IconMenu2 stroke={1.75} /></div>
+                    <h2 className="library-title">Your Library</h2>
                     {openSearch ? (
                         <div className="search_bar">
                             <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
@@ -67,7 +70,7 @@ export default function RootLayout() {
                     ) : null}
                     <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
                 </div>
-                <h2 className="library-title">Your Library</h2>
+
                 <nav>
                     <NavLink to="/">All</NavLink>
                     <NavLink to="books">Books</NavLink>
@@ -76,7 +79,7 @@ export default function RootLayout() {
                 </nav>
             </header>
 
-            <div className={`navigation${navOpen ? "-active" : ""}`} ref={divRef}>
+            <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
                     <NavLink to="/">All</NavLink>
                     <NavLink to="books">Books</NavLink>
@@ -97,6 +100,7 @@ export default function RootLayout() {
                 <div className={`add-item-menu${openAddItem ? "-active" : ""}`}>
                     <NavLink className="add_item_navlink" to="item_entry">Add Manually</NavLink>
                     <div>Add by barcode</div>
+                    <NavLink class="manual_isbn_search" to="/manual_isbn_search">Search By ISBN</NavLink>
                 </div>
 
             </div>

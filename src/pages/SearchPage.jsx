@@ -37,7 +37,7 @@ export default function SearchPage() {
         book.title.toLowerCase().includes(query.toLowerCase()) ||
         book.author.toLowerCase().includes(query.toLowerCase())
     );
-
+    console.log("Is it working now")
     return searchedData.map((book) => (
         <CardContainer {...book} key={book._id} />
     ))
