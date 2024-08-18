@@ -15,12 +15,12 @@ export default function ManualISBNSearch() {
 
             if (data.totalItems > 0) {
                 const book = data.items[0].volumeInfo;
-                // console.log(book);
+                console.log(book);
                 setBook({
                     title: book.title,
                     author: book.authors[0],
                     description: book.description,
-                    isbn: book.industryIdentifiers[0].identifier,
+                    isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
                     coverImage: book.imageLinks.thumbnail
                 });
             } else {
