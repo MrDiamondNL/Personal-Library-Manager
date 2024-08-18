@@ -33,6 +33,30 @@ export default function ManualISBNSearch() {
         console.log(book);
     }
 
+    const submitData = async () => {
+        const dataToSubmit = book;
+
+        try {
+            const response = await fetch("http://localhost:5000/library", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataToSubmit),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Book was saved to Library");
+            } else {
+                console.error("Unable to save to library", response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 
 
     return (
@@ -43,7 +67,13 @@ export default function ManualISBNSearch() {
                 <button onClick={searchForBook}>Search</button>
             </div>
 
-            <CardContainer {...book} bookImage={book.coverImage} description={book.description.substring(0, 40) + "..."} ></CardContainer>
+            {book ? (
+                <>
+                    <CardContainer {...book} bookImage={book.coverImage} description={book.description.substring(0, 40) + "..."} ></CardContainer><br />
+                    <button onClick={submitData}>Save to Library?</button>
+                </>
+            ) : null}
+
         </>
 
     );

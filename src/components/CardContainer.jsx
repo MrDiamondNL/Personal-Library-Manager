@@ -10,7 +10,7 @@ export default function CardContainer({ title, description, author, isbn, bookIm
                 <h3 className="title">{title}</h3>
                 <p>{author}</p>
                 <p>{isbn}</p>
-                <p>{description}</p>
+                <p>{description.substring(0, 40) + "..."}</p>
 
             </div>
         </div>
