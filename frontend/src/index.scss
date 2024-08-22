@@ -257,3 +257,20 @@ header nav a {
     margin-top: 20px;
   }
 }
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+
+  .card-details_header {
+    display: flex;
+    max-width: 100%;
+    justify-content: center;
+    gap: 10px;
+    
+
+    .card-details_header-sidebar {
+      flex-direction: column;
+    }
+  }
+}

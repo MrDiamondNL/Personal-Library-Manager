@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CardContainer from "../components/CardContainer"
+import CardDetails from "../components/CardDetails"
 
 
 export default function ManualISBNSearch() {
@@ -69,7 +70,7 @@ export default function ManualISBNSearch() {
 
             {book ? (
                 <>
-                    <CardContainer {...book} bookImage={book.coverImage} description={book.description.substring(0, 40) + "..."} ></CardContainer><br />
+                    <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
                     <button onClick={submitData}>Save to Library?</button>
                 </>
             ) : null}
