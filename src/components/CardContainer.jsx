@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function CardContainer({ title, description, author, isbn, coverImage }) {
     // console.log(title, description);
