@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -18,41 +20,6 @@ connectToDb().then(result => {
         console.log(`Server is running on localhost:${port}`);
     });
 });
-
-// let db
-
-// connectToDb((err) => {
-    // if (!err) {
-    //     app.listen(port, () => {
-    //         console.log(`Server is running on localhost:${port}`);
-    //     });
-//         db = getDb();
-//     }
-// })
-
-// mongoose.connect("mongodb://localhost:27017/personal-library-manager")
-//     .then(() => {
-//         console.log("connected to database");
-//     })
-//     .catch(err => {
-//         console.log("error connecting to database", err);
-//     });
-
-//endpoints
-// app.get("/", (req, res) => {
-    
-//     db.collection(activeDb)
-//     .find()
-//     .toArray()
-//     .then((result) => {
-//         res.json(result);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     });
-    
-    
-// })
 
 app.get("/", (req, res) => {
     Item.find()
@@ -79,10 +46,3 @@ app.post("/library", (req, res) => {
         });    
 })
 
-// db.collection(activeDb).insertOne(newItem)
-    //     .then(result => {
-    //         res.status(201).json(result);
-    //     })
-    //     .catch(err => {
-    //         res.status(500).json({err: "Could not create a new entry"});
-    //     })

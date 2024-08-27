@@ -1,11 +1,10 @@
+require("dotenv").config();
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 
-let dbConnection;
-
 const connectToDb = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/personal-library-manager");
+        await mongoose.connect(process.env.MONGODB_URI);
         console.log("Connected to database");
     } catch (err) {
         console.log("error connting to database", err);
@@ -13,11 +12,13 @@ const connectToDb = async () => {
     }
 }
 
+
+
 module.exports = connectToDb;
 
 // module.exports = {
 //     connectToDb: (cb) => {
-//         MongoClient.connect("mongodb://localhost:27017/personal-library-manager")
+//         MongoClient.connect(process.env.MONGODB_URI)
 //         .then((client) => {
 //             dbConnection = client.db();
 //             return cb();
