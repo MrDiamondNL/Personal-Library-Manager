@@ -24,7 +24,7 @@ connectToDb().then(result => {
 app.get("/", (req, res) => {
     Item.find()
         .then((result) => {
-            res.status(201).send({"Response": "success"});
+            res.status(201).send(result);
         })
         .catch((err) => {
             console.log(err);
