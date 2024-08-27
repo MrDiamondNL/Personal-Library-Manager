@@ -5,7 +5,7 @@ export default function ItemEntry() {
         <div className="item_entry_container">
             <h3>New Item Entry</h3>
             <br />
-            <form action="http://localhost:5000/library" method="POST">
+            <form action="https://personal-library-manager.onrender.com/library" method="POST">
                 <label htmlFor="title">Title</label>
                 <input type="text" id="title" name="title" required></input>
                 <br />

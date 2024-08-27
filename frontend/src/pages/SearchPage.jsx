@@ -8,7 +8,7 @@ export default function SearchPage() {
     const { query } = location.state || { query: "" };
 
     const fetchLib = async () => {
-        const res = await fetch(`http://localhost:5000/`);
+        const res = await fetch(`https://personal-library-manager.onrender.com/`);
         console.log(res);
         if (!res.ok) {
             throw new Error("Response was not ok");

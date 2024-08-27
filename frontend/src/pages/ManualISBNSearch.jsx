@@ -38,7 +38,7 @@ export default function ManualISBNSearch() {
         const dataToSubmit = book;
 
         try {
-            const response = await fetch("http://localhost:5000/library", {
+            const response = await fetch("https://personal-library-manager.onrender.com/library", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
