@@ -61,14 +61,17 @@ export default function RootLayout() {
         <div className="root-layout">
             <header>
                 <div className="menu_title_wrapper">
-                    <div className="menu_toggle" onClick={toggleOpen}><IconMenu2 stroke={1.75} /></div>
-                    <h2 className="library-title">Your Library</h2>
-                    {openSearch ? (
-                        <div className="search_bar">
-                            <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
-                        </div>
-                    ) : null}
-                    <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
+                    <div className="content_container">
+                        <div className="menu_toggle" onClick={toggleOpen}><IconMenu2 stroke={1.75} /></div>
+                        <h2 className="library-title">Your Library</h2>
+                        {openSearch ? (
+                            <div className="search_bar">
+                                <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
+                            </div>
+                        ) : null}
+                        <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
+                    </div>
+
                 </div>
 
                 <nav>

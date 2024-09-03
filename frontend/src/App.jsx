@@ -1,5 +1,4 @@
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom"
-import './App.css'
 // import data from "../data/dbtest.json"
 import { useEffect, useState } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
