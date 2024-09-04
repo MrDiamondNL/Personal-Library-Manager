@@ -23,11 +23,13 @@ body {
 
 header {  
   
-  
+  position: fixed;
 
   nav {
     // padding-top: 10px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-bottom: 1px solid black;
   }
 }
 
@@ -159,6 +161,10 @@ h2.library-title {
   margin: 5px auto; 
 }
 
+main {
+  padding-top: 140px;
+}
+
 .library__container {
   display: flex;
   flex-direction: column;
@@ -233,15 +239,19 @@ header nav a {
     
   &.active {  
     transition: all 0.5s ease-in-out;
-    width: 150px;
-    height: 100px;
+    width: 180px;
+    height: 125px;
     border-radius: 6px;
 
     svg {
       display: none;
     }
     .add-item-menu {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
       animation: add-item-open 0.5s forwards 0.5s;
     }
   }

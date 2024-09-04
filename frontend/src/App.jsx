@@ -14,7 +14,8 @@ import Manuals from "./pages/Manuals";
 import Misc from "./pages/Misc";
 import ItemEntry from "./pages/ItemEntry";
 import SearchPage from "./pages/SearchPage";
-import MAnualISBNSearch from "./pages/ManualISBNSearch";
+import ManualISBNSearch from "./pages/ManualISBNSearch";
+import { CameraSearch } from "./pages/CameraSearch";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +26,8 @@ const router = createBrowserRouter(
       <Route path="/misc" element={<Misc />} />
       <Route path="/item_entry" element={<ItemEntry />} />
       <Route path="/search_page" element={<SearchPage />} />
-      <Route path="/manual_isbn_search" element={<MAnualISBNSearch />}></Route>
+      <Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>
+      <Route path="/camera_search" element={<CameraSearch />} />
     </Route>
   )
 )
