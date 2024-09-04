@@ -22,7 +22,7 @@ body {
 }
 
 header {  
-  //background-color: #5697FF;
+  
   
 
   nav {
@@ -65,12 +65,13 @@ header {
   position: fixed;
   background-color: white;
   top: 0;
-  left: -60vw;
+  left: -100vw;
   height: 100vh;
   width: 60vw;
   z-index: 100;
   padding: 0px;
   display: flex;  
+  box-shadow: -4px 0px 15px 3px black;
   
 
   &.active {
@@ -122,17 +123,18 @@ header {
 // }
 
 .menu_title_wrapper {
-
+  background-color: #5697FF;
 }
 
 .content_container {
-  margin: 0 15px;
   display: flex;
   justify-content: space-between;
   align-items: center; 
   width: 1050px;
   margin: 0 auto;
+  padding: 0 15px;
   max-width: 100vw;
+  min-width: 350px;
 }
 
 .menu_toggle {
@@ -194,15 +196,19 @@ h2.library-title {
 
 header nav {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   justify-content: center;
   width: 100%;
-  height: 30px;
   font-size: 1.2em;
+}
+
+header .active {
+  font-weight: 700;
 }
 
 header nav a {
   text-decoration: none;
+  padding: 15px 10px;
 }
 
 .show-add-item-menu {
@@ -216,6 +222,7 @@ header nav a {
   border-radius: 50px;
   justify-content: center;
   align-items: center;
+  //animation: expand-item-menu-button 0.5s ease-in-out;
 
   svg {
     width: 30px;
@@ -223,11 +230,34 @@ header nav a {
     stroke: white;
     stroke-width: 1.75;
   }
+    
+  &.active {  
+    transition: all 0.5s ease-in-out;
+    width: 150px;
+    height: 100px;
+    border-radius: 6px;
+
+    svg {
+      //display: none;
+    }
+    .add-item-menu {
+      animation: add-item-open 0.5s forwards 0.5s;
+    }
+  }
 }
 
 .add-item-menu {
   position: relative;
-  display: none;
+  //display: none;
+  color: white;
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .add-item-menu-active {
@@ -242,27 +272,19 @@ header nav a {
   right: 40px;
   width: 150px;
   height: 100px;
-  animation: add-item-open 0.5s ease-in-out;
+  //animation: add-item-open 0.5s ease-in-out;
 }
 
 @keyframes add-item-open {
   0% {
-    width: 0%;
-    height: 0%;
-    font-size: 0em;
-  }
-  50% {
-    width: 150px;
-    height: 0%;
-    font-size: 0em;
-  }
-  99% {
-    height: 100px;
-    font-size: 0em;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
   }
   100% {
-    // width: 150px;
-    // height: 100px;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
   }
 }
 

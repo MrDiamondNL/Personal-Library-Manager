@@ -78,7 +78,7 @@ export default function RootLayout() {
                     <NavLink to="/">All</NavLink>
                     <NavLink to="books">Books</NavLink>
                     <NavLink to="manuals">Manuals</NavLink>
-                    <NavLink to="misc">Miscellaneous</NavLink>
+                    <NavLink to="misc">Misc</NavLink>
                 </nav>
             </header>
 
@@ -99,8 +99,8 @@ export default function RootLayout() {
                 </div>
             </main>
 
-            <div className="show-add-item-menu" onClick={showAddItemMenu}><IconFilePlus stroke={1.25} />
-                <div className={`add-item-menu${openAddItem ? "-active" : ""}`}>
+            <div className={`show-add-item-menu${openAddItem ? " active" : ""}`} onClick={showAddItemMenu}><IconFilePlus stroke={1.25} />
+                <div className={`add-item-menu`}>
                     <NavLink className="add_item_navlink" to="item_entry">Add Manually</NavLink>
                     <div>Add by barcode</div>
                     <NavLink className="manual_isbn_search" to="/manual_isbn_search">Search By ISBN</NavLink>
@@ -110,3 +110,5 @@ export default function RootLayout() {
         </div>
     )
 }
+
+
