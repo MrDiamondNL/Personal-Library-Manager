@@ -162,13 +162,13 @@ h2.library-title {
 .library__container {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   background-color: white;
 }
 
 .card-container {
   display: flex;
-  border: 2px solid black;
+  border: 1px solid black;
   height: 150px;
   justify-content: left;
   align-items: center;
@@ -222,7 +222,7 @@ header nav a {
   border-radius: 50px;
   justify-content: center;
   align-items: center;
-  //animation: expand-item-menu-button 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
   svg {
     width: 30px;
@@ -238,9 +238,10 @@ header nav a {
     border-radius: 6px;
 
     svg {
-      //display: none;
+      display: none;
     }
     .add-item-menu {
+      display: block;
       animation: add-item-open 0.5s forwards 0.5s;
     }
   }
@@ -248,7 +249,7 @@ header nav a {
 
 .add-item-menu {
   position: relative;
-  //display: none;
+  display: none;
   color: white;
   opacity: 0;
   visibility: hidden;

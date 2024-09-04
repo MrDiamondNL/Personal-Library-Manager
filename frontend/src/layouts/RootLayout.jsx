@@ -75,10 +75,13 @@ export default function RootLayout() {
                 </div>
 
                 <nav>
-                    <NavLink to="/">All</NavLink>
-                    <NavLink to="books">Books</NavLink>
-                    <NavLink to="manuals">Manuals</NavLink>
-                    <NavLink to="misc">Misc</NavLink>
+                    <div className="content_container">
+                        <NavLink to="/">All</NavLink>
+                        <NavLink to="books">Books</NavLink>
+                        <NavLink to="manuals">Manuals</NavLink>
+                        <NavLink to="misc">Misc</NavLink>
+                    </div>
+
                 </nav>
             </header>
 
@@ -94,9 +97,12 @@ export default function RootLayout() {
             <div className="navigation__backdrop"></div>
 
             <main>
-                <div className="library__container">
-                    <Outlet />
+                <div className="content_container">
+                    <div className="library__container">
+                        <Outlet />
+                    </div>
                 </div>
+
             </main>
 
             <div className={`show-add-item-menu${openAddItem ? " active" : ""}`} onClick={showAddItemMenu}><IconFilePlus stroke={1.25} />
