@@ -29,9 +29,7 @@ export default function ManualISBNSearch() {
             }
         } catch (err) {
             console.log(err);
-        }
-
-        console.log(book);
+        };
     }
 
     const submitData = async () => {
