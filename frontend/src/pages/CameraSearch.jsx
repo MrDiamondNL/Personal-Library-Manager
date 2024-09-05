@@ -9,15 +9,7 @@ export const CameraSearch = () => {
     const [book, setBook] = useState(null);
     const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
-    async function success(result) {
-        scanner.clear();
-        setIsbn(result);
-        await searchForBook();
-    }
 
-    function error(err) {
-        console.warn(err);
-    }
 
     useEffect(() => {
         const scanner = new Html5QrcodeScanner("reader", {
@@ -31,6 +23,15 @@ export const CameraSearch = () => {
 
         scanner.render(success, error);
 
+        async function success(result) {
+            scanner.clear();
+            setIsbn(result);
+            await searchForBook();
+        }
+
+        function error(err) {
+            console.warn(err);
+        }
     }, []);
 
     const searchForBook = async () => {
@@ -86,7 +87,7 @@ export const CameraSearch = () => {
     return (
         <div className="scanner-wrapper">
             <h1>Scan Barcode</h1>
-            {book
+            {book != null
                 ? <>
                     <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
                     {/* <div>{isbn}</div><br />
