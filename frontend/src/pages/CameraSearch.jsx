@@ -90,9 +90,7 @@ export const CameraSearch = () => {
             {book !== null
                 ? <>
                     {/* <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br /> */}
-                    <div>{isbn}</div><br />
-                    <div>{scanResult}</div>
-                    <div>{url}</div>
+                    <div>{book.isbn}</div><br />
                     <div>{book}</div>
                     <button onClick={submitData}>Save to Library?</button>
                 </>
