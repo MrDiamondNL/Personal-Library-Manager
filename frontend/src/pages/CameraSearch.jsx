@@ -24,7 +24,7 @@ export const CameraSearch = () => {
         async function success(result) {
             scanner.clear();
             setIsbn(result);
-            await searchForBook;
+            await searchForBook();
             setScanResult(result);
         }
 
@@ -85,8 +85,7 @@ export const CameraSearch = () => {
 
     return (
         <div className="scanner-wrapper">
-            <h1>QR Scanner app</h1>
-            {/* conditional operator to either render the scanner, or the success result if it gets one */}
+            <h1>Scan Barcode</h1>
             {scanResult
                 ? <>
                     {/* <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br /> */}
