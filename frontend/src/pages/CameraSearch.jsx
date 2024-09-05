@@ -24,7 +24,7 @@ export const CameraSearch = () => {
         async function success(result) {
             scanner.clear();
             setIsbn(result);
-            //await searchForBook;
+            await searchForBook;
             setScanResult(result);
         }
 
