@@ -5,9 +5,9 @@ import CardDetails from "../components/CardDetails"
 export const CameraSearch = () => {
 
     const [scanResult, setScanResult] = useState(null);
-    const [isbn, setIsbn] = useState("");
+    //const [isbn, setIsbn] = useState("");
     const [book, setBook] = useState(null);
-    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+    // const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
 
 
@@ -25,8 +25,8 @@ export const CameraSearch = () => {
 
         async function success(result) {
             scanner.clear();
-            setIsbn(result);
-            await searchForBook();
+            //setIsbn(result);
+            await searchForBook(result);
         }
 
         function error(err) {
@@ -34,9 +34,9 @@ export const CameraSearch = () => {
         }
     }, []);
 
-    const searchForBook = async () => {
+    const searchForBook = async (result) => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${result}`);
             const data = await response.json();
             console.log(data);
 
@@ -89,11 +89,11 @@ export const CameraSearch = () => {
             <h1>Scan Barcode</h1>
             {book !== null
                 ? <>
-                    <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    {/* <div>{isbn}</div><br />
+                    {/* <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br /> */}
+                    <div>{isbn}</div><br />
                     <div>{scanResult}</div>
                     <div>{url}</div>
-                    <div>{book}</div> */}
+                    <div>{book}</div>
                     <button onClick={submitData}>Save to Library?</button>
                 </>
                 : <div id="reader"></div>
