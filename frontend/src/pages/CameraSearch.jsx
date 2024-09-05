@@ -89,7 +89,9 @@ export const CameraSearch = () => {
             {/* conditional operator to either render the scanner, or the success result if it gets one */}
             {scanResult
                 ? <>
-                    <CardDetails {...book} /*bookImage={book.coverImage} description={book.description}*/ ></CardDetails><br />
+                    {/* <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br /> */}
+                    <div>{isbn}</div><br />
+                    <div>{result}</div>
                     <button onClick={submitData}>Save to Library?</button>
                 </>
                 : <div id="reader"></div>
