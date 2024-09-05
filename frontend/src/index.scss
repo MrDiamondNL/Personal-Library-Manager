@@ -139,6 +139,11 @@ header {
   min-width: 350px;
 }
 
+main .content_container {
+  justify-content: center;
+  
+}
+
 .menu_toggle {
   display: flex;
   justify-content: center;
@@ -170,6 +175,7 @@ main {
   flex-direction: column;
   gap: 20px;
   background-color: white;
+  width: 100%;
 }
 
 .card-container {
@@ -249,7 +255,7 @@ header nav a {
     .add-item-menu {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 12px;
       justify-content: center;
       align-items: center;
       animation: add-item-open 0.5s forwards 0.5s;
