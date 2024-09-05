@@ -87,7 +87,7 @@ export const CameraSearch = () => {
     return (
         <div className="scanner-wrapper">
             <h1>Scan Barcode</h1>
-            {book != null
+            {book !== null
                 ? <>
                     <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
                     {/* <div>{isbn}</div><br />
