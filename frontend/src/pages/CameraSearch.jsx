@@ -89,10 +89,10 @@ export const CameraSearch = () => {
             <h1>Scan Barcode</h1>
             {book !== null
                 ? <>
-                    {/* <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br /> */}
-                    <div>{book.isbn}</div><br />
+                    <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
+                    {/* <div>{book.isbn}</div><br />
                     <div>{book}</div>
-                    <button onClick={submitData}>Save to Library?</button>
+                    <button onClick={submitData}>Save to Library?</button> */}
                 </>
                 : <div id="reader"></div>
             }
