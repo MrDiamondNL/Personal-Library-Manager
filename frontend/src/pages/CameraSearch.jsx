@@ -93,6 +93,7 @@ export const CameraSearch = () => {
                     <div>{isbn}</div><br />
                     <div>{scanResult}</div>
                     <div>{url}</div>
+                    <div>{book}</div>
                     <button onClick={submitData}>Save to Library?</button>
                 </>
                 : <div id="reader"></div>
