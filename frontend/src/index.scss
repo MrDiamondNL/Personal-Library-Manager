@@ -137,6 +137,10 @@ header {
   padding: 0 15px;
   max-width: 100vw;
   min-width: 350px;
+
+  .library__container {
+    align-items: center;
+  }
 }
 
 main .content_container {
