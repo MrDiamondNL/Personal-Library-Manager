@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
@@ -9,7 +9,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
 
     const cardSelect = (event) => {
-        event.stopPropogation();
+        event.stopPropagation();
         if (selectedCard !== id) {
             setSelectedCard(id);
         }
@@ -20,7 +20,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     }, [id, registerCardRef]);
 
     return (
-        <div className={`card-container ${selectedCard ? `container-selected` : ``}`} ref={containerRef} onClick={cardSelect}>
+        <div className={`card-container ${selectedCard === id ? `container-selected` : ``}`} ref={containerRef} onClick={cardSelect}>
             <img src={coverImage !== undefined ? coverImage : defaultBookImage}></img>
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>

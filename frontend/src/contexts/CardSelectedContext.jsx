@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useRef } from 'react'
+import { createContext, useEffect, useState, useRef } from 'react'
 
 export const CardSelectedContext = createContext();
 
@@ -14,13 +14,19 @@ export const CardSelectedProvider = ({ cards }) => {
 
     // }
 
-    const handleClickOutsideSelected = (event) => {
-        if (selectedCard !== null && !cardRef.current[selectedCard]?.contains(event.target)) {
-            setCardSelected(null);
-        }
-    }
+    // const handleClickOutsideSelected = (event) => {
+    //     if (selectedCard !== null && !cardRef.current[selectedCard]?.contains(event.target)) {
+    //         setSelectedCard(null);
+    //     }
+    // }
 
     useEffect(() => {
+        const handleClickOutsideSelected = (event) => {
+            if (selectedCard !== null && !cardRef.current[selectedCard]?.contains(event.target)) {
+                setSelectedCard(null);
+            }
+        }
+
         document.addEventListener("mousedown", handleClickOutsideSelected);
         return () => {
             document.removeEventListener("mousedown", handleClickOutsideSelected);

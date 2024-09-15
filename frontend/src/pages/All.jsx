@@ -3,7 +3,7 @@ import { useQuery } from "react-query"
 // import libraryData from "../../data/dbtest.json"
 
 export default function All() {
-    let selectedDb = "library"
+
 
     const fetchLib = async () => {
         const res = await fetch(`https://personal-library-manager.onrender.com`);
