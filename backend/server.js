@@ -38,7 +38,7 @@ app.post("/library", (req, res) => {
         .then(() => {
             console.log("item added succesfully");
             // res.status(201).send("Item added successfully");
-            res.redirect("http://localhost:5173/");
+            res.redirect("https://localhost:5173/");
         })
         .catch(err => {
             console.log(err);

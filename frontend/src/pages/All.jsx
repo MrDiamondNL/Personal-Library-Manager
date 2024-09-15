@@ -31,6 +31,6 @@ export default function All() {
     });
 
     return data.map((book) => (
-        <CardContainer {...book} key={book._id} />
+        <CardContainer {...book} key={book._id} id={book._id} />
     ))
 }

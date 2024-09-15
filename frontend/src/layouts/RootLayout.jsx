@@ -1,7 +1,8 @@
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
 import CardContainer from "../components/CardContainer"
 import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
@@ -99,7 +100,9 @@ export default function RootLayout() {
             <main>
                 <div className="content_container">
                     <div className="library__container">
-                        <Outlet />
+                        <CardSelectedProvider>
+                            <Outlet />
+                        </CardSelectedProvider>
                     </div>
                 </div>
 
