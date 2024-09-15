@@ -28,7 +28,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 <p>{isbn}</p>
                 <p>{description.substring(0, 40) + "..."}</p>
             </div>
-            {selectedCard ? (
+            {selectedCard === id ? (
                 <div className="options-bar">
                     <button>Lend</button>
                     <button>Delete Item</button>

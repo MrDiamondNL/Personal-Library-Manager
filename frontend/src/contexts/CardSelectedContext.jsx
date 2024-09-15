@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useRef } from 'react'
 
 export const CardSelectedContext = createContext();
 
-export const CardSelectedProvider = ({ cards }) => {
+export const CardSelectedProvider = ({ children }) => {
 
     const cardRef = useRef([]);
     const [selectedCard, setSelectedCard] = useState(null);
@@ -39,7 +39,7 @@ export const CardSelectedProvider = ({ cards }) => {
 
     return (
         <CardSelectedContext.Provider value={{ selectedCard, setSelectedCard, registerCardRef }}>
-            {cards}
+            {children}
         </CardSelectedContext.Provider>
     );
 };
