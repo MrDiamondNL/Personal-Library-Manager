@@ -23,6 +23,10 @@ const itemSchema = new Schema({
     },
     coverImage: {
         type: String
+    },
+    user: {
+        type: String,
+        required: true
     }
 });
 

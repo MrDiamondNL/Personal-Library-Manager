@@ -7,18 +7,6 @@ export const CardSelectedProvider = ({ children }) => {
     const cardRef = useRef([]);
     const [selectedCard, setSelectedCard] = useState(null);
 
-    // const addOutsideSelectedListener = (event) => {
-    //     if (containerRef.current && !containerRef.current.contains(event.target)) {
-    //         document.addEventListener("mousedown", handleClickOutsideSelected);
-    //     }
-
-    // }
-
-    // const handleClickOutsideSelected = (event) => {
-    //     if (selectedCard !== null && !cardRef.current[selectedCard]?.contains(event.target)) {
-    //         setSelectedCard(null);
-    //     }
-    // }
 
     useEffect(() => {
         const handleClickOutsideSelected = (event) => {
