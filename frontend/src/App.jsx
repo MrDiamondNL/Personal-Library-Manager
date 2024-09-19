@@ -1,4 +1,4 @@
-import { createBrowserRouter, Route, Routes, createRoutesFromElements, RouterProvider, Router } from "react-router-dom"
+import { createBrowserRouter, Route, Routes, createRoutesFromElements, RouterProvider, Router, BrowserRouter } from "react-router-dom"
 // import data from "../data/dbtest.json"
 import { QueryClient, QueryClientProvider } from "react-query"
 
@@ -19,19 +19,11 @@ import Login from "./pages/LogIn"
 import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 
-
-
-
-
-function App() {
-
-  const queryClient = new QueryClient();
-
-  return (
-    <Router>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <Routes >
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route element={<RootLayout />}>
             <Route index element={<All />} />
             <Route path="/books" element={<Books />} />
             <Route path="/manuals" element={<Manuals />} />
@@ -40,13 +32,28 @@ function App() {
             <Route path="/search_page" element={<SearchPage />} />
             <Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>
             <Route path="/camera_search" element={<CameraSearch />} />
-            <Route path="/login" element={<Login />} />
-          </Routes >
+          </Route>
+        </Route>
+        <Route path="/login" element={<Login />} />
+      </>
+  )
+)
 
-        </QueryClientProvider>
+
+
+function App() {
+
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
       </AuthProvider>
-    </Router>
+    </QueryClientProvider>
+
   )
 }
+
 
 export default App

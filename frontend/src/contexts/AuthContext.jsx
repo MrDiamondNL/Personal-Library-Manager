@@ -37,6 +37,7 @@ export function AuthProvider({ children }) {
             setCurentUser(user);
             console.log(currentUser);
             setLoading(false);
+            // navigate('/')
         });
         return unsubscribe
     }, []);
