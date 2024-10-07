@@ -4,6 +4,7 @@ import {
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
+    signInWithRedirect,
     signOut,
     onAuthStateChanged,
     createUserWithEmailAndPassword
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        return signInWithPopup(auth, provider);
+        return signInWithRedirect(auth, provider);
     }
 
     const emailSignUp = async (email, password) => {
