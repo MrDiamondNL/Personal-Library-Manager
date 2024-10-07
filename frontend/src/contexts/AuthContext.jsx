@@ -19,9 +19,10 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurentUser] = useState();
     const [loading, setLoading] = useState(true);
-    const googleSignIn = () => {
+
+    const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
+        return signInWithPopup(auth, provider);
     }
 
     const emailSignUp = async (email, password) => {
@@ -32,12 +33,14 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const logOut = async () => {
+        return signOut(auth);
+    }
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, user => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurentUser(user);
-            console.log(currentUser);
             setLoading(false);
-            // navigate('/')
         });
         return unsubscribe
     }, []);
@@ -48,7 +51,8 @@ export function AuthProvider({ children }) {
         currentUser,
         googleSignIn,
         emailSignUp,
-        loading
+        loading,
+        logOut
     }
 
     return (

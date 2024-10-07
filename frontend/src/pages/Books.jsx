@@ -22,6 +22,6 @@ export default function Books() {
 
 
     return libraryBooks.map((book) => (
-        <CardContainer {...book} key={book._id} />
+        <CardContainer {...book} key={book._id} id={book._id} />
     ))
 }

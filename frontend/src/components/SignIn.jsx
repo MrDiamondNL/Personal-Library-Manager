@@ -3,11 +3,14 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import GoogleButton from "react-google-button"
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { googleSignIn } = useAuth();
+    const { googleSignIn, currentUser } = useAuth();
+    const navigate = useNavigate();
+
 
     const emailSignIn = (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ export default function SignIn() {
             }).catch((error) => {
                 console.log(error);
             });
+        navigate("/");
     }
 
     const handleGoogleSignIn = async () => {
@@ -25,6 +29,7 @@ export default function SignIn() {
         } catch (error) {
             console.log(error);
         }
+        navigate("/");
     }
 
     return (

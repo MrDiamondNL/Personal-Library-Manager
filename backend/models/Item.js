@@ -27,6 +27,13 @@ const itemSchema = new Schema({
     user: {
         type: String,
         required: true
+    },
+    isLent: {
+        type: Boolean,
+        default: false
+    },
+    lentEmail: {
+        type: String,
     }
 });
 

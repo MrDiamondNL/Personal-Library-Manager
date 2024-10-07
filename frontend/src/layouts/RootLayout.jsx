@@ -1,7 +1,8 @@
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
 import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
@@ -12,6 +13,7 @@ export default function RootLayout() {
     const divRef = useRef(null);
     const addRef = useRef(null);
     const location = useLocation();
+    const { currentUser, logOut } = useAuth();
 
 
 
@@ -57,6 +59,20 @@ export default function RootLayout() {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            await logOut();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if (currentUser) {
+            console.log(currentUser);
+        }
+    }, [currentUser]);
+
     return (
         <div className="root-layout">
             <header>
@@ -80,6 +96,7 @@ export default function RootLayout() {
                         <NavLink to="books">Books</NavLink>
                         <NavLink to="manuals">Manuals</NavLink>
                         <NavLink to="misc">Misc</NavLink>
+
                     </div>
 
                 </nav>
@@ -91,6 +108,7 @@ export default function RootLayout() {
                     <NavLink to="books">Books</NavLink>
                     <NavLink to="manuals">Manuals</NavLink>
                     <NavLink to="misc">Miscellaneous</NavLink>
+                    <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>
 
