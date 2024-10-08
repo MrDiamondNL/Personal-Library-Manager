@@ -362,16 +362,46 @@ header nav a {
   justify-content: center;
   align-items: center;
   margin: 10px auto;
-  padding: 20px 10px;
+  padding: 0px 10px;
+  text-align: center;
+  //gap: 10px;
 
   .sign-in-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;;
     flex-wrap: wrap;
+    padding: 20px;
+    gap: 10px;
+    border: 1px solid gray;
+
+    h1 {
+      margin-bottom: 20px;
+    }
 
     .detail_entry_container {
-      
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin: 10px 0px;
+      padding: 10px;
     }
   }
+}
+
+button {
+  padding: 10px 25px;
+  font-size: 16px;
+  border: 1px solid transparent;
+  color: #fff;
+  background: #5697ff;
+  width: 100%;
+  margin: 15px 0;
 }
