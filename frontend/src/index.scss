@@ -355,3 +355,23 @@ header nav a {
     }
   }
 }
+
+.login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  padding: 20px 10px;
+
+  .sign-in-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .detail_entry_container {
+      
+    }
+  }
+}
