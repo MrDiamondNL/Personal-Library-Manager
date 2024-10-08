@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, getRedirectResult } from "firebase/auth";
 import GoogleButton from "react-google-button"
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { googleSignIn, currentUser } = useAuth();
+    const { googleSignIn, } = useAuth();
     const navigate = useNavigate();
 
 
@@ -26,11 +26,27 @@ export default function SignIn() {
     const handleGoogleSignIn = async () => {
         try {
             await googleSignIn();
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
-        navigate("/");
+
     }
+
+    // useEffect(() => {
+    //     const checkRedirectResult = async () => {
+    //         try {
+    //             const result = await getRedirectResult(auth);
+    //             if (result) {
+    //                 navigate("/");
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+
+    //     checkRedirectResult();
+    // }, [navigate]);
 
     return (
         <div className="sign-in-container">

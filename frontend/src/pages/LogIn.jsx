@@ -14,10 +14,9 @@ export default function LogIn() {
 
 
     return (
-        <>
+        <div className="login_container">
             <SignIn />
             <SignUp />
-        </>
-
+        </div>
     )
 }

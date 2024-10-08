@@ -18,12 +18,13 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-    const [currentUser, setCurentUser] = useState();
+    const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        return signInWithRedirect(auth, provider);
+        //return signInWithRedirect(auth, provider);
+        return signInWithPopup(auth, provider);
     }
 
     const emailSignUp = async (email, password) => {
@@ -40,7 +41,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurentUser(user);
+            setCurrentUser(user);
             setLoading(false);
         });
         return unsubscribe
