@@ -31,7 +31,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
             {selectedCard === id ? (
                 <div className="options-bar">
                     <button>Lend</button>
-                    <button>Delete Item</button>
+                    <button>Delete</button>
                 </div>
             ) : null}
         </div>
