@@ -380,9 +380,14 @@ header nav a {
     border: 1px solid gray;
     margin-bottom: 30px;
 
-    h1 {
+    h2 {
       margin-top: 0;
       margin-bottom: 20px;
+    }
+
+    h4 {
+      flex-basis: 100%;
+      margin: 20px 0;
     }
 
     .detail_entry_container {

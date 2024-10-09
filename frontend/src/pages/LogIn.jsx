@@ -15,7 +15,7 @@ export default function LogIn() {
 
     return (
         <div className="login_container">
-            <h2>Welcome to your Personal Library Manager</h2>
+            <h1>Personal Library Manager</h1>
             <SignIn />
             <SignUp />
         </div>

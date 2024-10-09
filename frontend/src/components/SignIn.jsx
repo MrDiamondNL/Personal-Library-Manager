@@ -53,14 +53,15 @@ export default function SignIn() {
             <form onSubmit={emailSignIn} id="sign-in-form">
 
                 <div className="detail_entry_container">
-                    <h1>Sign In</h1>
+                    <h2>Sign In</h2>
                     <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                     <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                    <button type="submit">Login</button>
+                    <button type="submit">Sign In</button>
                 </div>
 
 
             </form>
+            <h4>-OR-</h4>
             <GoogleButton onClick={handleGoogleSignIn} />
         </div>
     )
