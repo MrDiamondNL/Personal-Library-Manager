@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
             console.log(err);
             res.status(500).send("Could not fetch collection");
         })
-})
+});
 
 app.post("/library", (req, res) => {
     let newItem = new Item(req.body);
@@ -44,5 +44,16 @@ app.post("/library", (req, res) => {
             console.log(err);
             res.status(500).send("error adding item");
         });    
+});
+
+app.delete("/delete", (req, res) => {
+    let deleteItemID = req.body;
+    Item.findByIdAndDelete(deleteItemID)
+        .then(result => {
+            res.json( {redirec: ''})
+        })
+        .catch(err => {
+            console.log(error);
+        });
 })
 

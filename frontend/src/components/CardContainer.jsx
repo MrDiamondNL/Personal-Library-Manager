@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
@@ -7,11 +7,35 @@ export default function CardContainer({ title, description, author, isbn, coverI
     //const [cardSelected, setCardSelected] = useState(false);
     const containerRef = useRef(null);
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
+    //const [deleteId, setDeleteId] = useState();
 
     const cardSelect = (event) => {
         event.stopPropagation();
         if (selectedCard !== id) {
             setSelectedCard(id);
+        }
+    }
+
+    const deleteItem = async () => {
+        const itemToDelete = id;
+
+        try {
+            const response = await fetch("https://personal-library-manager.onrender.com/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(itemToDelete),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Entry was successfully deleted");
+            } else {
+                console.error("Unable to delete entry", response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -31,7 +55,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
             {selectedCard === id ? (
                 <div className="options-bar">
                     <button>Lend</button>
-                    <button>Delete</button>
+                    <button onClick={deleteItem}>Delete</button>
                 </div>
             ) : null}
         </div>
