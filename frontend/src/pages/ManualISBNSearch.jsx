@@ -52,6 +52,7 @@ export default function ManualISBNSearch() {
                 console.log("Book was saved to Library");
             } else {
                 console.error("Unable to save to library", response.statusText);
+                console.log(book);
             }
         } catch (error) {
             console.log(error);

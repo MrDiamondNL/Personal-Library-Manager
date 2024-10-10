@@ -24,7 +24,7 @@ const itemSchema = new Schema({
         type: String
     },
     user: {
-        type: String,
+        type: Object,
         required: true
     },
     isLent: {
