@@ -12,7 +12,9 @@ const itemSchema = new Schema({
         default: "Book"
     },
     description: {
-        type: String
+        type: String,
+        required: true,
+        default: ""
     },
     author: {
         type: String
