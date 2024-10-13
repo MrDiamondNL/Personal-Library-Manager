@@ -2,7 +2,7 @@ import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
-    let defaultBookImage = "https://s3proxy.cdn-zlib.se//covers299/collections/userbooks/3588aa5c63b7304c305b4801cb3a17313e2edb82d5b8dae75ec4bf328ff76991.jpg";
+    let defaultBookImage = "../../imgs/stock cover image.jpg";
 
     //const [cardSelected, setCardSelected] = useState(false);
     const containerRef = useRef(null);
@@ -17,7 +17,9 @@ export default function CardContainer({ title, description, author, isbn, coverI
     }
 
     const deleteItem = async () => {
-        const itemToDelete = id;
+        const itemToDelete = { id };
+        console.log(id);
+        console.log(itemToDelete);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/delete", {
