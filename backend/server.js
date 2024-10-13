@@ -52,23 +52,18 @@ app.post("/library", (req, res) => {
 
 app.delete("/delete", async (req, res) => {
     try {
-        // Convert the ID to ObjectId
         let deleteItemID = mongoose.Types.ObjectId(req.body.id);
         console.log(`Attempting to delete item with ID: ${deleteItemID}`);
 
-        // Try to find and delete the item
         const result = await Item.findByIdAndDelete(deleteItemID);
 
         if (result) {
-            // If item is found and deleted, respond with success
             console.log("Item successfully deleted:", result);
             res.status(200).json({ message: "Entry was successfully deleted" });
         } else {
-            // If item wasn't found, respond with not found
             res.status(404).json({ message: "Item not found" });
         }
     } catch (err) {
-        // If any error occurs, log and respond with error status
         console.error("Error deleting item:", err);
         res.status(500).json({ message: "Error deleting item" });
     }
