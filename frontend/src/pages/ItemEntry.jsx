@@ -8,6 +8,7 @@ export default function ItemEntry() {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
+        console.log(formData);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {
@@ -43,7 +44,7 @@ export default function ItemEntry() {
                 <input type="number" id="isbn" name="isbn"></input>
                 <br />
                 <label htmlFor="description">Description</label>
-                <textarea id="description" name="description" required></textarea>
+                <textarea id="description" name="description"></textarea>
                 <br />
                 <label htmlFor="cover">Cover Image</label>
                 <input type="text" id="cover" name="cover"></input>
