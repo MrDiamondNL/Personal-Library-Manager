@@ -54,7 +54,7 @@ app.post("/library", (req, res) => {
 
 app.delete("/delete", async (req, res) => {
     try {
-        let deleteItemID = mongoose.Types.ObjectId(req.body.id);
+        let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
         console.log(`Attempting to delete item with ID: ${deleteItemID}`);
 
         const result = await Item.findByIdAndDelete(deleteItemID);
