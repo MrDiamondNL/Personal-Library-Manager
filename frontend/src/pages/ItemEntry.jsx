@@ -1,8 +1,10 @@
 
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,6 +24,7 @@ export default function ItemEntry() {
 
             if (response.ok) {
                 console.log("Item entered successfully");
+                navigate("/");
             } else {
                 console.log("Could not enter Item");
             }
