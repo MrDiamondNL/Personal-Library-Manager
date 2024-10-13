@@ -5,6 +5,7 @@ export default function ItemEntry() {
     const { currentUser } = useAuth();
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser);
 
