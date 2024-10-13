@@ -13,6 +13,7 @@ let activeDb = "library"
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 app.use((req, res, next) => {
     console.log(`${req.method} request received at ${req.url}`);
     next();
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
 
 app.post("/library", (req, res) => {
     let newItem = new Item(req.body);
+    console.log(req.body);
     newItem.save()
         .then(() => {
             console.log("item added succesfully");

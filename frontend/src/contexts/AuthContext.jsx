@@ -23,8 +23,8 @@ export function AuthProvider({ children }) {
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        //return signInWithRedirect(auth, provider);
-        return signInWithPopup(auth, provider);
+        return signInWithRedirect(auth, provider);
+        //return signInWithPopup(auth, provider);
     }
 
     const emailSignUp = async (email, password) => {

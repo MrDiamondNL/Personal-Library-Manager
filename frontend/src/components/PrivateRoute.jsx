@@ -8,6 +8,7 @@ export const PrivateRoute = () => {
     if (loading) {
         return <div>Loading</div>
     }
+    console.log(currentUser);
 
     return currentUser ? (
         <Outlet />
