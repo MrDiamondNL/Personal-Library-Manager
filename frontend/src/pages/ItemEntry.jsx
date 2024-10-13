@@ -6,9 +6,10 @@ export default function ItemEntry() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //const formData = new FormData(e.target);
-        //formData.append("user", currentUser.uid);
-        console.log(new FormData(e.target));
+        const formData = new FormData(e.target);
+        formData.append("user", currentUser.uid);
+        const formDataObj = Object.fromEntries(formData.entries());
+        console.log(formDataObj);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {
@@ -16,7 +17,7 @@ export default function ItemEntry() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ ...e.target, user: currentUser.uid }),
+                body: JSON.stringify(formDataObj),
             });
 
             if (response.ok) {
