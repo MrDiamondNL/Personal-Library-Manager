@@ -13,6 +13,10 @@ let activeDb = "library"
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use((req, res, next) => {
+    console.log(`${req.method} request received at ${req.url}`);
+    next();
+});
 
 //connect to the database
 connectToDb().then(result => {

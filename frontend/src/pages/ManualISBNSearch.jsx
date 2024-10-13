@@ -14,7 +14,7 @@ export default function ManualISBNSearch() {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            // console.log(data);
+            console.log(data);
 
             if (data.totalItems > 0) {
                 const book = data.items[0].volumeInfo;
