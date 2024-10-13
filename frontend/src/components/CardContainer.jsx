@@ -2,7 +2,7 @@ import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
-    let defaultBookImage = "../../imgs/stock cover image.jpg";
+    let defaultBookImage = "../imgs/stock cover image.jpg";
 
     //const [cardSelected, setCardSelected] = useState(false);
     const containerRef = useRef(null);
