@@ -7,7 +7,7 @@ export default function ItemEntry() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        formData.append("user", currentUser);
+        formData.append("user", currentUser.uid);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {

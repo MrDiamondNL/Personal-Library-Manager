@@ -13,7 +13,6 @@ const itemSchema = new Schema({
     },
     description: {
         type: String,
-        required: true,
         default: ""
     },
     author: {
@@ -26,7 +25,7 @@ const itemSchema = new Schema({
         type: String
     },
     user: {
-        type: Object,
+        type: String,
         required: true
     },
     isLent: {

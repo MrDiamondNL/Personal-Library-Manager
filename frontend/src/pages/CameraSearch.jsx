@@ -52,7 +52,7 @@ export const CameraSearch = () => {
                     description: book.description,
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
                     coverImage: book.imageLinks.thumbnail,
-                    user: currentUser
+                    user: currentUser.uid
                 });
             } else {
                 console.log("No book found");
