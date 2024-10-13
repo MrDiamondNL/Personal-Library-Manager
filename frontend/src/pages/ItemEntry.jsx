@@ -1,11 +1,37 @@
-import React from 'react'
+
+import { useAuth } from "../contexts/AuthContext"
 
 export default function ItemEntry() {
+    const { currentUser } = useAuth();
+
+    const handleSubmit = async (e) => {
+        const formData = new FormData(e.target);
+        formData.append("user", currentUser);
+
+        try {
+            const response = await fetch("https://personal-library-manager.onrender.com/library", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log("Item entered successfully");
+            } else {
+                console.log("Could not enter Item");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="item_entry_container">
             <h3>New Item Entry</h3>
             <br />
-            <form action="https://personal-library-manager.onrender.com/library" method="POST">
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label>
                 <input type="text" id="title" name="title" required></input>
                 <br />
