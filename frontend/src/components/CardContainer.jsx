@@ -71,7 +71,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
             {selectedCard === id ? (
                 <div className="options-bar">
                     <button>Lend</button>
-                    <button onClick={showDeleteConfirm}>Delete</button>
+                    <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
                 </div>
             ) : null}
 
@@ -85,7 +85,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                                 <p>This cannon be undone</p>
                                 <div>
                                     <button onClick={showDeleteConfirm}>Cancel</button>
-                                    <button onClick={deleteItem}>Delete</button>
+                                    <button className="delete_button" onClick={deleteItem}>Delete</button>
                                 </div>
                             </>
                         )}
