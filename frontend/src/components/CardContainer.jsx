@@ -1,14 +1,22 @@
 import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
 
-    //const [cardSelected, setCardSelected] = useState(false);
+
     const containerRef = useRef(null);
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
-    //const [deleteId, setDeleteId] = useState();
+    const [popup, setPopup] = useState(false);
+    const [entryDeleted, setEntryDeleted] = useState(false);
+    const navigate = useNavigate();
+
+    const showDeleteConfirm = () => {
+        setPopup(!popup);
+    }
+
 
     const cardSelect = (event) => {
         event.stopPropagation();
@@ -34,6 +42,11 @@ export default function CardContainer({ title, description, author, isbn, coverI
             if (response.ok) {
                 const result = await response.json();
                 console.log("Entry was successfully deleted");
+                setEntryDeleted(!entryDeleted);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                setPopup(!popup);
+                navigate("/");
+
             } else {
                 console.error("Unable to delete entry", response.statusText);
             }
@@ -58,9 +71,32 @@ export default function CardContainer({ title, description, author, isbn, coverI
             {selectedCard === id ? (
                 <div className="options-bar">
                     <button>Lend</button>
-                    <button onClick={deleteItem}>Delete</button>
+                    <button onClick={showDeleteConfirm}>Delete</button>
                 </div>
             ) : null}
+
+            {popup && (
+                <div className="popup_window">
+                    <div onClick={showDeleteConfirm} className="overlay"></div>
+                    <div className="popup_content">
+                        {!entryDeleted && (
+                            <>
+                                <h3>Delete Item</h3>
+                                <p>This cannon be undone</p>
+                                <div>
+                                    <button onClick={showDeleteConfirm}>Cancel</button>
+                                    <button onClick={deleteItem}>Delete</button>
+                                </div>
+                            </>
+                        )}
+                        {entryDeleted && (
+                            <p>Item Deleted Successfully</p>
+                        )}
+                    </div>
+
+                </div>
+
+            )}
         </div>
     )
 }
