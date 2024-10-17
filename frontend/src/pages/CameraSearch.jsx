@@ -49,9 +49,9 @@ export const CameraSearch = () => {
                 setBook({
                     title: book.title,
                     author: book.authors[0],
-                    description: book.description,
+                    description: book?.description,
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
-                    coverImage: book.imageLinks.thumbnail,
+                    coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
                 });
             } else {

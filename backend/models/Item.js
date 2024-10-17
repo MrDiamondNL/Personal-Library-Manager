@@ -22,7 +22,7 @@ const itemSchema = new Schema({
         type: Number
     },
     coverImage: {
-        type: String
+        type: String,
     },
     user: {
         type: String,
