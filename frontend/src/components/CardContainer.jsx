@@ -3,7 +3,7 @@ import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useNavigate } from "react-router-dom";
 
-export default function CardContainer({ title, description, author, isbn, coverImage, id }) {
+export default function CardContainer({ title, description, author, isbn, coverImage, id, refresh }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
 
 
@@ -45,7 +45,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 setEntryDeleted(!entryDeleted);
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 setPopup(!popup);
-                navigate("/");
+                refresh();
 
             } else {
                 console.error("Unable to delete entry", response.statusText);
