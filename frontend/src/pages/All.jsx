@@ -31,7 +31,7 @@ export default function All() {
         return 0;
     });
 
-    const userBooks = data.filter(data => data.user = currentUser.uid);
+    const userBooks = data.filter(data => data.user === currentUser.uid);
     console.log(userBooks);
 
     return userBooks.map((book) => (
