@@ -54,9 +54,9 @@ export const CameraSearch = () => {
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
                     coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
-                }).then(
-                    setSaved(!saved)
-                );
+                }).then(() => {
+                    setSaved(!saved);
+                });
 
             } else {
                 console.log("No book found");
