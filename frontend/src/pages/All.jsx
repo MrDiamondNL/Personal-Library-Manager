@@ -32,6 +32,7 @@ export default function All() {
     });
 
     const userBooks = data.filter(data => data.user = currentUser.uid);
+    console.log(userBooks);
 
     return userBooks.map((book) => (
         <CardContainer {...book} key={book._id} id={book._id} />
