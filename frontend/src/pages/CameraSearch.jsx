@@ -47,15 +47,17 @@ export const CameraSearch = () => {
             if (data.totalItems > 0) {
                 const book = data.items[0].volumeInfo;
                 console.log(book);
-                setBook({
+                await setBook({
                     title: book.title,
                     author: book.authors[0],
                     description: book?.description,
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
                     coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
-                });
-                setSaved(!saved);
+                }).then(
+                    setSaved(!saved)
+                );
+
             } else {
                 console.log("No book found");
             }
