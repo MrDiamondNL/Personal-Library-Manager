@@ -98,12 +98,10 @@ export const CameraSearch = () => {
             {book !== null
                 ? <>
                     <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    {!saved && (
-                        <button onClick={submitData}>Save to Library?</button>
-                    )}
-                    {/* {saved && (
-                        <p>Saved to Library</p>
-                    )} */}
+                    {saved !== true
+                        ? <button onClick={submitData}>Save to Library?</button>
+                        : <p>Saved to Library</p>
+                    }
                 </>
                 : <div id="reader"></div>
             }
