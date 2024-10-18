@@ -10,6 +10,7 @@ export const CameraSearch = () => {
     const [book, setBook] = useState(null);
     // const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     const { currentUser } = useAuth()
+    const [saved, setSaved] = useState(false);
 
 
 
@@ -54,6 +55,7 @@ export const CameraSearch = () => {
                     coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
                 });
+                setSaved(!saved);
             } else {
                 console.log("No book found");
             }
@@ -94,7 +96,12 @@ export const CameraSearch = () => {
             {book !== null
                 ? <>
                     <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    <button onClick={submitData}>Save to Library?</button>
+                    {!saved && (
+                        <button onClick={submitData}>Save to Library?</button>
+                    )}
+                    {saved && (
+                        <p>Saved to Library</p>
+                    )}
                 </>
                 : <div id="reader"></div>
             }
