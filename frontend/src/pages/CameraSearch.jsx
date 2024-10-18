@@ -99,9 +99,9 @@ export const CameraSearch = () => {
                     {!saved && (
                         <button onClick={submitData}>Save to Library?</button>
                     )}
-                    {saved && (
+                    {/* {saved && (
                         <p>Saved to Library</p>
-                    )}
+                    )} */}
                 </>
                 : <div id="reader"></div>
             }
