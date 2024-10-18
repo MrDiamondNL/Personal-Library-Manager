@@ -11,7 +11,6 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
     const [popup, setPopup] = useState(false);
     const [entryDeleted, setEntryDeleted] = useState(false);
-    const navigate = useNavigate();
 
     const showDeleteConfirm = () => {
         setPopup(!popup);
@@ -66,6 +65,8 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 <h3 className="title">{title}</h3>
                 <p>{author}</p>
                 <p>{isbn}</p>
+
+
                 <p>{description.substring(0, 40) + "..."}</p>
             </div>
             {selectedCard === id ? (

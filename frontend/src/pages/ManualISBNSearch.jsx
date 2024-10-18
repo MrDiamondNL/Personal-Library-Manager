@@ -32,7 +32,7 @@ export default function ManualISBNSearch() {
             }
         } catch (err) {
             console.log(err);
-        };
+        }
     }
 
     const submitData = async () => {
