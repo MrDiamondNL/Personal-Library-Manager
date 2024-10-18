@@ -94,9 +94,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                             <p>Item Deleted Successfully</p>
                         )}
                     </div>
-
                 </div>
-
             )}
         </div>
     )

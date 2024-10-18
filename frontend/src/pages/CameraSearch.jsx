@@ -2,6 +2,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { useEffect, useState } from "react";
 import CardDetails from "../components/CardDetails"
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const CameraSearch = () => {
 
@@ -11,7 +12,7 @@ export const CameraSearch = () => {
     // const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     const { currentUser } = useAuth()
     const [saved, setSaved] = useState(false);
-
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -37,6 +38,10 @@ export const CameraSearch = () => {
         }
     }, []);
 
+    const updateSaved = () => {
+        setSaved(!saved);
+    }
+
     const searchForBook = async (result) => {
         try {
             const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${result}`);
@@ -54,9 +59,10 @@ export const CameraSearch = () => {
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
                     coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
-                }).then(() => {
-                    setSaved(!saved);
                 });
+                updateSaved;
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                navigate("/");
 
             } else {
                 console.log("No book found");
@@ -106,5 +112,6 @@ export const CameraSearch = () => {
                 : <div id="reader"></div>
             }
         </div>
+
     )
 }
