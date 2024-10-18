@@ -1,9 +1,10 @@
 import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query"
+import { useAuth } from "../contexts/AuthContext";
 // import libraryData from "../../data/dbtest.json"
 
-export default function CardList({ bookType }) {
-
+export default function CardList() {
+    const { currentUser } = useAuth();
 
     const fetchLib = async () => {
         const res = await fetch(`https://personal-library-manager.onrender.com`);
@@ -12,7 +13,7 @@ export default function CardList({ bookType }) {
         }
         return res.json();
     }
-    const { data, refetch } = useQuery(
+    const { data } = useQuery(
         "lib",
         fetchLib
     )
@@ -30,15 +31,11 @@ export default function CardList({ bookType }) {
         return 0;
     });
 
-    let books = data;
-    if (bookType) {
-        books = data.filter(obj => obj.category.includes(bookType));
-    }
+    const userBooks = data.filter(book => book.user === currentUser.uid);
+    console.log(userBooks);
+    console.log(currentUser.uid);
 
-    //const libraryBooks = (data.filter(obj => obj.category.includes("Book")));
-
-
-    return books.map((book) => (
-        <CardContainer {...book} key={book._id} id={book._id} refresh={refetch} />
+    return userBooks.map((book) => (
+        <CardContainer {...book} key={book._id} id={book._id} />
     ))
 }
