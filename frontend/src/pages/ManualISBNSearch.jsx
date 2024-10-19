@@ -39,7 +39,7 @@ export default function ManualISBNSearch() {
     }
 
     const updateSaved = () => {
-        setSaved(!saved);
+        setSaved((saved) => !saved);
     }
 
     const submitData = async () => {
@@ -58,8 +58,11 @@ export default function ManualISBNSearch() {
                 const result = await response.json();
                 console.log("Book was saved to Library");
                 updateSaved();
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                navigate("/");
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000)
+                // await new Promise(resolve => setTimeout(resolve, 2000));
+                // navigate("/");
             } else {
                 console.error("Unable to save to library", response.statusText);
                 console.log(book);

@@ -3,6 +3,7 @@ import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 import { useAuth } from "../contexts/AuthContext";
+import CardList from "../components/CardList";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
@@ -92,11 +93,10 @@ export default function RootLayout() {
 
                 <nav>
                     <div className="content_container">
-                        <NavLink to="/">All</NavLink>
-                        <NavLink to="books">Books</NavLink>
-                        <NavLink to="manuals">Manuals</NavLink>
-                        <NavLink to="misc">Misc</NavLink>
-
+                        <NavLink to={<CardList />}>All</NavLink>
+                        <NavLink to={<CardList bookType="Books" />}>Books</NavLink>
+                        <NavLink to={<CardList bookType="Manuals" />}>Manuals</NavLink>
+                        <NavLink to={<CardList bookType="Misc" />}>Misc</NavLink>
                     </div>
 
                 </nav>
@@ -104,10 +104,10 @@ export default function RootLayout() {
 
             <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
-                    <NavLink to="/">All</NavLink>
-                    <NavLink to="books">Books</NavLink>
-                    <NavLink to="manuals">Manuals</NavLink>
-                    <NavLink to="misc">Miscellaneous</NavLink>
+                    <NavLink to={<CardList />}>All</NavLink>
+                    <NavLink to={<CardList bookType="Books" />}>Books</NavLink>
+                    <NavLink to={<CardList bookType="Manuals" />}>Manuals</NavLink>
+                    <NavLink to={<CardList bookType="Misc" />}>Misc</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>
