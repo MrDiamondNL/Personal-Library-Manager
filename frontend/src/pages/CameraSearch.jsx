@@ -87,7 +87,7 @@ export const CameraSearch = () => {
             if (response.ok) {
                 const result = await response.json();
                 console.log("Book was saved to Library");
-                updateSaved;
+                updateSaved();
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 navigate("/");
             } else {
