@@ -3,7 +3,7 @@ import { useQuery } from "react-query"
 import { useAuth } from "../contexts/AuthContext";
 // import libraryData from "../../data/dbtest.json"
 
-export default function CardList() {
+export default function CardList({ bookType }) {
     const { currentUser } = useAuth();
 
     const fetchLib = async () => {
@@ -32,7 +32,9 @@ export default function CardList() {
         return 0;
     });
 
-    const userBooks = data.filter(book => book.user === currentUser.uid);
+    const userBooks = data
+        .filter(book => book.user === currentUser.uid)
+        .filter(book => !bookType || book.type === bookType);
     console.log(userBooks);
     console.log(currentUser.uid);
 
