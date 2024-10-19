@@ -60,9 +60,7 @@ export const CameraSearch = () => {
                     coverImage: book?.imageLinks?.thumbnail ?? undefined,
                     user: currentUser.uid
                 });
-                updateSaved;
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                navigate("/");
+
 
             } else {
                 console.log("No book found");
@@ -89,6 +87,9 @@ export const CameraSearch = () => {
             if (response.ok) {
                 const result = await response.json();
                 console.log("Book was saved to Library");
+                updateSaved;
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                navigate("/");
             } else {
                 console.error("Unable to save to library", response.statusText);
             }

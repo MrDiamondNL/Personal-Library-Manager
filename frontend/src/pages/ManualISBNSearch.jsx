@@ -2,6 +2,7 @@ import { useState } from "react";
 import CardContainer from "../components/CardContainer"
 import CardDetails from "../components/CardDetails"
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ManualISBNSearch() {
@@ -9,6 +10,8 @@ export default function ManualISBNSearch() {
     const [book, setBook] = useState(null);
     const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     const { currentUser } = useAuth();
+    const [saved, setSaved] = useState(false);
+    const navigate = useNavigate();
 
     const searchForBook = async () => {
         try {
@@ -35,6 +38,10 @@ export default function ManualISBNSearch() {
         }
     }
 
+    const updateSaved = () => {
+        setSaved(!saved);
+    }
+
     const submitData = async () => {
         const dataToSubmit = book;
 
@@ -50,6 +57,9 @@ export default function ManualISBNSearch() {
             if (response.ok) {
                 const result = await response.json();
                 console.log("Book was saved to Library");
+                updateSaved;
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                navigate("/");
             } else {
                 console.error("Unable to save to library", response.statusText);
                 console.log(book);
@@ -73,7 +83,10 @@ export default function ManualISBNSearch() {
             {book ? (
                 <>
                     <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    <button onClick={submitData}>Save to Library?</button>
+                    {saved !== true
+                        ? <button onClick={submitData}>Save to Library?</button>
+                        : <p>Saved to Library</p>
+                    }
                 </>
             ) : null}
 
