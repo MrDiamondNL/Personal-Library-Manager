@@ -43,10 +43,6 @@ export const CameraSearch = () => {
         }
     }, []);
 
-    const updateSaved = () => {
-        setSaved((saved) => !saved);
-    }
-
     const searchForBook = async (result) => {
         try {
             const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${result}`);
@@ -79,6 +75,7 @@ export const CameraSearch = () => {
 
     const submitData = async () => {
         const dataToSubmit = book;
+        setIsSubmitting(true);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {

@@ -12,6 +12,7 @@ export default function ManualISBNSearch() {
     const { currentUser } = useAuth();
     const [saved, setSaved] = useState(false);
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const searchForBook = async () => {
         try {
@@ -38,12 +39,9 @@ export default function ManualISBNSearch() {
         }
     }
 
-    const updateSaved = () => {
-        setSaved((saved) => !saved);
-    }
-
     const submitData = async () => {
         const dataToSubmit = book;
+        setIsSubmitting(true);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {
@@ -83,15 +81,28 @@ export default function ManualISBNSearch() {
                 <button onClick={searchForBook}>Search</button>
             </div>
 
-            {book ? (
+            {book !== null ? (
                 <>
-                    <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    {saved !== true
-                        ? <button onClick={submitData}>Save to Library?</button>
-                        : <p>Saved to Library</p>
-                    }
+                    <CardDetails
+                        {...book}
+                        bookImage={book.coverImage}
+                        description={book.description}
+                    />
+                    <br />
+                    {saved ? (
+                        <p>Saved to Library</p>
+                    ) : (
+                        <button
+                            onClick={submitData}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Saving..." : "Save to Library?"}
+                        </button>
+                    )}
                 </>
-            ) : null}
+            ) : (
+                <div id="reader"></div>
+            )}
 
         </>
 
