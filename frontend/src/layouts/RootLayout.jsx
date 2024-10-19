@@ -94,9 +94,9 @@ export default function RootLayout() {
                 <nav>
                     <div className="content_container">
                         <NavLink to="/">All</NavLink>
-                        <NavLink to="Books">Books</NavLink>
-                        <NavLink to="Manuals">Manuals</NavLink>
-                        <NavLink to="Misc">Misc</NavLink>
+                        <NavLink to="/books">Books</NavLink>
+                        <NavLink to="/manuals">Manuals</NavLink>
+                        <NavLink to="/misc">Misc</NavLink>
                     </div>
 
                 </nav>
@@ -105,9 +105,9 @@ export default function RootLayout() {
             <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
                     <NavLink to="/">All</NavLink>
-                    <NavLink to="Books">Books</NavLink>
-                    <NavLink to="Manuals">Manuals</NavLink>
-                    <NavLink to="Misc">Misc</NavLink>
+                    <NavLink to="/books">Books</NavLink>
+                    <NavLink to="/manuals">Manuals</NavLink>
+                    <NavLink to="/misc">Misc</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>
