@@ -55,7 +55,7 @@ export default function ManualISBNSearch() {
             if (response.ok) {
                 const result = await response.json();
                 console.log("Book was saved to Library");
-                updateSaved();
+                setSaved(true);
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
