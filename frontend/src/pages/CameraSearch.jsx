@@ -53,7 +53,7 @@ export const CameraSearch = () => {
             if (data.totalItems > 0) {
                 const book = data.items[0].volumeInfo;
                 console.log(book);
-                await setBook({
+                setBook({
                     title: book.title,
                     author: book.authors[0],
                     description: book?.description,
