@@ -13,6 +13,7 @@ export const CameraSearch = () => {
     const { currentUser } = useAuth()
     const [saved, setSaved] = useState(false);
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
 
     useEffect(() => {
@@ -35,6 +36,10 @@ export const CameraSearch = () => {
 
         function error(err) {
             console.warn(err);
+        }
+
+        return () => {
+            scanner.clear();
         }
     }, []);
 
@@ -90,14 +95,15 @@ export const CameraSearch = () => {
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
-                updateSaved();
+                setSaved(true);
                 setTimeout(() => {
                     navigate("/");
-                }, 2000);
+                }, 1500);
                 // await new Promise(resolve => setTimeout(resolve, 2000));
                 // navigate("/");
             } else {
                 console.error("Unable to save to library", response.statusText);
+                setIsSubmitting(false);
             }
         } catch (error) {
             console.log(error);
@@ -108,17 +114,28 @@ export const CameraSearch = () => {
     return (
         <div className="scanner-wrapper">
             <h1>Scan Barcode</h1>
-            {book !== null
-                ? <>
-                    <CardDetails {...book} bookImage={book.coverImage} description={book.description} ></CardDetails><br />
-                    {saved !== true
-                        ? <button onClick={submitData}>Save to Library?</button>
-                        : <p>Saved to Library</p>
-                    }
+            {book !== null ? (
+                <>
+                    <CardDetails
+                        {...book}
+                        bookImage={book.coverImage}
+                        description={book.description}
+                    />
+                    <br />
+                    {saved ? (
+                        <p>Saved to Library</p>
+                    ) : (
+                        <button
+                            onClick={submitData}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Saving..." : "Save to Library?"}
+                        </button>
+                    )}
                 </>
-                : <div id="reader"></div>
-            }
+            ) : (
+                <div id="reader"></div>
+            )}
         </div>
-
-    )
+    );
 }
