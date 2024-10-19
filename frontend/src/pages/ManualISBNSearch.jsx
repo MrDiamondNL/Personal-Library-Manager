@@ -60,7 +60,7 @@ export default function ManualISBNSearch() {
                 updateSaved();
                 setTimeout(() => {
                     navigate("/");
-                }, 2000)
+                }, 2000);
                 // await new Promise(resolve => setTimeout(resolve, 2000));
                 // navigate("/");
             } else {

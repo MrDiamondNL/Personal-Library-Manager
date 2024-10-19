@@ -39,7 +39,7 @@ export const CameraSearch = () => {
     }, []);
 
     const updateSaved = () => {
-        setSaved(!saved);
+        setSaved((saved) => !saved);
     }
 
     const searchForBook = async (result) => {
@@ -87,9 +87,15 @@ export const CameraSearch = () => {
             if (response.ok) {
                 const result = await response.json();
                 console.log("Book was saved to Library");
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
                 updateSaved();
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                navigate("/");
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+                // await new Promise(resolve => setTimeout(resolve, 2000));
+                // navigate("/");
             } else {
                 console.error("Unable to save to library", response.statusText);
             }
