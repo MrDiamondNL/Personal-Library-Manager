@@ -32,11 +32,10 @@ export default function CardList({ bookType }) {
         return 0;
     });
 
-    const userBooks = data
-        .filter(book => book.user === currentUser.uid)
-        .filter(book => !bookType || book.type === bookType);
-    console.log(userBooks);
-    console.log(currentUser.uid);
+    const userBooks = data.filter(book =>
+        book.user === currentUser.uid &&
+        (!bookType || book.type === bookType)
+    );
 
     return userBooks.map((book) => (
         <CardContainer {...book} key={book._id} id={book._id} refetch={refetch} />
