@@ -13,10 +13,11 @@ export default function CardList() {
         }
         return res.json();
     }
-    const { data } = useQuery(
+    const { data, refetch } = useQuery(
         "lib",
-        fetchLib
+        fetchLib,
     )
+
     if (!data) return (
         <div>Loading...</div>
     );
@@ -36,6 +37,6 @@ export default function CardList() {
     console.log(currentUser.uid);
 
     return userBooks.map((book) => (
-        <CardContainer {...book} key={book._id} id={book._id} />
+        <CardContainer {...book} key={book._id} id={book._id} refetch={refetch} />
     ))
 }
