@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate, useLocation, } from "react-router-dom"
+import { NavLink, Outlet, useNavigate, useLocation, refe } from "react-router-dom"
 import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
@@ -93,10 +93,10 @@ export default function RootLayout() {
 
                 <nav>
                     <div className="content_container">
-                        <NavLink to={<CardList />}>All</NavLink>
-                        <NavLink to={<CardList bookType="Books" />}>Books</NavLink>
-                        <NavLink to={<CardList bookType="Manuals" />}>Manuals</NavLink>
-                        <NavLink to={<CardList bookType="Misc" />}>Misc</NavLink>
+                        <NavLink to="/">All</NavLink>
+                        <NavLink to="Books">Books</NavLink>
+                        <NavLink to="Manuals">Manuals</NavLink>
+                        <NavLink to="Misc">Misc</NavLink>
                     </div>
 
                 </nav>
@@ -104,10 +104,10 @@ export default function RootLayout() {
 
             <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
-                    <NavLink to={<CardList />}>All</NavLink>
-                    <NavLink to={<CardList bookType="Books" />}>Books</NavLink>
-                    <NavLink to={<CardList bookType="Manuals" />}>Manuals</NavLink>
-                    <NavLink to={<CardList bookType="Misc" />}>Misc</NavLink>
+                    <NavLink to="/">All</NavLink>
+                    <NavLink to="Books">Books</NavLink>
+                    <NavLink to="Manuals">Manuals</NavLink>
+                    <NavLink to="Misc">Misc</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>
