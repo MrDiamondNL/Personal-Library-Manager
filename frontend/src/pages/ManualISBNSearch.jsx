@@ -53,20 +53,37 @@ export default function ManualISBNSearch() {
             });
 
             if (response.ok) {
-                const result = await response.json();
-                console.log("Book was saved to Library");
+                try {
+                    const result = await response.json();
+                    console.log("Book was saved to Library", result);
+                } catch (e) {
+                    const text = await response.text();
+                    console.log("Book was saved to Library", text);
+                }
                 setSaved(true);
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                window.location.reload();
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 1500);
-                // await new Promise(resolve => setTimeout(resolve, 2000));
-                // navigate("/");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             } else {
                 console.error("Unable to save to library", response.statusText);
-                console.log(book);
+                setIsSubmitting(false);
             }
+
+            // if (response.ok) {
+            //     const result = await response.json();
+            //     console.log("Book was saved to Library");
+            //     setSaved(true);
+            //     await new Promise(resolve => setTimeout(resolve, 1500));
+            //     window.location.reload();
+            //     // setTimeout(() => {
+            //     //     window.location.reload();
+            //     // }, 1500);
+            //     // await new Promise(resolve => setTimeout(resolve, 2000));
+            //     // navigate("/");
+            // } else {
+            //     console.error("Unable to save to library", response.statusText);
+            //     console.log(book);
+            // }
         } catch (error) {
             console.log(error);
         }
