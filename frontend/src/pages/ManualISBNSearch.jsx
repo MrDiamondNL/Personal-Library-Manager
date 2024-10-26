@@ -53,13 +53,18 @@ export default function ManualISBNSearch() {
             });
 
             if (response.ok) {
-                try {
-                    const result = await response.json();
+                // Clone the response to handle both JSON and plain text
+                const responseClone = response.clone();
+
+                // Attempt to parse as JSON
+                responseClone.json().then(result => {
                     console.log("Book was saved to Library", result);
-                } catch (e) {
+                }).catch(async () => {
+                    // Fallback to text if JSON parsing fails
                     const text = await response.text();
                     console.log("Book was saved to Library", text);
-                }
+                });
+
                 setSaved(true);
                 setTimeout(() => {
                     window.location.reload();
@@ -96,7 +101,7 @@ export default function ManualISBNSearch() {
         <>
             <div className="manual_isbn_entry_container">
                 <h3>Search By ISBN</h3>
-                <input type="number" value={isbn} id="isbn_search" name="isbn_search" placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)}></input>
+                <input type="number" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)}></input>
                 <button onClick={searchForBook}>Search</button>
             </div>
 

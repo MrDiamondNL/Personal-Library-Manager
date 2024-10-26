@@ -87,13 +87,18 @@ export const CameraSearch = () => {
             });
 
             if (response.ok) {
-                try {
-                    const result = await response.json();
+                // Clone the response to handle both JSON and plain text
+                const responseClone = response.clone();
+
+                // Attempt to parse as JSON
+                responseClone.json().then(result => {
                     console.log("Book was saved to Library", result);
-                } catch (e) {
+                }).catch(async () => {
+                    // Fallback to text if JSON parsing fails
                     const text = await response.text();
                     console.log("Book was saved to Library", text);
-                }
+                });
+
                 setSaved(true);
                 setTimeout(() => {
                     window.location.reload();
