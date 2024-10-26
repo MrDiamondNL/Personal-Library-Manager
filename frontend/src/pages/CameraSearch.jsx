@@ -90,9 +90,11 @@ export const CameraSearch = () => {
                 const result = await response.json();
                 console.log("Book was saved to Library");
                 setSaved(true);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                window.location.reload();
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 1500);
                 // await new Promise(resolve => setTimeout(resolve, 2000));
                 // navigate("/");
             } else {
