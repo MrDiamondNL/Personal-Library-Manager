@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CardDetails from "../components/CardDetails"
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import defaultBookImage from "../imgs/stock cover image.jpg";
 
 export const CameraSearch = () => {
 
@@ -58,7 +59,7 @@ export const CameraSearch = () => {
                     author: book.authors[0],
                     description: book?.description,
                     isbn: book.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13").identifier,
-                    coverImage: book?.imageLinks?.thumbnail ?? undefined,
+                    coverImage: book?.imageLinks?.thumbnail ?? defaultBookImage,
                     user: currentUser.uid
                 });
 
