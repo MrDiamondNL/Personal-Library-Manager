@@ -11,6 +11,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
     const [popup, setPopup] = useState(false);
     const [entryDeleted, setEntryDeleted] = useState(false);
+    const [expanded, setExpanded] = useState(false)
 
     const showDeleteConfirm = () => {
         setPopup(!popup);
@@ -58,21 +59,38 @@ export default function CardContainer({ title, description, author, isbn, coverI
         registerCardRef(id, containerRef.current);
     }, [id, registerCardRef]);
 
+    const showExpanded = () => {
+        setExpanded(true);
+    }
+
+    const collapseExpanded = () => {
+        setExpanded(false);
+    }
+
     return (
-        <div className={`card-container ${selectedCard === id ? `container-selected` : ``}`} ref={containerRef} onClick={cardSelect}>
+        <div className={`card-container ${selectedCard === id ? `container-selected` : ``} ${expanded ? `container-expanded` : ``}`} ref={containerRef} onClick={cardSelect}>
             <img src={coverImage ?? defaultBookImage}></img>
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
                 <p>{author}</p>
                 <p>{isbn}</p>
 
-
-                <p>{description.substring(0, 40) + "..."}</p>
+                {expanded ? (<p>{description.substring(0, 400)}</p>) : (<p>{description.substring(0, 40) + "..."}</p>)}
             </div>
             {selectedCard === id ? (
                 <div className="options-bar">
-                    <button>Lend</button>
-                    <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
+                    {expanded ? (
+                        <div className="expanded-options-bar">
+                            <button onClick={collapseExpanded}>Collapse</button>
+                            <button>Lend</button>
+                            <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
+                        </div>
+
+                    ) : (
+                        <button onClick={showExpanded}>Expand</button>
+                    )}
+                    {/* <button>Lend</button>
+                    <button className="delete_button" onClick={showDeleteConfirm}>Delete</button> */}
                 </div>
             ) : null}
 

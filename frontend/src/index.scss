@@ -191,8 +191,26 @@ main {
   align-items: center;
   gap: 10px;
   img {
-    height: 100%;
+    height: 150px;
     max-width: 100px; 
+  }
+
+  .card-container__info {
+    display: flex;
+    flex-direction: column;
+    text-align: start;  
+  
+    h3 {
+      margin: 0;
+    }
+  
+    p{
+      margin: 0;
+    }
+  }
+
+  .container-expanded {
+    height: 700px;
   }
 }
 
@@ -211,6 +229,10 @@ main {
   // button {
   //   width: 50%;
   // }
+}
+
+.container-expanded {
+  height: 700px;
 }
 
 .popup_window, .overlay {
@@ -242,19 +264,19 @@ main {
   z-index: 3;
 }
 
-.card-container__info {
-  display: flex;
-  flex-direction: column;
-  text-align: start;  
+// .card-container__info {
+//   display: flex;
+//   flex-direction: column;
+//   text-align: start;  
 
-  h3 {
-    margin: 0;
-  }
+//   h3 {
+//     margin: 0;
+//   }
 
-  p{
-    margin: 0;
-  }
-}
+//   p{
+//     margin: 0;
+//   }
+// }
 
 
 
