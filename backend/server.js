@@ -56,6 +56,35 @@ app.post("/library", (req, res) => {
         });    
 });
 
+app.put("/lend", async (req, res) => {
+    try {
+        const updateItemID = new mongoose.Types(req.body.id);
+        const email = new mongoose.Types(req.body.email);
+    
+        console.log(`Attempting to find item with ID:${updateItemID} in database`);
+
+        const result = await Item.findByIdAndUpdate(updateItemID, {lentEmail: email});
+
+        if(result) {
+            console.log("Item was successfully updated", result);
+            res.status(200).json({message: "Item was successfully updated"});
+            const updateLent = await Item.findByIdAndUpdate(updateItemID, {isLent: true});
+
+            if(updateLent) {
+            console.log("Item was successfully Lent", result);
+            res.status(200).json({message: "Item Lent"});
+            } else {
+                res.status(404).json({ message: "Item was found but not Lent"});
+            }
+        } else {
+            res.status(404).json({ message: "Item was not found"});
+        }
+    } catch (err) {
+        console.error("Error updating item:", err);
+        res.status(500).json({ message: "Error deleting item" });
+    }
+})
+
 app.delete("/delete", async (req, res) => {
     try {
         let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
