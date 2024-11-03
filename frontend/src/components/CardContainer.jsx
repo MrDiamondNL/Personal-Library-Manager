@@ -98,6 +98,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     }, [id, registerCardRef]);
 
     const showExpanded = () => {
+        console.log(isLent);
         setExpanded(true);
     }
 
