@@ -183,13 +183,15 @@ main {
 }
 
 .card-container {
-  //position: relative;
+  position: relative;
   display: flex;
   border: 1px solid black;
   height: 150px;
   justify-content: left;
   align-items: center;
   gap: 10px;
+  padding-bottom: 50px;
+
   img {
     height: 150px;
     max-width: 100px; 
@@ -209,7 +211,36 @@ main {
     }
   }
 
+  .options-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .button {
+      flex: 1;
+      max-width: 200px;
+    }
+  }
   
+  .expanded-options-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    
+    button {
+      flex: 1;
+      max-width: 200px;
+    }
+  }
 }
 
 .container-expanded {

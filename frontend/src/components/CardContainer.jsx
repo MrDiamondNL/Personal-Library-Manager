@@ -160,9 +160,9 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 )}
             </div>
             {selectedCard === id ? (
-                <div className="options-bar">
+                <div className={expanded ? "expanded-options-bar" : "options-bar"}>
                     {expanded ? (
-                        <div className="expanded-options-bar">
+                        <>
                             <button onClick={collapseExpanded}>Collapse</button>
                             {isLent ? (
                                 <button onClick={showReturnPopup}>Return</button>
@@ -170,8 +170,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                                 <button onClick={showLendPopup}>Lend</button>
                             )}
                             <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
-                        </div>
-
+                        </>
                     ) : (
                         <button onClick={showExpanded}>Expand</button>
                     )}
