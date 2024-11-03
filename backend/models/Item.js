@@ -34,6 +34,7 @@ const itemSchema = new Schema({
     },
     lentEmail: {
         type: String,
+        default: null
     }
 });
 
