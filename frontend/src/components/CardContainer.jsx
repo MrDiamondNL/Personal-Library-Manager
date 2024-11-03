@@ -84,7 +84,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 setLendPopup(!lendPopup);
                 refetch();
             } else {
-                console.error("Unable to delete entry", response.statusText);
+                console.error("Unable to update entry", response.statusText);
             }
         } catch (error) {
             console.log(error);
