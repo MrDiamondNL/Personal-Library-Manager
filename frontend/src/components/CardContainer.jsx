@@ -63,8 +63,9 @@ export default function CardContainer({ title, description, author, isbn, coverI
 
     const lendItem = async (e) => {
         e.preventDefault();
-        const itemToLend = { id };
-        console.log(itemToLend);
+        const formData = new FormData(e.target);
+        const formDataObj = Object.fromEntries(formData.entries());
+        console.log(formDataObj);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/lend", {
@@ -72,7 +73,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(itemToLend),
+                body: JSON.stringify(formDataObj),
             });
 
             if (response.ok) {
