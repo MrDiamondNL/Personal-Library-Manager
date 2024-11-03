@@ -19,11 +19,13 @@ body {
 .root-layout {
   // display: flex; 
   position: relative;
+  padding-bottom: 50px;
 }
 
 header {  
   
   position: fixed;
+  z-index: 2;
 
   nav {
     // padding-top: 10px;
@@ -186,21 +188,28 @@ main {
   position: relative;
   display: flex;
   border: 1px solid black;
-  height: 175px;
+  height: 200px;
   justify-content: left;
   align-items: center;
   gap: 10px;
   padding-bottom: 50px;
 
   img {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 150px;
-    max-width: 100px; 
+    max-width: 100px;
+    margin-right: 10px;
   }
 
   .card-container__info {
     display: flex;
     flex-direction: column;
     text-align: start;  
+    position: absolute;
+    top: 25px;
+    left: 125px;
   
     h3 {
       margin: 0;
@@ -218,11 +227,12 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 5px;
 
     .button {
       flex: 1;
       max-width: 200px;
+      margin-bottom: 0;
     }
   }
   
@@ -515,7 +525,7 @@ button {
   color: #fff;
   background: #5697ff;
   width: 100%;
-  margin: 15px 0;
+  //margin: 15px 0;
 }
 
 .delete_button {
