@@ -58,10 +58,6 @@ app.post("/library", (req, res) => {
 
 app.put("/lend", async (req, res) => {
     try {
-        await Item.updateMany(
-            { lentEmail: { $exists: false } },
-            { $set: { lentEmail: null } }
-        );
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
         const email = req.body.email;
     
