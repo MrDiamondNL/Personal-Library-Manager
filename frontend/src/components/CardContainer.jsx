@@ -13,10 +13,16 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const [entryDeleted, setEntryDeleted] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [lendPopup, setLendPopup] = useState(false);
+    const [returnPopup, setReturnPopup] = useState(false);
     const [itemLent, setItemLent] = useState(false);
+    const [itemReturned, setItemReturned] = useState(false);
 
     const showLendPopup = () => {
         setLendPopup(!lendPopup);
+    }
+
+    const showReturnPopup = () => {
+        setReturnPopup(!returnPopup);
     }
 
     const showDeleteConfirm = () => {
@@ -83,7 +89,34 @@ export default function CardContainer({ title, description, author, isbn, coverI
                 console.log("Entry was successfully updated");
                 setItemLent(!itemLent);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                setLendPopup(!lendPopup);
+                showLendPopup(!lendPopup);
+                refetch();
+            } else {
+                console.error("Unable to update entry", response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const returnItem = async () => {
+        const itemToReturn = { id };
+
+        try {
+            const response = await fetch("https://personal-library-manager.onrender.com/return", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(itemToReturn)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Entry was successfully returned");
+                setItemReturned(!itemReturned);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                showReturnPopup(!returnPopup);
                 refetch();
             } else {
                 console.error("Unable to update entry", response.statusText);
@@ -131,7 +164,11 @@ export default function CardContainer({ title, description, author, isbn, coverI
                     {expanded ? (
                         <div className="expanded-options-bar">
                             <button onClick={collapseExpanded}>Collapse</button>
-                            <button onClick={showLendPopup}>Lend</button>
+                            {isLent ? (
+                                <button onClick={showReturnPopup}>Return</button>
+                            ) : (
+                                <button onClick={showLendPopup}>Lend</button>
+                            )}
                             <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
                         </div>
 
@@ -183,8 +220,26 @@ export default function CardContainer({ title, description, author, isbn, coverI
                         )}
                     </div>
                 </div>
-            )
-            }
+            )}
+
+            {returnPopup && (
+                <div className="popup_winow">
+                    <div onClick={showReturnPopup} className="overlay"></div>
+                    <div className="popup_content">
+                        {!itemReturned &&
+                            <>
+                                <h3>Return Item From</h3>
+                                <p>{lentEmail}</p>
+                                <button onClick={returnItem}>Confirm</button>
+                            </>
+                        }
+                        {itemReturned &&
+                            <p>Item Successfully Returned</p>
+                        }
+
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

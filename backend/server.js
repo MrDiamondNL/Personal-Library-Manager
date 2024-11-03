@@ -82,6 +82,31 @@ app.put("/lend", async (req, res) => {
     }
 });
 
+app.put("/return", async (req, res) => {
+    try {
+        const updateItemID = new mongoose.Types.ObjectId(req.body.id);
+    
+        console.log(`Attempting to find item with ID:${updateItemID} in database`);
+
+        const result = await Item.findByIdAndUpdate(
+            updateItemID, 
+            {
+                lentEmail: null,
+                isLent: false
+            });
+
+        if(result) {
+            console.log("Item was successfully returned", result);
+            res.status(200).json({message: "Item was successfully returned"});            
+        } else {
+            res.status(404).json({ message: "Item was not found"});
+        }
+    } catch (err) {
+        console.error("Error updating item:", err);
+        res.status(500).json({ message: "Error updating item" });
+    }
+});
+
 app.delete("/delete", async (req, res) => {
     try {
         let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
