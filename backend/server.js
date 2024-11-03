@@ -59,7 +59,7 @@ app.post("/library", (req, res) => {
 app.put("/lend", async (req, res) => {
     try {
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
-        const email = new mongoose.Types(req.body.email);
+        const email = new mongoose.(req.body.email);
     
         console.log(`Attempting to find item with ID:${updateItemID} in database`);
 
