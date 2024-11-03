@@ -63,7 +63,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
 
     const lendItem = async (e) => {
         e.preventDefault();
-        const itemToLend = { id };
+        const itemToLend = selectedCard;
         const formData = new FormData(e.target);
         formData.append("id", itemToLend);
         const formDataObj = Object.fromEntries(formData.entries());
