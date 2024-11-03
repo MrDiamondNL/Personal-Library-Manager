@@ -3,7 +3,7 @@ import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { resolvePath, useNavigate } from "react-router-dom";
 
-export default function CardContainer({ title, description, author, isbn, coverImage, id, refetch }) {
+export default function CardContainer({ title, description, author, isbn, coverImage, id, lentEmail, isLent, refetch }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
 
 
@@ -102,14 +102,24 @@ export default function CardContainer({ title, description, author, isbn, coverI
     }
 
     return (
-        <div className={`card-container ${selectedCard === id ? `container-selected` : ``} ${expanded ? `container-expanded` : ``}`} ref={containerRef} onClick={cardSelect}>
+        <div className={`card-container ${selectedCard === id ? `container-selected` : ``} ${expanded ? `container-expanded` : ``} ${isLent ? `container-lent` : ``}`} ref={containerRef} onClick={cardSelect}>
             <img src={coverImage ?? defaultBookImage}></img>
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
                 <p>{author}</p>
                 <p>{isbn}</p>
 
-                {expanded ? (<p>{description.substring(0, 400)}</p>) : (<p>{description.substring(0, 40) + "..."}</p>)}
+                {expanded ? (
+                    <>
+                        {isLent && (
+                            <p>Item is lent to: {lentEmail}</p>
+                        )}
+                        <p>{description.substring(0, 400)}</p>
+                    </>
+
+                ) : (
+                    <p>{description.substring(0, 40) + "..."}</p>
+                )}
             </div>
             {selectedCard === id ? (
                 <div className="options-bar">
