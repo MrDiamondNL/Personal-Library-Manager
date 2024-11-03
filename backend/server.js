@@ -59,7 +59,7 @@ app.post("/library", (req, res) => {
 app.put("/lend", async (req, res) => {
     try {
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
-        const email = new mongoose(req.body.email);
+        const email = new req.body.email;
     
         console.log(`Attempting to find item with ID:${updateItemID} in database`);
 
@@ -80,7 +80,7 @@ app.put("/lend", async (req, res) => {
         console.error("Error updating item:", err);
         res.status(500).json({ message: "Error updating item" });
     }
-})
+});
 
 app.delete("/delete", async (req, res) => {
     try {
