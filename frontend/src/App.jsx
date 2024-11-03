@@ -26,9 +26,9 @@ const router = createBrowserRouter(
       <Route path="/" element={<PrivateRoute />}>
         <Route element={<RootLayout />}>
           <Route index element={<CardList />} />
-          <Route path="/books" element={<CardList bookType="Books" />} />
+          <Route path="/books" element={<CardList bookType="Book" />} />
           <Route path="/manuals" element={<CardList bookType="Manual" />} />
-          <Route path="/misc" element={<CardList bookType="Books" />} />
+          <Route path="/misc" element={<CardList bookType="Misc" />} />
           <Route path="/item_entry" element={<ItemEntry />} />
           <Route path="/search_page" element={<SearchPage />} />
           <Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>

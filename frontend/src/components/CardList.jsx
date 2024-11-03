@@ -31,10 +31,12 @@ export default function CardList({ bookType }) {
         }
         return 0;
     });
-
+    console.log(data);
+    console.log(bookType);
     const userBooks = data.filter(book =>
         book.user === currentUser.uid &&
-        (!bookType || book.type === bookType)
+        (!bookType || book.category === bookType)
+
     );
 
     return userBooks.map((book) => (
