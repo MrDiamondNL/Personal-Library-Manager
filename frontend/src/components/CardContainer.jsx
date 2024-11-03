@@ -107,7 +107,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     }
 
     return (
-        <div className={`card-container ${selectedCard === id ? `container-selected` : ``} ${expanded ? `container-expanded` : ``} ${isLent ? `container-lent` : ``}`} ref={containerRef} onClick={cardSelect}>
+        <div className={`card-container ${selectedCard === id ? ` container-selected` : ``} ${expanded ? ` container-expanded` : ``} ${isLent ? ` container-lent` : ``}`} ref={containerRef} onClick={cardSelect}>
             <img src={coverImage ?? defaultBookImage}></img>
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
