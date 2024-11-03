@@ -19,7 +19,7 @@ const itemSchema = new Schema({
         type: String
     },
     isbn: {
-        type: Number
+        type: String
     },
     coverImage: {
         type: String,
