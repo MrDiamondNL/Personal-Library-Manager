@@ -1,7 +1,7 @@
 import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
-import { useNavigate } from "react-router-dom";
+import { resolvePath, useNavigate } from "react-router-dom";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id, refetch }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
@@ -11,7 +11,13 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
     const [popup, setPopup] = useState(false);
     const [entryDeleted, setEntryDeleted] = useState(false);
-    const [expanded, setExpanded] = useState(false)
+    const [expanded, setExpanded] = useState(false);
+    const [lendPopup, setLendPopup] = useState(false);
+    const [itemLent, setItemLent] = useState(false);
+
+    const showLendPopup = () => {
+        setLendPopup(!lendPopup);
+    }
 
     const showDeleteConfirm = () => {
         setPopup(!popup);
@@ -55,6 +61,34 @@ export default function CardContainer({ title, description, author, isbn, coverI
         }
     }
 
+    const lendItem = async (e) => {
+        e.preventDefault();
+        const itemToLend = { id };
+        console.log(itemToLend);
+
+        try {
+            const response = await fetch("https://personal-library-manager.onrender.com/lend", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(itemToLend),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Entry was successfully updated");
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                setItemLent(!itemLent);
+                refetch();
+            } else {
+                console.error("Unable to delete entry", response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         registerCardRef(id, containerRef.current);
     }, [id, registerCardRef]);
@@ -82,7 +116,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
                     {expanded ? (
                         <div className="expanded-options-bar">
                             <button onClick={collapseExpanded}>Collapse</button>
-                            <button>Lend</button>
+                            <button onClick={showLendPopup}>Lend</button>
                             <button className="delete_button" onClick={showDeleteConfirm}>Delete</button>
                         </div>
 
@@ -114,6 +148,28 @@ export default function CardContainer({ title, description, author, isbn, coverI
                     </div>
                 </div>
             )}
+
+            {lendPopup && (
+                <div className="popup_window">
+                    <div onClick={showLendPopup} className="overlay"></div>
+                    <div className="popup_content">
+                        {!itemLent && (
+                            <>
+                                <h3>Enter Lender&apos;s Email</h3>
+                                <form onSubmit={lendItem}>
+                                    <label htmlFor="email">Email: </label>
+                                    <input type="text" id="email" name="email" required></input>
+                                    <button>Submit</button>
+                                </form>
+                            </>
+                        )}
+                        {itemLent && (
+                            <p>Item updated Successfully</p>
+                        )}
+                    </div>
+                </div>
+            )
+            }
         </div>
     )
 }
