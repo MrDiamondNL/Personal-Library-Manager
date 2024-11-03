@@ -78,8 +78,9 @@ export default function CardContainer({ title, description, author, isbn, coverI
             if (response.ok) {
                 const result = await response.json();
                 console.log("Entry was successfully updated");
-                await new Promise(resolve => setTimeout(resolve, 2000));
                 setItemLent(!itemLent);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                setLendPopup(!lendPopup);
                 refetch();
             } else {
                 console.error("Unable to delete entry", response.statusText);
