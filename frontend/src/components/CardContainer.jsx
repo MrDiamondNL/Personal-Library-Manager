@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
-import { resolvePath, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CardContainer({ title, description, author, isbn, coverImage, id, lentEmail, isLent, refetch }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
@@ -16,6 +17,7 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const [returnPopup, setReturnPopup] = useState(false);
     const [itemLent, setItemLent] = useState(false);
     const [itemReturned, setItemReturned] = useState(false);
+    const navigate = useNavigate();
 
     const showLendPopup = () => {
         setLendPopup(!lendPopup);
@@ -35,6 +37,11 @@ export default function CardContainer({ title, description, author, isbn, coverI
         if (selectedCard !== id) {
             setSelectedCard(id);
         }
+        navigateToItem();
+    }
+
+    const navigateToItem = () => {
+        navigate(`/details/${id}`)
     }
 
     const deleteItem = async () => {

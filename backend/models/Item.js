@@ -35,6 +35,10 @@ const itemSchema = new Schema({
     lentEmail: {
         type: String,
         default: null
+    },
+    comments: {
+        type: Array,
+        default: []
     }
 });
 

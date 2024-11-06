@@ -187,12 +187,14 @@ main {
 .card-container {
   position: relative;
   display: flex;
-  border: 1px solid black;
+  //border: 1px solid black;
+  border-top: 1px solid #d3d3d3;
   height: 200px;
   justify-content: left;
   align-items: center;
   gap: 10px;
-  padding-bottom: 50px;
+  //margin-top: 20px;
+  
 
   img {
     position: absolute;
@@ -466,6 +468,11 @@ header nav a {
       flex-direction: column;
     }
   }
+
+  img {
+    width: 200px;
+    height: 300px;
+  }
 }
 
 .login_container {
@@ -531,3 +538,14 @@ button {
 .delete_button {
   background: #FF5733;
 }
+
+/* Rectangle 5 */
+
+// position: absolute;
+// width: 92px;
+// height: 28px;
+// left: 42px;
+// top: 554px;
+
+// background: #007AFF;
+// border-radius: 5px;

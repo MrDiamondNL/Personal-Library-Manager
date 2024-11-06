@@ -42,6 +42,18 @@ app.get("/", (req, res) => {
         })
 });
 
+app.get("/details/:id", (req, res) => {
+    const id = req.params.id;
+    Item.findById(id)
+    .then(result => {
+        res.status(201).send(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).send("Could not find item");
+    })
+})
+
 app.post("/library", (req, res) => {
     let newItem = new Item(req.body);
     console.log(req.body);

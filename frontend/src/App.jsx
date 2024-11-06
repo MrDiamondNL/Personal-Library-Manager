@@ -19,6 +19,7 @@ import { CameraSearch } from "./pages/CameraSearch";
 import Login from "./pages/LogIn"
 import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
+import CardDetailsExpanded from "./components/CardDetailsExpanded";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
           <Route path="/search_page" element={<SearchPage />} />
           <Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>
           <Route path="/camera_search" element={<CameraSearch />} />
+          <Route path="/details/:id" element={<CardDetailsExpanded />} />
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />
