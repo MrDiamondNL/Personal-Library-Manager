@@ -222,37 +222,7 @@ main {
     }
   }
 
-  .options-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-
-    .button {
-      flex: 1;
-      max-width: 200px;
-      margin-bottom: 0;
-    }
-  }
   
-  .expanded-options-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    
-    button {
-      flex: 1;
-      max-width: 200px;
-    }
-  }
 }
 
 .container-expanded {
@@ -456,6 +426,7 @@ header nav a {
 .card-details {
   display: flex;
   flex-direction: column;
+  padding: 0px 30px;
 
   .card-details_header {
     display: flex;
@@ -464,14 +435,43 @@ header nav a {
     gap: 10px;
     
 
-    .card-details_header-sidebar {
-      flex-direction: column;
-    }
+    // .card-details_header-sidebar {
+    //   flex-direction: column;
+    // }
   }
 
   img {
     width: 200px;
     height: 300px;
+  }
+
+  .card-details_body_token-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .options-bar {
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    button {
+      padding: 5px;
+      flex: 1;
+      max-width: 100px;
+      max-height: 30px;
+      margin-bottom: 0;
+      border-radius: 5px;
+    }
+  }
+
+  p.description-text {
+    font-size: 14px;
   }
 }
 
@@ -530,13 +530,21 @@ button {
   font-size: 16px;
   border: 1px solid transparent;
   color: #fff;
-  background: #5697ff;
+  background: #0A68FF;
   width: 100%;
   //margin: 15px 0;
 }
 
 .delete_button {
-  background: #FF5733;
+  background: #D62700;
+}
+
+.lend-token {
+  background-color: #FFAE00;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 12px;
+  //color: #2B2B2B;
 }
 
 /* Rectangle 5 */

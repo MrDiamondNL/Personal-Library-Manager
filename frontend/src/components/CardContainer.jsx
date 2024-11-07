@@ -19,17 +19,17 @@ export default function CardContainer({ title, description, author, isbn, coverI
     const [itemReturned, setItemReturned] = useState(false);
     const navigate = useNavigate();
 
-    const showLendPopup = () => {
-        setLendPopup(!lendPopup);
-    }
+    // const showLendPopup = () => {
+    //     setLendPopup(!lendPopup);
+    // }
 
-    const showReturnPopup = () => {
-        setReturnPopup(!returnPopup);
-    }
+    // const showReturnPopup = () => {
+    //     setReturnPopup(!returnPopup);
+    // }
 
-    const showDeleteConfirm = () => {
-        setPopup(!popup);
-    }
+    // const showDeleteConfirm = () => {
+    //     setPopup(!popup);
+    // }
 
 
     const cardSelect = (event) => {
@@ -44,107 +44,107 @@ export default function CardContainer({ title, description, author, isbn, coverI
         navigate(`/details/${id}`)
     }
 
-    const deleteItem = async () => {
-        const itemToDelete = { id };
-        console.log(id);
-        console.log(itemToDelete);
+    // const deleteItem = async () => {
+    //     const itemToDelete = { id };
+    //     console.log(id);
+    //     console.log(itemToDelete);
 
-        try {
-            const response = await fetch("https://personal-library-manager.onrender.com/delete", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(itemToDelete),
-            });
+    //     try {
+    //         const response = await fetch("https://personal-library-manager.onrender.com/delete", {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(itemToDelete),
+    //         });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Entry was successfully deleted");
-                setEntryDeleted(!entryDeleted);
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                setPopup(!popup);
-                refetch();
+    //         if (response.ok) {
+    //             const result = await response.json();
+    //             console.log("Entry was successfully deleted");
+    //             setEntryDeleted(!entryDeleted);
+    //             await new Promise(resolve => setTimeout(resolve, 2000));
+    //             setPopup(!popup);
+    //             refetch();
 
-            } else {
-                console.error("Unable to delete entry", response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //         } else {
+    //             console.error("Unable to delete entry", response.statusText);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    const lendItem = async (e) => {
-        e.preventDefault();
-        const itemToLend = selectedCard;
-        const formData = new FormData(e.target);
-        formData.append("id", itemToLend);
-        const formDataObj = Object.fromEntries(formData.entries());
-        console.log(formDataObj);
+    // const lendItem = async (e) => {
+    //     e.preventDefault();
+    //     const itemToLend = selectedCard;
+    //     const formData = new FormData(e.target);
+    //     formData.append("id", itemToLend);
+    //     const formDataObj = Object.fromEntries(formData.entries());
+    //     console.log(formDataObj);
 
-        try {
-            const response = await fetch("https://personal-library-manager.onrender.com/lend", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formDataObj),
-            });
+    //     try {
+    //         const response = await fetch("https://personal-library-manager.onrender.com/lend", {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(formDataObj),
+    //         });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Entry was successfully updated");
-                setItemLent(!itemLent);
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                showLendPopup(!lendPopup);
-                refetch();
-            } else {
-                console.error("Unable to update entry", response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //         if (response.ok) {
+    //             const result = await response.json();
+    //             console.log("Entry was successfully updated");
+    //             setItemLent(!itemLent);
+    //             await new Promise(resolve => setTimeout(resolve, 2000));
+    //             showLendPopup(!lendPopup);
+    //             refetch();
+    //         } else {
+    //             console.error("Unable to update entry", response.statusText);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    const returnItem = async () => {
-        const itemToReturn = { id };
+    // const returnItem = async () => {
+    //     const itemToReturn = { id };
 
-        try {
-            const response = await fetch("https://personal-library-manager.onrender.com/return", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(itemToReturn)
-            });
+    //     try {
+    //         const response = await fetch("https://personal-library-manager.onrender.com/return", {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(itemToReturn)
+    //         });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Entry was successfully returned");
-                setItemReturned(!itemReturned);
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                showReturnPopup(!returnPopup);
-                refetch();
-            } else {
-                console.error("Unable to update entry", response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //         if (response.ok) {
+    //             const result = await response.json();
+    //             console.log("Entry was successfully returned");
+    //             setItemReturned(!itemReturned);
+    //             await new Promise(resolve => setTimeout(resolve, 2000));
+    //             showReturnPopup(!returnPopup);
+    //             refetch();
+    //         } else {
+    //             console.error("Unable to update entry", response.statusText);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     useEffect(() => {
         registerCardRef(id, containerRef.current);
     }, [id, registerCardRef]);
 
-    const showExpanded = () => {
-        console.log(isLent);
-        setExpanded(true);
-    }
+    // const showExpanded = () => {
+    //     console.log(isLent);
+    //     setExpanded(true);
+    // }
 
-    const collapseExpanded = () => {
-        setExpanded(false);
-    }
+    // const collapseExpanded = () => {
+    //     setExpanded(false);
+    // }
 
     return (
         <div className={`card-container ${isLent ? `container-lent` : ``} ${selectedCard === id ? `container-selected` : ``} ${expanded ? `container-expanded` : ``} `} ref={containerRef} onClick={cardSelect}>
