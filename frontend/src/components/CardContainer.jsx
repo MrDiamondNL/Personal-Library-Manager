@@ -3,9 +3,9 @@ import { useRef, useEffect, useContext, useState } from "react";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useNavigate } from "react-router-dom";
-import { LendToken } from "./lendToken";
+import { LendToken } from "./LendToken";
 
-export default function CardContainer({ title, description, author, isbn, coverImage, id, lentEmail, isLent, refetch }) {
+export default function CardContainer({ title, description, author, coverImage, id, lentEmail, isLent, refetch }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
 
 
