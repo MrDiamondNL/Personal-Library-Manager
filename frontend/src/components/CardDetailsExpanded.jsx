@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useParams } from "react-router-dom";
-import { LendToken } from "./lendToken";
+import { LendToken } from "./LendToken";
 import { Popup } from "./Modals/Popup";
 
 export default function CardDetailsExpanded() {
