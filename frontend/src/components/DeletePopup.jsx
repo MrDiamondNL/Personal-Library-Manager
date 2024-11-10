@@ -1,11 +1,13 @@
-import React from 'react'
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
-export const DeletePopup = () => {
+export const DeletePopup = ({ item, closePopup }) => {
+
+    const [entryDeleted, setEntryDeleted] = useState(false);
+    const navigate = useNavigate();
 
     const deleteItem = async () => {
-        const itemToDelete = { id };
-        console.log(id);
-        console.log(itemToDelete);
+        const itemToDelete = item._id;
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/delete", {
@@ -13,7 +15,7 @@ export const DeletePopup = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(itemToDelete),
+                body: JSON.stringify({ id: itemToDelete }),
             });
 
             if (response.ok) {
@@ -21,8 +23,7 @@ export const DeletePopup = () => {
                 console.log("Entry was successfully deleted");
                 setEntryDeleted(!entryDeleted);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                setPopup(!popup);
-                refetch();
+                navigate("/");
 
             } else {
                 console.error("Unable to delete entry", response.statusText);
@@ -39,7 +40,7 @@ export const DeletePopup = () => {
                     <h3>Delete Item</h3>
                     <p>This cannon be undone</p>
                     <div>
-                        <button onClick={showDeleteConfirm}>Cancel</button>
+                        <button onClick={closePopup}>Cancel</button>
                         <button className="delete_button" onClick={deleteItem}>Delete</button>
                     </div>
                 </>

@@ -1,10 +1,12 @@
-import React from 'react'
+import { useState } from 'react'
+//import { refetch } from "react-router-dom";
 
-export const LendPopup = () => {
+export const LendPopup = ({ item }) => {
+    const [itemLent, setItemLent] = useState(false);
 
     const lendItem = async (e) => {
         e.preventDefault();
-        const itemToLend = selectedCard;
+        const itemToLend = item._id;
         const formData = new FormData(e.target);
         formData.append("id", itemToLend);
         const formDataObj = Object.fromEntries(formData.entries());
@@ -24,8 +26,8 @@ export const LendPopup = () => {
                 console.log("Entry was successfully updated");
                 setItemLent(!itemLent);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                showLendPopup(!lendPopup);
-                refetch();
+                //showLendPopup(!lendPopup);
+                //refetch();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }

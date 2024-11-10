@@ -1,9 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 
-export const ReturnPopup = () => {
+export const ReturnPopup = ({ item }) => {
+    const [itemReturned, setItemReturned] = useState(false);
+    console.log(item);
 
     const returnItem = async () => {
-        const itemToReturn = { id };
+        const itemToReturn = item._id;
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/return", {
@@ -11,7 +13,7 @@ export const ReturnPopup = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(itemToReturn)
+                body: JSON.stringify({ id: itemToReturn })
             });
 
             if (response.ok) {
@@ -19,8 +21,7 @@ export const ReturnPopup = () => {
                 console.log("Entry was successfully returned");
                 setItemReturned(!itemReturned);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                showReturnPopup(!returnPopup);
-                refetch();
+                //refetch();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }
@@ -34,7 +35,7 @@ export const ReturnPopup = () => {
             {!itemReturned &&
                 <>
                     <h3>Return Item From</h3>
-                    <p>{lentEmail}</p>
+                    <p>{item.lentEmail}</p>
                     <button onClick={returnItem}>Confirm</button>
                 </>
             }
