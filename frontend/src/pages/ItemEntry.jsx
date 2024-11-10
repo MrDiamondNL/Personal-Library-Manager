@@ -1,6 +1,8 @@
 
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
+import { Popup } from "../components/Modals/Popup";
+import { useState } from "react";
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
@@ -45,7 +47,7 @@ export default function ItemEntry() {
                 <input type="text" id="author" name="author"></input>
                 <br />
                 <label htmlFor="isbn">ISBN</label>
-                <input type="number" id="isbn" name="isbn"></input>
+                <input type="text" id="isbn" name="isbn"></input>
                 <br />
                 <label htmlFor="description">Description</label>
                 <textarea id="description" name="description"></textarea>
