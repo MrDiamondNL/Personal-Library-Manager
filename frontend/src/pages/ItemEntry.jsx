@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function ItemEntry() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const [photoPopup, setPhotoPopUp] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +36,14 @@ export default function ItemEntry() {
         }
     }
 
+    const closePopup = () => {
+        setPhotoPopUp(false);
+    }
+
+    const openPhotoPopup = () => {
+        setPhotoPopUp(true);
+    }
+
     return (
         <div className="item_entry_container">
             <h3>New Item Entry</h3>
@@ -54,6 +63,14 @@ export default function ItemEntry() {
                 <br />
                 <label htmlFor="cover">Cover Image</label>
                 <input type="file" id="cover" name="cover"></input>
+                <p>--OR--</p>
+                <button onClick={openPhotoPopup}>Take Photo</button>
+                {photoPopup &&
+                    <Popup
+                        type="camera"
+                        closePopup={closePopup}
+                    />
+                }
                 <br />
                 <label htmlFor="category">Category</label>
                 <select name="category" id="category" required>

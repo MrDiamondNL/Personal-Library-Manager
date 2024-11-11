@@ -22,40 +22,40 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import CardDetailsExpanded from "./components/CardDetailsExpanded";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<PrivateRoute />}>
-        <Route element={<RootLayout />}>
-          <Route index element={<CardList />} />
-          <Route path="/books" element={<CardList bookType="Book" />} />
-          <Route path="/manuals" element={<CardList bookType="Manual" />} />
-          <Route path="/misc" element={<CardList bookType="Misc" />} />
-          <Route path="/item_entry" element={<ItemEntry />} />
-          <Route path="/search_page" element={<SearchPage />} />
-          <Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>
-          <Route path="/camera_search" element={<CameraSearch />} />
-          <Route path="/details/:id" element={<CardDetailsExpanded />} />
-        </Route>
-      </Route>
-      <Route path="/login" element={<Login />} />
-    </>
-  )
+	createRoutesFromElements(
+		<>
+			<Route path="/" element={<PrivateRoute />}>
+				<Route element={<RootLayout />}>
+					<Route index element={<CardList />} />
+					<Route path="/books" element={<CardList bookType="Book" />} />
+					<Route path="/manuals" element={<CardList bookType="Manual" />} />
+					<Route path="/misc" element={<CardList bookType="Misc" />} />
+					<Route path="/item_entry" element={<ItemEntry />} />
+					<Route path="/search_page" element={<SearchPage />} />
+					<Route path="/manual_isbn_search" element={<ManualISBNSearch />}></Route>
+					<Route path="/camera_search" element={<CameraSearch />} />
+					<Route path="/details/:id" element={<CardDetailsExpanded />} />
+				</Route>
+			</Route>
+			<Route path="/login" element={<Login />} />
+		</>
+	)
 )
 
 
 
 function App() {
 
-  const queryClient = new QueryClient();
+	const queryClient = new QueryClient();
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </QueryClientProvider>
+	return (
+		<QueryClientProvider client={queryClient}>
+			<AuthProvider>
+				<RouterProvider router={router} />
+			</AuthProvider>
+		</QueryClientProvider>
 
-  )
+	)
 }
 
 

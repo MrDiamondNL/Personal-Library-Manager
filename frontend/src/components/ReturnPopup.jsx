@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const ReturnPopup = ({ item }) => {
+export const ReturnPopup = ({ item, closePopup }) => {
     const [itemReturned, setItemReturned] = useState(false);
     console.log(item);
 
@@ -21,7 +21,7 @@ export const ReturnPopup = ({ item }) => {
                 console.log("Entry was successfully returned");
                 setItemReturned(!itemReturned);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                //refetch();
+                closePopup();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }

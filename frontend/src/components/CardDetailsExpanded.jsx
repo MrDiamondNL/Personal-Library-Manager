@@ -3,7 +3,7 @@ import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useParams } from "react-router-dom";
 import { LendToken } from "./LendToken";
 import { Popup } from "./Modals/Popup";
-import { IconPlus, IconTrash, IconCornerUpRight, IconCornerUpLeft } from '@tabler/icons-react';
+import { IconPlus, IconTrash, IconCornerUpRight, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 
 export default function CardDetailsExpanded() {
@@ -78,7 +78,7 @@ export default function CardDetailsExpanded() {
                     {item.isLent ? (
                         <button onClick={() => showPopup("return")}><IconCornerUpLeft stroke={2} />Return</button>
                     ) : (
-                        <button onClick={() => showPopup("lend")}><IconCornerUpRight stroke={2} />Lend</button>
+                        <button onClick={() => showPopup("lend")}><IconShare3 stroke={2} />Lend</button>
                     )}
                     <button onClick={() => showPopup("comment")}><IconPlus stroke={2} />Comment</button>
                     <button className="delete_button" onClick={() => showPopup("delete")}><IconTrash stroke={2} />Delete</button>

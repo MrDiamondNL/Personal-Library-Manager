@@ -1,7 +1,7 @@
 import { useState } from 'react'
 //import { refetch } from "react-router-dom";
 
-export const LendPopup = ({ item }) => {
+export const LendPopup = ({ item, closePopup }) => {
     const [itemLent, setItemLent] = useState(false);
 
     const lendItem = async (e) => {
@@ -26,8 +26,7 @@ export const LendPopup = ({ item }) => {
                 console.log("Entry was successfully updated");
                 setItemLent(!itemLent);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                //showLendPopup(!lendPopup);
-                //refetch();
+                closePopup();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }
