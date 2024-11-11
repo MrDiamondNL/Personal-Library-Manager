@@ -33,18 +33,18 @@ export default function CardContainer({ title, description, author, coverImage, 
 
 
     return (
-        <div className={`card-container ${selectedCard === id ? `container-selected` : ``} `} ref={containerRef} onClick={cardSelect}>
+        <div className={`card-container`} ref={containerRef} onClick={cardSelect}>
             <img src={coverImage ?? defaultBookImage}></img>
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
                 <div className="card-details_body_token-wrapper">
                     <h3>{author}</h3>
-                    {isLent ? (
-                        <LendToken lender={lentEmail} />
-                    ) : null}
                 </div>
-                <p>{description.substring(0, 40) + "..."}</p>
+                <p>{description.substring(0, 80)}{description.length > 80 ? "..." : ""}</p>
 
+                {isLent ? (
+                    <LendToken lender={lentEmail} />
+                ) : null}
             </div>
         </div>
     )

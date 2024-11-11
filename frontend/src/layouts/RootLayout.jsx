@@ -80,12 +80,12 @@ export default function RootLayout() {
                 <div className="menu_title_wrapper">
                     <div className="content_container">
                         <div className="menu_toggle" onClick={toggleOpen}><IconMenu2 stroke={1.75} /></div>
-                        <h2 className="library-title">Your Library</h2>
+
                         {openSearch ? (
                             <div className="search_bar">
                                 <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
                             </div>
-                        ) : null}
+                        ) : <h2 className="library-title">Your Library</h2>}
                         <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
                     </div>
 
@@ -113,6 +113,7 @@ export default function RootLayout() {
             </div>
 
             <div className="navigation__backdrop"></div>
+            {navOpen ? <div className="overlay"></div> : null}
 
             <main>
                 <div className="content_container">

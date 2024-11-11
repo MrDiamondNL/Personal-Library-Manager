@@ -12,7 +12,7 @@ export default function CardDetails({ title, description, author, isbn, coverIma
                     <h3>{author}</h3>
                     <p>ISBN: {isbn}</p>
                 </div>
-                <p>{description}</p>
+                <p>{description?.substring(0, 200)}</p>
             </div>
         </div>
     )

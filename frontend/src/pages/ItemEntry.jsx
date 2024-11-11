@@ -53,7 +53,7 @@ export default function ItemEntry() {
                 <textarea id="description" name="description"></textarea>
                 <br />
                 <label htmlFor="cover">Cover Image</label>
-                <input type="text" id="cover" name="cover"></input>
+                <input type="file" id="cover" name="cover"></input>
                 <br />
                 <label htmlFor="category">Category</label>
                 <select name="category" id="category" required>

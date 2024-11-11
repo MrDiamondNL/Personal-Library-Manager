@@ -4,41 +4,42 @@ import { useParams } from "react-router-dom";
 import { LendToken } from "./LendToken";
 import { Popup } from "./Modals/Popup";
 import { IconPlus, IconTrash, IconCornerUpRight, IconCornerUpLeft } from '@tabler/icons-react';
+import { useQuery } from "react-query";
 
 export default function CardDetailsExpanded() {
 
     const { id } = useParams();
-    const [item, setItem] = useState({});
-
+    const [expandedDescription, setExpandedDescription] = useState(false);
 
     const [modalType, setModalType] = useState(null);
 
-    useEffect(() => {
-        const findItem = async () => {
-            try {
-                const response = await fetch(`https://personal-library-manager.onrender.com/details/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    (setItem(result));
-                    console.log("item found successfully");
-                    console.log(result);
-                } else {
-                    console.log("item could not be found");
-                }
-            } catch (error) {
-                console.log(error);
+    const findItem = async () => {
+        try {
+            const response = await fetch(`https://personal-library-manager.onrender.com/details/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log(response);
+            if (response.ok) {
+                const result = await response.json();
+                console.log("item found successfully");
+                console.log(result);
+                return result;
+            } else {
+                console.log("item could not be found");
+                return null;
             }
+        } catch (error) {
+            console.log(error);
         }
+    }
 
-        findItem();
-
-    }, [id]);
+    const { data: item, refetch } = useQuery(
+        "item",
+        findItem,
+    )
 
     const showPopup = (type) => {
         setModalType(type);
@@ -46,6 +47,15 @@ export default function CardDetailsExpanded() {
 
     const closePopup = () => {
         setModalType(null);
+        refetch();
+    }
+
+    if (!item) return (
+        <div>Loading...</div>
+    );
+
+    const toggleDescription = () => {
+        setExpandedDescription(!expandedDescription);
     }
 
     return (
@@ -74,7 +84,21 @@ export default function CardDetailsExpanded() {
                     <button className="delete_button" onClick={() => showPopup("delete")}><IconTrash stroke={2} />Delete</button>
                 </div>
 
-                <p className="description-text">{item?.description?.substring(0, 200)}</p>
+                <p className="description-text">
+                    {!expandedDescription ? (
+                        <>
+                            {item?.description?.substring(0, 200)}{item?.description?.length > 200 ? "..." : ""}
+                        </>
+                    )
+                        : item?.description
+                    }
+
+                </p>
+                {item?.description?.length > 200 && (
+                    <button className="description-button" onClick={toggleDescription}>
+                        {expandedDescription ? 'Show Less' : 'Show More'}
+                    </button>
+                )}
             </div>
 
             {modalType && (
