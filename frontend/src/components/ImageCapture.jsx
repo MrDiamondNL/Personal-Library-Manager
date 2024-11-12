@@ -56,19 +56,35 @@ export const ImageCapture = () => {
         URL.revokeObjectURL(url);
     }
 
+    const clearPhoto = () => {
+        setHasPhoto(false);
+        setCapturedImage(null);
+
+        const photo = photoRef.current;
+        const ctx = photo.getContext("2d");
+        ctx.clearRect(0, 0, photo.width, photo.height);
+    }
+
     useEffect(() => {
         getVideo();
     }, [videoRef]);
 
     return (
         <>
-            <div className="camera">
-                <video ref={videoRef}></video>
-                <button onClick={takePhoto}>Capture</button>
-            </div>
+            {!hasPhoto &&
+                <div className="camera">
+                    <video ref={videoRef}></video>
+                    <button onClick={takePhoto}>Capture</button>
+                </div>
+            }
             <div className={"result" + (hasPhoto ? "hasPhoto" : "")}>
                 <canvas ref={photoRef}></canvas>
-                {hasPhoto && <button onClick={savePhoto}>Save</button>}
+                {hasPhoto &&
+                    <>
+                        <button onClick={savePhoto}>Save</button>
+                        <button onClick={clearPhoto}>Clear</button>
+                    </>
+                }
             </div>
         </>
 
