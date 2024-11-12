@@ -12,7 +12,7 @@ export const ImageCapture = () => {
                 video: {
                     width: 480,
                     height: 640,
-                    facingMode: "user",
+                    facingMode: "environment",
                     frameRate: { ideal: 24 }
                 }
             }).then(stream => {
