@@ -63,6 +63,8 @@ export const ImageCapture = () => {
         const photo = photoRef.current;
         const ctx = photo.getContext("2d");
         ctx.clearRect(0, 0, photo.width, photo.height);
+
+        getVideo();
     }
 
     useEffect(() => {
