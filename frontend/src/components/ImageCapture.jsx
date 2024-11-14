@@ -10,8 +10,8 @@ export const ImageCapture = () => {
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
-                    width: 480,
-                    height: 640,
+                    width: 240,
+                    height: 320,
                     facingMode: "environment",
                     frameRate: { ideal: 24 }
                 }
@@ -25,8 +25,11 @@ export const ImageCapture = () => {
     }
 
     const takePhoto = () => {
-        const width = 480;
-        const height = 640;
+
+        const width = 240;
+        const height = 320;
+
+        setHasPhoto(true);
 
         let video = videoRef.current;
         let photo = photoRef.current;
@@ -36,7 +39,7 @@ export const ImageCapture = () => {
 
         let ctx = photo.getContext("2d");
         ctx.drawImage(video, 0, 0, width, height);
-        setHasPhoto(true);
+
 
         photo.toBlob((blob) => {
             const imageFile = new File([blob], "captured-image.jpg", { type: "image/jpeg" });

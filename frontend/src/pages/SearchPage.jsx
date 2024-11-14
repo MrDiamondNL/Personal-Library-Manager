@@ -1,9 +1,11 @@
 import { useLocation } from "react-router-dom"
 import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query"
+import { useAuth } from "../contexts/AuthContext";
 
 export default function SearchPage() {
-    let selectedDb = "library"
+    const { currentUser } = useAuth();
+
     const location = useLocation();
     const { query } = location.state || { query: "" };
 
@@ -33,7 +35,9 @@ export default function SearchPage() {
         return 0;
     });
 
-    const searchedData = data.filter((book) =>
+    const userBooks = data.filter(book => book.user === currentUser.uid);
+
+    const searchedData = userBooks.filter((book) =>
         book.title.toLowerCase().includes(query.toLowerCase()) ||
         book.author.toLowerCase().includes(query.toLowerCase())
     );

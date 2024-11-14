@@ -7,9 +7,11 @@ import defaultBookImage from "../imgs/stock cover image.jpg";
 
 
 export default function ManualISBNSearch() {
+    const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+    console.log(import.meta.env.VITE_GOOGLE_API_KEY);
     const [isbn, setIsbn] = useState("");
     const [book, setBook] = useState(null);
-    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${GOOGLE_API_KEY}`;
     const { currentUser } = useAuth();
     const [saved, setSaved] = useState(false);
     const navigate = useNavigate();
@@ -107,7 +109,7 @@ export default function ManualISBNSearch() {
 
     return (
         <>
-            <div className="manual_isbn_entry_container">
+            <div className="manual_isbn_entry_container search-wrapper">
                 <h3>Search By ISBN</h3>
                 <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)}></input>
                 <button onClick={searchForBook} onKeyDown={handleKeyDown}>Search</button>

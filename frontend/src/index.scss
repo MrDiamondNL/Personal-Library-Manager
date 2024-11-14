@@ -12,14 +12,19 @@ body {
 }
 
 #root {
-  //padding: 32px 10px;
-  //padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .root-layout {
   // display: flex; 
   position: relative;
   padding-bottom: 50px;
+}
+
+.loading-container {
+  max-width: 50px;
+  max-height: 50px;
 }
 
 header {  
@@ -193,6 +198,21 @@ main {
   gap: 20px;
   background-color: white;
   width: 100%;
+}
+
+.search-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+
+  h3 {
+    margin: 10px 0;
+  }
+
+  input {
+    padding: 10px 0;
+    margin-bottom: 10px;
+  }
 }
 
 .card-container {
@@ -549,13 +569,14 @@ button {
   width: max-content;
 }
 
-/* Rectangle 5 */
+.result {
+  display: none;
 
-// position: absolute;
-// width: 92px;
-// height: 28px;
-// left: 42px;
-// top: 554px;
+  &.hasPhoto {
+    display: block;
+  }
+}
 
-// background: #007AFF;
-// border-radius: 5px;
+// .result .hasPhoto {
+//   display: block;
+// }
