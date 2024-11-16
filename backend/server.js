@@ -119,6 +119,29 @@ app.put("/return", async (req, res) => {
     }
 });
 
+app.put("/comment", async (req, res) => {
+    try {
+        commentItemID = new mongoose.Types.ObjectId(req.body.id);
+        itemComment = req.body.comment;
+        console.log(`Attempting to add comment to Item with ID: ${commentItemID}`);
+
+        const result = await Item.findByIdAndUpdate(
+            commentItemID, {
+                text: comment
+            });
+
+        if (result) {
+            console.log("Item successfully updated", result);
+            res.status(200).json({ message: "Entry was successfully deleted" });
+        } else {
+            res.status(404).json({ message: "Item not found" });
+        }
+    } catch (error) {
+        console.error("Error commenting Item: ", error);
+        res.status(500).json({message: "Item not commented"});
+    }
+})
+
 app.delete("/delete", async (req, res) => {
     try {
         let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
