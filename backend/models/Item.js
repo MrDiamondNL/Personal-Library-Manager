@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const commentSchema = new Schema ({
+    text: {
+        type: String
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+})
+
 const itemSchema = new Schema({
     title: {
         type: String,
@@ -36,10 +46,7 @@ const itemSchema = new Schema({
         type: String,
         default: null
     },
-    comments: {
-        type: Array,
-        default: []
-    }
+    comments: [commentsSchema]
 });
 
 const Item = mongoose.model("Item", itemSchema);
