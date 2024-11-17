@@ -4,7 +4,7 @@ export const CommentPopup = ({ item, closePopup }) => {
     const [commentAdded, setCommentAdded] = useState(false);
 
     const submitComment = async (e) => {
-        e.preventdefault();
+        e.preventDefault();
         const itemToComment = item._id;
         const formData = new FormData(e.target);
         formData.append("id", itemToComment);
