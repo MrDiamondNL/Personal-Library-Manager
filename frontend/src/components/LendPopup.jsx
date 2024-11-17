@@ -1,5 +1,4 @@
 import { useState } from 'react'
-//import { refetch } from "react-router-dom";
 
 export const LendPopup = ({ item, closePopup }) => {
     const [itemLent, setItemLent] = useState(false);

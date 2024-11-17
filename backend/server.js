@@ -125,10 +125,16 @@ app.put("/comment", async (req, res) => {
         itemComment = req.body.comment;
         console.log(`Attempting to add comment to Item with ID: ${commentItemID}`);
 
+        const newComment = {
+            text: itemComment,
+            date: Date.now(),
+        };
+
         const result = await Item.findByIdAndUpdate(
-            commentItemID, {
-                text: comment
-            });
+            commentItemID,
+            { $push: { comments: newComment } }, 
+            { new: true }
+        );
 
         if (result) {
             console.log("Item successfully updated", result);
@@ -140,7 +146,7 @@ app.put("/comment", async (req, res) => {
         console.error("Error commenting Item: ", error);
         res.status(500).json({message: "Item not commented"});
     }
-})
+});
 
 app.delete("/delete", async (req, res) => {
     try {

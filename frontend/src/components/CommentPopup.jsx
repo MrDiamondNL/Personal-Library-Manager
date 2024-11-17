@@ -4,6 +4,7 @@ export const CommentPopup = ({ item, closePopup }) => {
     const [commentAdded, setCommentAdded] = useState(false);
 
     const submitComment = async (e) => {
+        e.preventdefault();
         const itemToComment = item._id;
         const formData = new FormData(e.target);
         formData.append("id", itemToComment);
@@ -24,7 +25,7 @@ export const CommentPopup = ({ item, closePopup }) => {
                 console.log("Entry was successfully updated");
                 setCommentAdded(true);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                closePopup();
+                //closePopup();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }
@@ -38,7 +39,7 @@ export const CommentPopup = ({ item, closePopup }) => {
         <div>
             {!commentAdded && (
                 <>
-                    <h3>Enter Comment&apos;s Email</h3>
+                    <h3>Enter Comment</h3>
                     <form onSubmit={submitComment}>
                         <label htmlFor="comment">Comment: </label>
                         <input type="text" id="comment" name="comment" required></input>
