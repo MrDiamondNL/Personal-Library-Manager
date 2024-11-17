@@ -281,6 +281,16 @@ main {
   position: fixed;
 }
 
+input, textarea {
+  border: 3px solid #D3D3D3;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+textarea {
+  padding: 20px;
+}
+
 .overlay {
   background: rgba(49,49,49,0.8);
 }
@@ -297,6 +307,18 @@ main {
   max-width: 600px;
   min-width: 300px;
   z-index: 3;
+
+  h3 {
+    margin: 10px 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    
+  }
 }
 
 // .card-container__info {
@@ -494,6 +516,25 @@ header nav a {
 
   p.description-text {
     font-size: 14px;
+    margin-bottom: 0px;
+  }
+
+  h4 {
+    margin: 10px 0;
+  }
+
+  .comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    p {
+      margin: 0;
+    }
+
+    p.comment-date {
+      font-size: 12px;
+    }
   }
 }
 
@@ -575,6 +616,16 @@ button {
   &.hasPhoto {
     display: block;
   }
+}
+
+.description-button {
+  font-size: 12px;
+  background: none;
+  color: #0A68FF;
+  width: max-content;
+  border: none;
+  padding: 0;
+  margin-top: -5px;
 }
 
 // .result .hasPhoto {

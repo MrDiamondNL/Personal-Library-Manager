@@ -38,9 +38,9 @@ export const LendPopup = ({ item, closePopup }) => {
         <div>
             {!itemLent && (
                 <>
-                    <h3>Enter Lender&apos;s Email</h3>
+                    <h3>Enter Recipient</h3>
                     <form onSubmit={lendItem}>
-                        <label htmlFor="email">Email: </label>
+                        <label htmlFor="email">Contact: </label>
                         <input type="text" id="email" name="email" required></input>
                         <button>Submit</button>
                     </form>

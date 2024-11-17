@@ -111,8 +111,8 @@ export default function ManualISBNSearch() {
         <>
             <div className="manual_isbn_entry_container search-wrapper">
                 <h3>Search By ISBN</h3>
-                <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)}></input>
-                <button onClick={searchForBook} onKeyDown={handleKeyDown}>Search</button>
+                <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <button onClick={searchForBook} >Search</button>
             </div>
 
             {book !== null ? (

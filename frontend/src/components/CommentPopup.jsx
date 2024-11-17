@@ -26,7 +26,7 @@ export const CommentPopup = ({ item, closePopup }) => {
                 console.log("Entry was successfully updated");
                 setCommentAdded(true);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                //closePopup();
+                closePopup();
             } else {
                 console.error("Unable to update entry", response.statusText);
             }
