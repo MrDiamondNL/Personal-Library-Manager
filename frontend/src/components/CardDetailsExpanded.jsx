@@ -21,11 +21,9 @@ export default function CardDetailsExpanded() {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(response);
+            //console.log(response);
             if (response.ok) {
                 const result = await response.json();
-                console.log("item found successfully");
-                console.log(result);
                 return result;
             } else {
                 console.log("item could not be found");

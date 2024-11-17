@@ -11,6 +11,7 @@ export const CommentPopup = ({ item, closePopup }) => {
         const formDataObj = Object.fromEntries(formData.entries());
         console.log(formDataObj);
 
+
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/comment", {
                 method: "PUT",
