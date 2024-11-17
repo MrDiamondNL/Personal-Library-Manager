@@ -132,7 +132,14 @@ app.put("/comment", async (req, res) => {
 
         const result = await Item.findByIdAndUpdate(
             commentItemID,
-            { $push: { comments: newComment } }, 
+            {
+                $push: {
+                    comments: {
+                        $each: [newComment], 
+                        $slice: -3 
+                    }
+                }
+            },
             { new: true }
         );
 
