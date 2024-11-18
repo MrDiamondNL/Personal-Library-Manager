@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useParams } from "react-router-dom";
 import { LendToken } from "./LendToken";
 import { Popup } from "./Modals/Popup";
-import { IconPlus, IconTrash, IconCornerUpRight, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
+import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 
 export default function CardDetailsExpanded() {
@@ -103,7 +103,7 @@ export default function CardDetailsExpanded() {
                     {item.comments.length === 0 ? (
                         <p>No Comments Added</p>
                     ) : (
-                        item.comments.map((comment, index) => (
+                        item.comments.toReversed().map((comment, index) => (
                             <div key={index} className="comment-entry">
                                 <p className="comment-date">{new Date(comment.date).toLocaleDateString("en-US", {
                                     year: "numeric",

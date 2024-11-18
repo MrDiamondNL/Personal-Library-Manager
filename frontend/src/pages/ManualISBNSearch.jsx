@@ -44,101 +44,86 @@ export default function ManualISBNSearch() {
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-            e.preventDefault(); // Prevents form submission if within a form
-            searchForBook(); // Calls search function
-        }
-    };
+            e.preventDefault();
+            searchForBook();
+        };
 
-    const submitData = async () => {
-        const dataToSubmit = book;
-        setIsSubmitting(true);
+        const submitData = async () => {
+            const dataToSubmit = book;
+            setIsSubmitting(true);
 
-        try {
-            const response = await fetch("https://personal-library-manager.onrender.com/library", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dataToSubmit),
-            });
-
-            if (response.ok) {
-                // Clone the response to handle both JSON and plain text
-                const responseClone = response.clone();
-
-                // Attempt to parse as JSON
-                responseClone.json().then(result => {
-                    console.log("Book was saved to Library", result);
-                }).catch(async () => {
-                    // Fallback to text if JSON parsing fails
-                    const text = await response.text();
-                    console.log("Book was saved to Library", text);
+            try {
+                const response = await fetch("https://personal-library-manager.onrender.com/library", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(dataToSubmit),
                 });
 
-                setSaved(true);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            } else {
-                console.error("Unable to save to library", response.statusText);
-                setIsSubmitting(false);
+                if (response.ok) {
+
+                    const responseClone = response.clone();
+
+                    responseClone.json().then(result => {
+                        console.log("Book was saved to Library", result);
+                    }).catch(async () => {
+                        const text = await response.text();
+                        console.log("Book was saved to Library", text);
+                    });
+
+                    setSaved(true);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    console.error("Unable to save to library", response.statusText);
+                    setIsSubmitting(false);
+                }
+
+
+            } catch (error) {
+                console.log(error);
             }
 
-            // if (response.ok) {
-            //     const result = await response.json();
-            //     console.log("Book was saved to Library");
-            //     setSaved(true);
-            //     await new Promise(resolve => setTimeout(resolve, 1500));
-            //     window.location.reload();
-            //     // setTimeout(() => {
-            //     //     window.location.reload();
-            //     // }, 1500);
-            //     // await new Promise(resolve => setTimeout(resolve, 2000));
-            //     // navigate("/");
-            // } else {
-            //     console.error("Unable to save to library", response.statusText);
-            //     console.log(book);
-            // }
-        } catch (error) {
-            console.log(error);
         }
 
+
+
+        return (
+            <>
+                <div className="manual_isbn_entry_container search-wrapper">
+                    <h3>Search By ISBN</h3>
+                    <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)} onKeyDown={handleKeyDown}></input>
+                    <button onClick={searchForBook} >Search</button>
+                </div>
+
+                <p>Search Divider Placeholder text</p>
+
+                {book !== null ? (
+                    <>
+                        <CardDetails
+                            {...book}
+                            bookImage={book.coverImage}
+                            description={book.description}
+                        />
+                        <br />
+                        {saved ? (
+                            <p>Saved to Library</p>
+                        ) : (
+                            <button
+                                onClick={submitData}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Saving..." : "Save to Library?"}
+                            </button>
+                        )}
+                    </>
+                ) : (
+                    <div id="reader"></div>
+                )}
+
+            </>
+
+        );
     }
-
-
-
-    return (
-        <>
-            <div className="manual_isbn_entry_container search-wrapper">
-                <h3>Search By ISBN</h3>
-                <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)} onKeyDown={handleKeyDown}></input>
-                <button onClick={searchForBook} >Search</button>
-            </div>
-
-            {book !== null ? (
-                <>
-                    <CardDetails
-                        {...book}
-                        bookImage={book.coverImage}
-                        description={book.description}
-                    />
-                    <br />
-                    {saved ? (
-                        <p>Saved to Library</p>
-                    ) : (
-                        <button
-                            onClick={submitData}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Saving..." : "Save to Library?"}
-                        </button>
-                    )}
-                </>
-            ) : (
-                <div id="reader"></div>
-            )}
-
-        </>
-
-    );
-}

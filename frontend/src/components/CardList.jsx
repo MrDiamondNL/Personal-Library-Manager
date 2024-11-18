@@ -31,8 +31,7 @@ export default function CardList({ bookType }) {
         }
         return 0;
     });
-    console.log(data);
-    console.log(bookType);
+
     const userBooks = data.filter(book =>
         book.user === currentUser.uid &&
         (!bookType || book.category === bookType)
