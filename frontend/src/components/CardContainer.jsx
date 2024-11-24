@@ -5,7 +5,7 @@ import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useNavigate } from "react-router-dom";
 import { LendToken } from "./LendToken";
 
-export default function CardContainer({ title, description, author, coverImage, id, lentEmail, isLent, refetch }) {
+export default function CardContainer({ title, description, author, coverImage, id, lentEmail, isLent }) {
     //let defaultBookImage = "../../imgs/stock cover image.jpg"
 
 

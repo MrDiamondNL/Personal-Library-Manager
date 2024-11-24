@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
-import { IconFilePlus, IconMenu2, IconSearch } from '@tabler/icons-react';
+import { IconFilePlus, IconMenu2, IconSearch, IconBooks } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -85,7 +85,7 @@ export default function RootLayout() {
                             <div className="search_bar">
                                 <input type="text" id="searchString" name="searchString" onChange={handleChange} placeholder="Search library..."></input>
                             </div>
-                        ) : <h2 className="library-title">Your Library</h2>}
+                        ) : <h2 className="library-title"><IconBooks stroke={1.5} /> Bibliotecha</h2>}
                         <div className="search_bar_toggle" onClick={toggleSearch}><IconSearch stroke={1.5} /></div>
                     </div>
 
@@ -104,10 +104,10 @@ export default function RootLayout() {
 
             <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
-                    <NavLink to="/">All</NavLink>
-                    <NavLink to="/books">Books</NavLink>
-                    <NavLink to="/manuals">Manuals</NavLink>
-                    <NavLink to="/misc">Misc</NavLink>
+                    <NavLink to="item_entry">Add Manually</NavLink>
+                    <NavLink to="/camera_search">Add by Barcode</NavLink>
+                    <NavLink to="/manual_isbn_search">Search By ISBN</NavLink>
+                    <NavLink to="/title_search" onClick={handleClickOutsideNav}>Title Search</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>
