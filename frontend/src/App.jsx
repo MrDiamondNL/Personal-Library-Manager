@@ -5,13 +5,11 @@ import { QueryClient, QueryClientProvider } from "react-query"
 //Layouts
 import RootLayout from "./layouts/RootLayout"
 
+
 //Pages
 
-// import All from "./pages/All";
 import CardList from "./components/CardList";
-// import Books from "./pages/Books";
-// import Manuals from "./pages/Manuals";
-// import Misc from "./pages/Misc";
+
 import ItemEntry from "./pages/ItemEntry";
 import SearchPage from "./pages/SearchPage";
 import ManualISBNSearch from "./pages/ManualISBNSearch";
@@ -21,6 +19,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { TitleSearch } from "./pages/TitleSearch";
 import CardDetailsExpanded from "./components/CardDetailsExpanded";
+import { ResetPassword } from "./pages/ResetPassword";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -40,6 +39,7 @@ const router = createBrowserRouter(
 				</Route>
 			</Route>
 			<Route path="/login" element={<Login />} />
+			<Route path="/reset_password" element={<ResetPassword />} />
 		</>
 	)
 )

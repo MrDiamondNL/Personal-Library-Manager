@@ -44,7 +44,7 @@ export const CommentPopup = ({ item, closePopup }) => {
                     <h3>Enter Comment</h3>
                     <form onSubmit={submitComment}>
                         <label htmlFor="comment">Comment: </label>
-                        <input type="text" id="comment" name="comment" required></input>
+                        <input type="textarea" className="comment-textarea" id="comment" name="comment" required></input>
                         <button>Submit</button>
                     </form>
                 </>

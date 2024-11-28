@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import { LendPopup } from "../LendPopup";
 import { ReturnPopup } from "../ReturnPopup";
 import { DeletePopup } from "../DeletePopup";
 import { CommentPopup } from "../CommentPopup";
 import { ImageCapture } from "../ImageCapture";
+import { SavedPopup } from "../SavedPopup";
 
 export const Popup = ({ type, item, closePopup }) => {
 
@@ -15,6 +17,7 @@ export const Popup = ({ type, item, closePopup }) => {
                 {type === "delete" && <DeletePopup item={item} closePopup={closePopup} />}
                 {type === "comment" && <CommentPopup item={item} closePopup={closePopup} />}
                 {type === "camera" && <ImageCapture closePopup={closePopup} />}
+                {type === "saved" && <SavedPopup closePopup={closePopup} />}
             </div>
         </div>
     )

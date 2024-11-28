@@ -39,7 +39,7 @@ export const DeletePopup = ({ item, closePopup }) => {
                 <>
                     <h3>Delete Item</h3>
                     <p>This cannon be undone</p>
-                    <div>
+                    <div className="delete-popup-buttons">
                         <button onClick={closePopup}>Cancel</button>
                         <button className="delete_button" onClick={deleteItem}>Delete</button>
                     </div>

@@ -33,27 +33,14 @@ export default function SignIn() {
 
     }
 
-    // useEffect(() => {
-    //     const checkRedirectResult = async () => {
-    //         try {
-    //             const result = await getRedirectResult(auth);
-    //             if (result) {
-    //                 navigate("/");
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
 
-    //     checkRedirectResult();
-    // }, [navigate]);
 
     return (
         <div className="sign-in-container">
             <form onSubmit={emailSignIn} id="sign-in-form">
 
                 <div className="detail_entry_container">
-                    <h2>Sign In</h2>
+                    <h2>Log In</h2>
                     <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                     <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                     <button type="submit">Sign In</button>

@@ -38,7 +38,7 @@ export default function CardContainer({ title, description, author, coverImage, 
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
                 <div className="card-details_body_token-wrapper">
-                    <h3>{author}</h3>
+                    <h3 className="card-author">{author}</h3>
                 </div>
                 <p>{description.substring(0, 80)}{description.length > 80 ? "..." : ""}</p>
 

@@ -66,7 +66,7 @@ export default function CardDetailsExpanded() {
             <div className="card-details_body">
                 <h2>{item.title}</h2>
                 <div className="card-details_body_token-wrapper">
-                    <h3>{item.author}</h3>
+                    <h3 className="card-author">{item.author}</h3>
                     {item.isLent ? (
                         <LendToken lender={item.lentEmail} />
                     ) : null}

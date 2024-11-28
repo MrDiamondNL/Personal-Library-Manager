@@ -1,7 +1,10 @@
 import { useState } from "react";
 import CardDetails from "../components/CardDetails"
 import { useAuth } from "../contexts/AuthContext";
+import { SaveButton } from "../components/SaveButton";
 import defaultBookImage from "../imgs/stock cover image.jpg";
+import { Popup } from "../components/Modals/Popup";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ManualISBNSearch() {
@@ -11,7 +14,8 @@ export default function ManualISBNSearch() {
     const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${GOOGLE_API_KEY}`;
     const { currentUser } = useAuth();
     const [saved, setSaved] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
+    //const [isSubmitting, setIsSubmitting] = useState(false);
 
     const searchForBook = async () => {
         try {
@@ -38,6 +42,12 @@ export default function ManualISBNSearch() {
         }
     }
 
+    const closePopup = async () => {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setSaved(false);
+        navigate("/");
+    }
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -45,45 +55,45 @@ export default function ManualISBNSearch() {
         }
     }
 
-    const submitData = async () => {
-        const dataToSubmit = book;
-        setIsSubmitting(true);
+    // const submitData = async () => {
+    //     const dataToSubmit = book;
+    //     setIsSubmitting(true);
 
-        try {
-            const response = await fetch("https://personal-library-manager.onrender.com/library", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dataToSubmit),
-            });
+    //     try {
+    //         const response = await fetch("https://personal-library-manager.onrender.com/library", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(dataToSubmit),
+    //         });
 
-            if (response.ok) {
+    //         if (response.ok) {
 
-                const responseClone = response.clone();
+    //             const responseClone = response.clone();
 
-                responseClone.json().then(result => {
-                    console.log("Book was saved to Library", result);
-                }).catch(async () => {
-                    const text = await response.text();
-                    console.log("Book was saved to Library", text);
-                });
+    //             responseClone.json().then(result => {
+    //                 console.log("Book was saved to Library", result);
+    //             }).catch(async () => {
+    //                 const text = await response.text();
+    //                 console.log("Book was saved to Library", text);
+    //             });
 
-                setSaved(true);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            } else {
-                console.error("Unable to save to library", response.statusText);
-                setIsSubmitting(false);
-            }
+    //             setSaved(true);
+    //             setTimeout(() => {
+    //                 window.location.reload();
+    //             }, 1500);
+    //         } else {
+    //             console.error("Unable to save to library", response.statusText);
+    //             setIsSubmitting(false);
+    //         }
 
 
-        } catch (error) {
-            console.log(error);
-        }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
 
-    }
+    // }
 
 
 
@@ -106,15 +116,16 @@ export default function ManualISBNSearch() {
                         description={book.description}
                     />
                     <br />
-                    {saved ? (
-                        <p>Saved to Library</p>
-                    ) : (
-                        <button
-                            onClick={submitData}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Saving..." : "Save to Library?"}
-                        </button>
+                    <SaveButton
+                        title={book.title}
+                        description={book.description}
+                        author={book.authors}
+                        coverImage={book.coverImage}
+                        isbn={book.isbn}
+                        trigger={setSaved}
+                    />
+                    {saved && (
+                        <Popup type={"saved"} closePopup={closePopup} />
                     )}
                 </>
             ) : (

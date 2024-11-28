@@ -108,6 +108,7 @@ export default function RootLayout() {
                     <NavLink to="/camera_search">Add by Barcode</NavLink>
                     <NavLink to="/manual_isbn_search">Search By ISBN</NavLink>
                     <NavLink to="/title_search" onClick={handleClickOutsideNav}>Title Search</NavLink>
+                    <NavLink to="/reset_password">Reset Password</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>

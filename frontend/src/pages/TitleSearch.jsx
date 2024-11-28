@@ -3,6 +3,9 @@ import { SearchedEntry } from "../components/SearchedEntry";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { CardSelectedContext } from "../contexts/CardSelectedContext";
 import CardDetails from "../components/CardDetails";
+import { SaveButton } from "../components/SaveButton";
+import { Popup } from "../components/Modals/Popup";
+import { useNavigate } from "react-router-dom";
 
 
 export const TitleSearch = () => {
@@ -12,6 +15,8 @@ export const TitleSearch = () => {
     const [filteredResults, setFilteredResults] = useState([]);
     const [titleSelected, setTitleSelected] = useState();
     const [hasSearched, setHasSearched] = useState(false);
+    const [saved, setSaved] = useState(false);
+    const navigate = useNavigate();
 
     const containerRef = useRef(null);
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
@@ -60,6 +65,12 @@ export const TitleSearch = () => {
 
     }
 
+    const closePopup = async () => {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setSaved(false);
+        navigate("/");
+    }
+
     useEffect(() => {
         registerCardRef(selectedCard, containerRef.current);
     }, [selectedCard, registerCardRef]);
@@ -79,31 +90,49 @@ export const TitleSearch = () => {
             ) : (
                 <>
                     {!titleSelected && (
-                        <div className="results">
-                            {filteredResults.length > 0 ? (
-                                filteredResults.map((item) => (
-                                    <SearchedEntry
-                                        key={item.id}
-                                        id={item.id}
-                                        title={item.volumeInfo.title}
-                                        authors={item.volumeInfo.authors || "Unknown Author"}
-                                        description={item.volumeInfo.description || "No Description Available"}
-                                        coverImage={item.volumeInfo.imageLinks?.thumbnail}
-                                    />
-                                ))
-                            ) : hasSearched && (
-                                <p>No results found. Try a different title.</p>
+                        <>
+                            {hasSearched && (
+                                <h4>Results</h4>
                             )}
-                        </div>
+                            <div className="results">
+                                {filteredResults.length > 0 ? (
+                                    filteredResults.map((item) => (
+                                        <SearchedEntry
+                                            key={item.id}
+                                            id={item.id}
+                                            title={item.volumeInfo.title}
+                                            authors={item.volumeInfo.authors || "Unknown Author"}
+                                            description={item.volumeInfo.description || "No Description Available"}
+                                            coverImage={item.volumeInfo.imageLinks?.thumbnail}
+                                        />
+                                    ))
+                                ) : hasSearched && (
+                                    <p>No results found. Try a different title.</p>
+                                )}
+                            </div>
+                        </>
                     )}
                     {titleSelected && (
-                        <CardDetails
-                            title={titleSelected.volumeInfo.title}
-                            description={titleSelected.volumeInfo.description}
-                            author={titleSelected.volumeInfo.authors[0]}
-                            coverImage={titleSelected.volumeInfo.imageLinks.thumbnail}
-                            isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier}
-                        />
+                        <>
+                            <CardDetails
+                                title={titleSelected.volumeInfo.title}
+                                description={titleSelected.volumeInfo.description}
+                                author={titleSelected.volumeInfo.authors[0]}
+                                coverImage={titleSelected.volumeInfo.imageLinks.thumbnail}
+                                isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier}
+                            />
+                            <SaveButton
+                                title={titleSelected.volumeInfo.title}
+                                description={titleSelected.volumeInfo.description}
+                                author={titleSelected.volumeInfo.authors[0]}
+                                coverImage={titleSelected.volumeInfo.imageLinks.thumbnail}
+                                isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier}
+                                trigger={setSaved}
+                            />
+                            {saved && (
+                                <Popup type={"saved"} closePopup={closePopup} />
+                            )}
+                        </>
                     )}
                 </>
             )}

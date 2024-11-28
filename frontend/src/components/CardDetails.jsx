@@ -9,7 +9,7 @@ export default function CardDetails({ title, description, author, isbn, coverIma
             <div className="card-details_body">
                 <div className="card-details_header-sidebar">
                     <h2>{title}</h2>
-                    <h3>{author}</h3>
+                    <h3 className="card-author">{author}</h3>
                     <p>ISBN: {isbn}</p>
                 </div>
                 <p>{description?.substring(0, 200)}</p>

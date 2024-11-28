@@ -20,9 +20,9 @@ export const SearchedEntry = ({ id, title, author, description, coverImage }) =>
     <div className={`card-container`} ref={containerRef} onClick={cardSelected}>
       <img src={coverImage ?? defaultBookImage}></img>
       <div className="card-container__info">
-        <h3 className="title">{title}</h3>
+        <h3 className="title">{title?.substring(0, 100)}{title?.length > 100 ? "..." : ""}</h3>
         <div className="card-details_body_token-wrapper">
-          <h3>{author}</h3>
+          <h3 className="card-author">{author}</h3>
         </div>
         <p>{description?.substring(0, 80)}{description?.length > 80 ? "..." : ""}</p>
       </div>

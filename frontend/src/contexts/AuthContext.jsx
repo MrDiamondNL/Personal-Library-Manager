@@ -1,13 +1,12 @@
 import { useContext, useState, createContext, useEffect } from 'react';
 import { auth } from "../firebase"
 import {
-    signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
-    signInWithRedirect,
     signOut,
     onAuthStateChanged,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail
 } from "firebase/auth";
 
 // eslint-disable-next-line no-undef
@@ -39,6 +38,14 @@ export function AuthProvider({ children }) {
         return signOut(auth);
     }
 
+    const forgotPassword = async (email) => {
+        try {
+            await sendPasswordResetEmail(auth, email);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
@@ -54,7 +61,8 @@ export function AuthProvider({ children }) {
         googleSignIn,
         emailSignUp,
         loading,
-        logOut
+        logOut,
+        forgotPassword
     }
 
     return (
