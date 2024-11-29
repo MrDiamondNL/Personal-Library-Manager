@@ -18,9 +18,7 @@ a:hover {
 html, body {
   margin: 0;
 }
-body {
-  //background-color: #5697FF;
-}
+
 
 #root {
   display: flex;
@@ -28,7 +26,6 @@ body {
 }
 
 .root-layout {
-  // display: flex; 
   position: relative;
   padding-bottom: 50px;
 }
@@ -52,34 +49,12 @@ header {
   z-index: 2;
 
   nav {
-    // padding-top: 10px;
     margin-bottom: 20px;
     background: white;
     border-bottom: 1px solid black;
   }
 }
 
-// .navigation .active {
-//   position: fixed;
-//   background-color: white;
-//   top: 0;
-//   left: 0;
-//   height: 100vh;
-//   width: 60vw;
-//   z-index: 100;
-//   padding: 0px;
-  // display: flex;
-  //animation: navigation-open 0.5s ease-in-out;
-  // animation: navigation-closed 0.5s ease-in-out;
-
-//   nav {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 10px;
-//     text-align: start;
-//     padding: 20px;
-//   }
-// }
 @keyframes navigation-open {
   0% {
     left: -60vw;
@@ -98,12 +73,52 @@ header {
   width: 60vw;
   z-index: 100;
   padding: 0px;
-  display: flex;  
   box-shadow: -4px 0px 15px 3px black;
+  background-color: var(--blue-colour);
+  color: white;
+
+  .navigation-title-bar {
+    position: relative;
+
+    .close-nav-bar {
+      position: absolute;
+      right: -10px;
+      top: -5px;
+    }
+  }
+
+  .login-header-background h1 {
+    font-size: 1em;
+  }
+
+  .login-header-background svg {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    position: relative;
+  }
   
+  a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 5px 0;
+    }
+
+    a::after {
+      content: "";
+    position: relative;
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: white;
+    margin: 20px 0 0 0;
+    }
 
   &.active {
-    animation: navigation-open 0.5s ease-in-out forwards;
+    animation: navigation-open 0.5s ease-in-out forwards;    
 
     .overlay {
     width: 100vw;
@@ -148,18 +163,6 @@ header {
   }
 }
 
-// .navigation__backdrop {
-//   width: 100vw;
-//   height: 100vh;
-//   z-index: 99;  
-//   opacity: 0.2;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   backdrop-filter: blur(5px);
-//   background-color: black;
-//   animation: navigation__backdrop-open 0.5s ease-in-out;
-// }
 
 .menu_title_wrapper {
   background-color: var(--blue-colour);
@@ -196,14 +199,9 @@ main .content_container {
   align-items: center;
 }
 
-.search_bar {
-  // display: none;
-}
-
 .search_bar_toggle {
   display: flex;
   padding: 20px 10px;
-  //margin-right: -10px;
   justify-content: center;
   align-items: center;
 }
@@ -229,6 +227,25 @@ main {
   gap: 20px;
   flex-direction: column;
 
+  .search-field-wrapper {
+    position: relative;
+    
+    input {
+      position: relative;
+      width: 100%;
+    }
+    
+    .clear-field-icon {
+      position: absolute;
+      right: 5px;
+      top: 8px;
+
+      svg {
+        color: #D62700;
+      }
+    }
+  }
+
   h3 {
     margin: 10px 0;
   }
@@ -246,12 +263,10 @@ main {
 .card-container {
   position: relative;
   display: flex;
-  //border: 1px solid black;
   border-top: 1px solid #d3d3d3;
   height: 150px;
   justify-content: left;
   align-items: center;
-  //gap: 10px;
   font-size: 14px;
   
 
@@ -316,7 +331,7 @@ input, textarea {
 }
 
 textarea {
-  padding: 20px;
+  padding: 5px ;
 }
 
 .overlay {
@@ -346,7 +361,6 @@ textarea {
     gap: 15px;
 
     .comment-textarea {
-      padding: 30px 0;
     }
   }
 
@@ -356,22 +370,6 @@ textarea {
     flex-direction: column;
   }
 }
-
-// .card-container__info {
-//   display: flex;
-//   flex-direction: column;
-//   text-align: start;  
-
-//   h3 {
-//     margin: 0;
-//   }
-
-//   p{
-//     margin: 0;
-//   }
-// }
-
-
 
 header nav {
   display: flex;
@@ -402,6 +400,8 @@ header nav a {
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease-in-out;
+  box-shadow: black 0px 1px 7px -1px;
+
 
   svg {
     width: 30px;
@@ -456,7 +456,6 @@ header nav a {
   right: 40px;
   width: 150px;
   height: 100px;
-  //animation: add-item-open 0.5s ease-in-out;
 }
 
 @keyframes add-item-open {
@@ -475,16 +474,10 @@ header nav a {
 .item_entry_container {
   display: flex;
   flex-direction: column;
-  // gap: 30px;
-  h3 {
-    // width: 100%;
-  }
 
   form {
     display: flex;
     flex-direction: column;
-    // gap: 10px;
-    // align-items: left;
   }
   label {
     text-align: left;
@@ -495,6 +488,16 @@ header nav a {
 
   button {
     margin-top: 20px;
+  }
+  select {
+    padding: 5px 0;
+    margin: 10px 0px 20px;
+    border: 3px solid #D3D3D3;
+    border-radius: 5px;
+
+    + button {
+      margin-top: 0px;
+    }
   }
 }
 
@@ -509,10 +512,6 @@ header nav a {
     justify-content: center;
     gap: 10px;
     
-
-    // .card-details_header-sidebar {
-    //   flex-direction: column;
-    // }
   }
 
   img {
@@ -526,10 +525,11 @@ header nav a {
     justify-content: space-between;
   }
 
+  .card-details_body h2 {
+    margin: 15px 0px 0px 0px;
+  }
+
   .options-bar {
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -661,7 +661,6 @@ button {
   color: #fff;
   background: var(--blue-colour);
   width: 100%;
-  //margin: 15px 0;
 }
 
 .delete_button {

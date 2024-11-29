@@ -6,6 +6,7 @@ import CardDetails from "../components/CardDetails";
 import { SaveButton } from "../components/SaveButton";
 import { Popup } from "../components/Modals/Popup";
 import { useNavigate } from "react-router-dom";
+import { IconX } from '@tabler/icons-react';
 
 
 export const TitleSearch = () => {
@@ -20,6 +21,13 @@ export const TitleSearch = () => {
 
     const containerRef = useRef(null);
     const { selectedCard, setSelectedCard, registerCardRef } = useContext(CardSelectedContext);
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchTitle();
+        }
+    }
 
     const searchTitle = async () => {
         const parsedTitle = title.replace(/ /g, "+");
@@ -82,7 +90,11 @@ export const TitleSearch = () => {
     return (
         <div className="search-wrapper">
             <h3>Search by Title</h3>
-            <input type="text" value={title} id="title_search" name="title_search" autoFocus placeholder="Enter Title" onChange={(e) => setTitle(e.target.value)}></input>
+            <div className="search-field-wrapper" onClick={() => setTitle("")}>
+                <input type="text" value={title} id="title_search" name="title_search" autoFocus placeholder="Enter Title" onChange={(e) => setTitle(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <div className="clear-field-icon"><IconX stroke={2} /></div>
+            </div>
+
             <button onClick={searchTitle}>Search</button>
 
             {loading ? (

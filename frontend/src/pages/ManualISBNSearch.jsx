@@ -5,6 +5,8 @@ import { SaveButton } from "../components/SaveButton";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { Popup } from "../components/Modals/Popup";
 import { useNavigate } from "react-router-dom";
+import { IconX } from '@tabler/icons-react';
+
 
 
 export default function ManualISBNSearch() {
@@ -55,45 +57,7 @@ export default function ManualISBNSearch() {
         }
     }
 
-    // const submitData = async () => {
-    //     const dataToSubmit = book;
-    //     setIsSubmitting(true);
 
-    //     try {
-    //         const response = await fetch("https://personal-library-manager.onrender.com/library", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify(dataToSubmit),
-    //         });
-
-    //         if (response.ok) {
-
-    //             const responseClone = response.clone();
-
-    //             responseClone.json().then(result => {
-    //                 console.log("Book was saved to Library", result);
-    //             }).catch(async () => {
-    //                 const text = await response.text();
-    //                 console.log("Book was saved to Library", text);
-    //             });
-
-    //             setSaved(true);
-    //             setTimeout(() => {
-    //                 window.location.reload();
-    //             }, 1500);
-    //         } else {
-    //             console.error("Unable to save to library", response.statusText);
-    //             setIsSubmitting(false);
-    //         }
-
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-
-    // }
 
 
 
@@ -101,7 +65,11 @@ export default function ManualISBNSearch() {
         <>
             <div className="manual_isbn_entry_container search-wrapper">
                 <h3>Search By ISBN</h3>
-                <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <div className="search-field-wrapper" onClick={() => setIsbn("")}>
+                    <input type="text" value={isbn} id="isbn_search" name="isbn_search" autoFocus placeholder="Enter ISBN" onChange={(e) => setIsbn(e.target.value)} onKeyDown={handleKeyDown}></input>
+                    <div className="clear-field-icon" alt="Clear"><IconX stroke={2} /></div>
+                </div>
+
                 <button onClick={searchForBook} >Search</button>
             </div>
 
@@ -110,6 +78,7 @@ export default function ManualISBNSearch() {
             {book !== null ? (
                 <>
                     <p>Results</p>
+
                     <CardDetails
                         {...book}
                         bookImage={book.coverImage}
@@ -129,7 +98,9 @@ export default function ManualISBNSearch() {
                     )}
                 </>
             ) : (
-                <div id="reader"></div>
+                <div>
+                    <p>No Results Found</p>
+                </div>
             )}
 
         </>

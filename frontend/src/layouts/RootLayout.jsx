@@ -1,9 +1,10 @@
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
-import { IconFilePlus, IconMenu2, IconSearch, IconBooks } from '@tabler/icons-react';
+import { IconFilePlus, IconMenu2, IconSearch, IconBooks, IconX } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 import { useAuth } from "../contexts/AuthContext";
 import CardList from "../components/CardList";
+import { LoginHeader } from "../components/LoginHeader";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
@@ -35,6 +36,11 @@ export default function RootLayout() {
             setNavOpen(false);
             document.removeEventListener("mousedown", handleClickOutsideNav);
         }
+    }
+
+    const closeNav = () => {
+        setNavOpen(false);
+        document.removeEventListener("mousedown", handleClickOutsideNav);
     }
 
     const showAddItemMenu = () => {
@@ -104,11 +110,14 @@ export default function RootLayout() {
 
             <div className={`navigation ${navOpen === false ? "closed" : ""} ${navOpen ? "active" : ""}`} ref={divRef}>
                 <nav>
-                    <NavLink to="item_entry">Add Manually</NavLink>
-                    <NavLink to="/camera_search">Add by Barcode</NavLink>
-                    <NavLink to="/manual_isbn_search">Search By ISBN</NavLink>
-                    <NavLink to="/title_search" onClick={handleClickOutsideNav}>Title Search</NavLink>
-                    <NavLink to="/reset_password">Reset Password</NavLink>
+                    <div className="navigation-title-bar">
+                        <LoginHeader /><IconX className="close-nav-bar" onClick={closeNav} />
+                    </div>
+                    <NavLink to="item_entry" onClick={closeNav}>Add Manually</NavLink>
+                    <NavLink to="/camera_search" onClick={closeNav}>Add by Barcode</NavLink>
+                    <NavLink to="/manual_isbn_search" onClick={closeNav}>Search By ISBN</NavLink>
+                    <NavLink to="/title_search" onClick={closeNav}>Title Search</NavLink>
+                    <NavLink to="/reset_password" onClick={closeNav}>Reset Password</NavLink>
                     <NavLink to="/login" onClick={handleLogout}>Sign Out</NavLink>
                 </nav>
             </div>

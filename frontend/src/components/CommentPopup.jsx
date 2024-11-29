@@ -41,10 +41,9 @@ export const CommentPopup = ({ item, closePopup }) => {
         <div>
             {!commentAdded && (
                 <>
-                    <h3>Enter Comment</h3>
+                    <h3>Leave a Comment</h3>
                     <form onSubmit={submitComment}>
-                        <label htmlFor="comment">Comment: </label>
-                        <input type="textarea" className="comment-textarea" id="comment" name="comment" required></input>
+                        <textarea className="comment-textarea" id="comment" name="comment" rows={4} required></textarea>
                         <button>Submit</button>
                     </form>
                 </>

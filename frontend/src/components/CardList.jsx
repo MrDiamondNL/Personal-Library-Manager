@@ -39,6 +39,10 @@ export default function CardList({ bookType }) {
 
     );
 
+    if (userBooks.length === 0) {
+        return <p>No Results Found</p>
+    }
+
     return userBooks.map((book) => (
         <CardContainer {...book} key={book._id} id={book._id} refetch={refetch} />
     ))
