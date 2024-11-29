@@ -2,21 +2,39 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Popup } from "../components/Modals/Popup";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const [photoPopup, setPhotoPopUp] = useState(false);
+    const fileInputRef = useRef(null);
+    const [capturedImageFile, setCapturedImageFile] = useState(null);
+    //const [uploadedImageURL, setUploadedImageURL] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
-        const formDataObj = Object.fromEntries(formData.entries());
-        console.log(formDataObj);
+
+        //console.log(formDataObj);
 
         try {
+            let coverImageURL = null;
+
+            if (capturedImageFile) {
+                const imageRef = ref(storage, `images/${currentUser.displayName}/${capturedImageFile.name}`);
+                await uploadBytes(imageRef, capturedImageFile);
+                coverImageURL = await getDownloadURL(imageRef);
+            }
+
+            const formDataObj = Object.fromEntries(formData.entries());
+            if (coverImageURL) {
+                formDataObj.coverImage = coverImageURL
+            }
+
             const response = await fetch("https://personal-library-manager.onrender.com/library", {
                 method: 'POST',
                 headers: {
@@ -36,6 +54,16 @@ export default function ItemEntry() {
         }
     }
 
+    const handleImageCapture = (imageFile) => {
+        setCapturedImageFile(imageFile);
+
+        if (fileInputRef.current) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(imageFile);
+            fileInputRef.current.files = dataTransfer.files;
+        }
+    }
+
     const closePopup = () => {
         setPhotoPopUp(false);
     }
@@ -43,6 +71,8 @@ export default function ItemEntry() {
     const openPhotoPopup = () => {
         setPhotoPopUp(true);
     }
+
+    console.log(capturedImageFile);
 
     return (
         <div className="item_entry_container">
@@ -61,14 +91,23 @@ export default function ItemEntry() {
                 <label htmlFor="description">Description</label>
                 <textarea id="description" name="description"></textarea>
                 <br />
-                <label htmlFor="cover">Cover Image</label>
-                <input className="file-input" type="file" id="cover" name="cover"></input>
-                <p>--OR--</p>
+                <label htmlFor="cover">Cover Image - Optional</label>
+                <div className="file-input-wrapper">
+                    <input className="file-input" ref={fileInputRef} type="file" id="cover" name="cover" disabled ></input>
+                    {capturedImageFile && (
+                        <div className="file-name">
+                            {capturedImageFile.name}
+                        </div>
+                    )}
+                </div>
                 <button onClick={openPhotoPopup}>Take Photo</button>
                 {photoPopup &&
                     <Popup
                         type="camera"
                         closePopup={closePopup}
+                        additionalProps={{
+                            onImageCapture: handleImageCapture
+                        }}
                     />
                 }
                 <br />

@@ -6,7 +6,7 @@ import { CommentPopup } from "../CommentPopup";
 import { ImageCapture } from "../ImageCapture";
 import { SavedPopup } from "../SavedPopup";
 
-export const Popup = ({ type, item, closePopup }) => {
+export const Popup = ({ type, item, closePopup, additionalProps = {} }) => {
 
     return (
         <div className="popup_window">
@@ -16,7 +16,7 @@ export const Popup = ({ type, item, closePopup }) => {
                 {type === "return" && <ReturnPopup item={item} closePopup={closePopup} />}
                 {type === "delete" && <DeletePopup item={item} closePopup={closePopup} />}
                 {type === "comment" && <CommentPopup item={item} closePopup={closePopup} />}
-                {type === "camera" && <ImageCapture closePopup={closePopup} />}
+                {type === "camera" && <ImageCapture closePopup={closePopup} {...additionalProps} />}
                 {type === "saved" && <SavedPopup closePopup={closePopup} />}
             </div>
         </div>

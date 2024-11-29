@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 
-export const ImageCapture = () => {
+export const ImageCapture = ({ onImageCapture, closePopup }) => {
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const [capturedImage, setCapturedImage] = useState(null);
@@ -42,22 +42,23 @@ export const ImageCapture = () => {
 
 
         photo.toBlob((blob) => {
-            const imageFile = new File([blob], "captured-image.jpg", { type: "image/jpeg" });
+            const imageFile = new File([blob], `photo-${new Date().getTime()}.jpg`, { type: "image/jpeg" });
             setCapturedImage(imageFile);
+            onImageCapture(imageFile);
         }, "image/jpeg", 0.7);
     }
 
-    const savePhoto = () => {
-        if (!hasPhoto) return;
+    // const savePhoto = () => {
+    //     if (!hasPhoto) return;
 
-        const link = document.createElement("a");
-        link.download = `photo-${new Date().getTime()}.jpg`;
-        const url = URL.createObjectURL(capturedImage);
-        link.href = url;
-        link.click();
+    //     const link = document.createElement("a");
+    //     link.download = `photo-${new Date().getTime()}.jpg`;
+    //     const url = URL.createObjectURL(capturedImage);
+    //     link.href = url;
+    //     link.click();
 
-        URL.revokeObjectURL(url);
-    }
+    //     URL.revokeObjectURL(url);
+    // }
 
     const clearPhoto = () => {
         setHasPhoto(false);
@@ -86,7 +87,7 @@ export const ImageCapture = () => {
                 <canvas ref={photoRef}></canvas>
                 {hasPhoto &&
                     <>
-                        <button onClick={savePhoto}>Save</button>
+                        <button onClick={closePopup}>Use Photo</button>
                         <button onClick={clearPhoto}>Clear</button>
                     </>
                 }
