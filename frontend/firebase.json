@@ -1,0 +1,5 @@
+{
+  "storage": {
+    "rules": "cors-config.json"
+  }
+}

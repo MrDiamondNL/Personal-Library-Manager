@@ -72,8 +72,6 @@ export default function ItemEntry() {
         setPhotoPopUp(true);
     }
 
-    console.log(capturedImageFile);
-
     return (
         <div className="item_entry_container">
             <h3>New Item Entry</h3>
@@ -100,7 +98,7 @@ export default function ItemEntry() {
                         </div>
                     )}
                 </div>
-                <button onClick={openPhotoPopup}>Take Photo</button>
+                <button type="button" onClick={openPhotoPopup}>Take Photo</button>
                 {photoPopup &&
                     <Popup
                         type="camera"
