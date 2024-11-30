@@ -2,7 +2,7 @@
     {
       "origin": ["http://localhost:5173", "https://bibliotecha.digital"],
       "method": ["GET", "HEAD", "OPTIONS", "POST", "PUT"],
-      "responseHeader": ["Content-Type"],
+      "responseHeader": ["Content-Type", "Authorization"],
       "maxAgeSeconds": 3600
     }
   ]

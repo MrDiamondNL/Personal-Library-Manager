@@ -5,6 +5,7 @@ import { Popup } from "../components/Modals/Popup";
 import { useState, useRef } from "react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { getAuth, getIdToken } from "firebase/auth"
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
@@ -12,22 +13,48 @@ export default function ItemEntry() {
     const [photoPopup, setPhotoPopUp] = useState(false);
     const fileInputRef = useRef(null);
     const [capturedImageFile, setCapturedImageFile] = useState(null);
-    //const [uploadedImageURL, setUploadedImageURL] = useState(null);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
-
-        //console.log(formDataObj);
+        const auth = getAuth();
 
         try {
             let coverImageURL = null;
 
             if (capturedImageFile) {
+                const token = await getIdToken(currentUser, true);
+                console.log("ID Token:", token);
+
                 const imageRef = ref(storage, `images/${currentUser.displayName}/${capturedImageFile.name}`);
-                await uploadBytes(imageRef, capturedImageFile);
-                coverImageURL = await getDownloadURL(imageRef);
+
+                console.log("Upload details:", {
+                    currentUser: currentUser,
+                    imageRef: imageRef,
+                    file: capturedImageFile
+                });
+
+                const metadata = {
+                    customMetadata: {
+                        'firebaseAuthToken': token
+                    }
+                };
+
+                try {
+                    await uploadBytes(imageRef, capturedImageFile, metadata);
+                    coverImageURL = await getDownloadURL(imageRef);
+                    console.log("upload successful");
+                } catch (uploadError) {
+                    // More detailed error logging
+                    console.error("Upload error:", {
+                        message: uploadError.message,
+                        code: uploadError.code,
+                        fullError: uploadError
+                    });
+                }
+
             }
 
             const formDataObj = Object.fromEntries(formData.entries());
