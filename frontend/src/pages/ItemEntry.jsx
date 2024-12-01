@@ -14,12 +14,12 @@ export default function ItemEntry() {
     const fileInputRef = useRef(null);
     const [capturedImageFile, setCapturedImageFile] = useState(null);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
-        const auth = getAuth();
+        //const auth = getAuth();
+
 
         try {
             let coverImageURL = null;
@@ -28,7 +28,7 @@ export default function ItemEntry() {
                 const token = await getIdToken(currentUser, true);
                 console.log("ID Token:", token);
 
-                const imageRef = ref(storage, `images/${currentUser.displayName}/${capturedImageFile.name}`);
+                const imageRef = ref(storage, `images/${capturedImageFile.name}`);
 
                 console.log("Upload details:", {
                     currentUser: currentUser,
@@ -36,14 +36,16 @@ export default function ItemEntry() {
                     file: capturedImageFile
                 });
 
-                const metadata = {
-                    customMetadata: {
-                        'firebaseAuthToken': token
-                    }
-                };
+                // const metadata = {
+                //     customMetadata: {
+                //         'firebaseAuthToken': token
+                //     }
+                // };
 
                 try {
-                    await uploadBytes(imageRef, capturedImageFile, metadata);
+                    console.log(capturedImageFile);
+                    console.log(imageRef);
+                    await uploadBytes(imageRef, capturedImageFile);
                     coverImageURL = await getDownloadURL(imageRef);
                     console.log("upload successful");
                 } catch (uploadError) {
@@ -84,11 +86,11 @@ export default function ItemEntry() {
     const handleImageCapture = (imageFile) => {
         setCapturedImageFile(imageFile);
 
-        if (fileInputRef.current) {
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(imageFile);
-            fileInputRef.current.files = dataTransfer.files;
-        }
+        // if (fileInputRef.current) {
+        //     const dataTransfer = new DataTransfer();
+        //     dataTransfer.items.add(imageFile);
+        //     fileInputRef.current.files = dataTransfer.files;
+        // }
     }
 
     const closePopup = () => {
