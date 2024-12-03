@@ -13,13 +13,13 @@ export default function ItemEntry() {
     const [photoPopup, setPhotoPopUp] = useState(false);
     const fileInputRef = useRef(null);
     const [capturedImageFile, setCapturedImageFile] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
-        //const auth = getAuth();
-
+        setIsSubmitting(true);
 
         try {
             let coverImageURL = null;
@@ -80,6 +80,7 @@ export default function ItemEntry() {
             }
         } catch (error) {
             console.log(error);
+            setIsSubmitting(false);
         }
     }
 
@@ -99,6 +100,12 @@ export default function ItemEntry() {
 
     const openPhotoPopup = () => {
         setPhotoPopUp(true);
+    }
+
+    const closeSecondPopup = async () => {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsSubmitting(false);
+        navigate("/");
     }
 
     return (
@@ -144,7 +151,10 @@ export default function ItemEntry() {
                     <option value="Manual">Item</option>
                     <option value="Misc">Miscellaneous</option>
                 </select>
-                <button>Submit</button>
+                <button disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save to Library?"}</button>
+                {isSubmitting && (
+                    <Popup type={"saved"} closePopup={closeSecondPopup} />
+                )}
             </form>
         </div>
     )

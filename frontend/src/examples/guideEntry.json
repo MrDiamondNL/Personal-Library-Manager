@@ -1,0 +1,22 @@
+{
+    "title": "Welcome to Bibliotecha",
+    "author": "Personal Library Manager",
+    "isbn": "A Quick Guide",
+    "description": "You can add books by scanning a barcode, searching by ISBN or Title, or adding a custom Entry entirely (with your own picture!). From there, you can lend your books, noting the name or contact of the recipient (which you will see in your library list), return this item to your collection, and add comments. Can even permanently delete your entry. Note, these buttons are disabled for this example",
+    "isLent": true,
+    "lentEmail": "Your Best Friend",
+    "comments": [
+        {
+            "text": "This is where the comments you add will be",
+            "date": "2024-11-17T01:34:38.308+00:00"
+        },
+        {
+            "text": "It'll have the last 3 comments you added, in reverse order",
+            "date": "2024-11-17T01:34:38.308+00:00"
+        },
+        {
+            "text": "A place to add notes for yourself",
+            "date": "2024-11-17T01:34:38.308+00:00"
+        }
+    ]
+}

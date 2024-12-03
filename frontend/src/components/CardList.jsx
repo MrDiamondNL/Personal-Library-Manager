@@ -1,4 +1,5 @@
 import CardContainer from "../components/CardContainer"
+import { GuideCard } from "./GuideCard";
 import { useQuery } from "react-query"
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingSpinner } from "./LoadingSpinner";
@@ -38,6 +39,10 @@ export default function CardList({ bookType }) {
         (!bookType || book.category === bookType)
 
     );
+
+    if (userBooks.length === 0 && !bookType) {
+        return <GuideCard />
+    }
 
     if (userBooks.length === 0) {
         return <p>No Results Found</p>

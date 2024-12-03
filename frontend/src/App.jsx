@@ -20,6 +20,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { TitleSearch } from "./pages/TitleSearch";
 import CardDetailsExpanded from "./components/CardDetailsExpanded";
 import { ResetPassword } from "./pages/ResetPassword";
+import { ExampleEntry } from "./pages/ExampleEntry";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
 			<Route path="/" element={<PrivateRoute />}>
 				<Route element={<RootLayout />}>
 					<Route index element={<CardList />} />
+					<Route path="/example_entry" element={<ExampleEntry />}></Route>
 					<Route path="/books" element={<CardList bookType="Book" />} />
 					<Route path="/manuals" element={<CardList bookType="Manual" />} />
 					<Route path="/misc" element={<CardList bookType="Misc" />} />

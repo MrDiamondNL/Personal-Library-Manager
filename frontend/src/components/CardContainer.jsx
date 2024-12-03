@@ -23,7 +23,13 @@ export default function CardContainer({ title, description, author, coverImage, 
     }
 
     const navigateToItem = () => {
-        navigate(`/details/${id}`);
+        if (id == "23453453453") {
+            navigate("/example_entry");
+        } else {
+            navigate(`/details/${id}`);
+        }
+
+
     }
 
     useEffect(() => {
