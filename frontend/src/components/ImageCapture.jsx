@@ -12,7 +12,7 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
                 video: {
                     width: 240,
                     height: 320,
-                    exact: 0.75,
+                    aspectRatio: 0.75,
                     facingMode: "environment",
                     frameRate: { ideal: 24 }
                 }
