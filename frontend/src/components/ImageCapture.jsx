@@ -7,6 +7,10 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
     const [hasPhoto, setHasPhoto] = useState(false);
 
     const getVideo = () => {
+
+        const width = 240;
+        const height = 320;
+
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
@@ -39,7 +43,7 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
         photo.height = height;
 
         let ctx = photo.getContext("2d");
-        ctx.drawImage(video, 0, 0, width, height);
+        ctx.drawImage(video, 0, 0, width, height, 0, 0, width, height);
 
 
         photo.toBlob((blob) => {
