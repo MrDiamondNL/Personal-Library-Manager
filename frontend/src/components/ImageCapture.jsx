@@ -7,6 +7,7 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
     const [hasPhoto, setHasPhoto] = useState(false);
 
     const getVideo = () => {
+        const isPortrait = screen.availHeight > screen.availWidth;
 
         const width = 240;
         const height = 320;
@@ -14,9 +15,9 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
-                    width: 240,
-                    height: 320,
-                    aspectRatio: 0.75,
+                    width: { exact: isPortrait ? height : width },
+                    height: { exact: isPortrait ? width : height },
+                    //aspectRatio: 0.75,
                     facingMode: "environment",
                     frameRate: { ideal: 24 }
                 }
@@ -43,7 +44,7 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
         photo.height = height;
 
         let ctx = photo.getContext("2d");
-        ctx.drawImage(video, 0, 0, width, height, 0, 0, width, height);
+        ctx.drawImage(video, 0, 0, width, height);
 
 
         photo.toBlob((blob) => {
