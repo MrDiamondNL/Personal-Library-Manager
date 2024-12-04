@@ -37,7 +37,7 @@ export default function SearchPage() {
     });
 
     const userBooks = data.filter(book => book.user === currentUser.uid);
-
+    console.log(userBooks);
     const searchedData = userBooks.filter((book) =>
         book.title.toLowerCase().includes(query.toLowerCase()) ||
         book.author.toLowerCase().includes(query.toLowerCase())

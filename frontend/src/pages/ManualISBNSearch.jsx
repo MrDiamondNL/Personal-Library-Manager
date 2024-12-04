@@ -88,7 +88,7 @@ export default function ManualISBNSearch() {
                     <SaveButton
                         title={book.title}
                         description={book.description}
-                        author={book.authors}
+                        author={book.author}
                         coverImage={book.coverImage}
                         isbn={book.isbn}
                         trigger={setSaved}
