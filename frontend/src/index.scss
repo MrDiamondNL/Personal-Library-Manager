@@ -269,14 +269,25 @@ main {
   align-items: center;
   font-size: 14px;
   
+  .cover-img-wrapper {
+    width: 100px;
+    height: 150px;
+    overflow: hidden;
+    display: block;
+    position: relative;
+}
 
   img {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 150px;
-    max-width: 100px;
-    margin-right: 10px;
+    /* height: 150px; */
+    /* max-width: 100px; */
+    /* margin-right: 10px; */
+    width: 105%;
+    display: block;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
   }
 
   .card-container__info {

@@ -40,7 +40,10 @@ export default function CardContainer({ title, description, author, coverImage, 
 
     return (
         <div className={`card-container`} ref={containerRef} onClick={cardSelect}>
-            <img src={coverImage ?? defaultBookImage}></img>
+            <div className="cover-img-wrapper">
+                <img src={coverImage ?? defaultBookImage}></img>
+            </div>
+
             <div className="card-container__info">
                 <h3 className="title">{title}</h3>
                 <div className="card-details_body_token-wrapper">
