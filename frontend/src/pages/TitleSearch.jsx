@@ -52,16 +52,13 @@ export const TitleSearch = () => {
                     uniqueTitles.push(item);
                 }
             }
-
             setFilteredResults(uniqueTitles);
-            console.log(uniqueTitles);
 
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
-        console.log(filteredResults);
 
     }
 
@@ -130,15 +127,15 @@ export const TitleSearch = () => {
                                 title={titleSelected.volumeInfo.title}
                                 description={titleSelected.volumeInfo.description}
                                 author={titleSelected.volumeInfo.authors[0]}
-                                coverImage={titleSelected.volumeInfo.imageLinks.thumbnail}
+                                coverImage={titleSelected.volumeInfo.imageLinks?.thumbnail}
                                 isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier}
                             />
                             <SaveButton
-                                title={titleSelected.volumeInfo.title}
-                                description={titleSelected.volumeInfo.description}
-                                author={titleSelected.volumeInfo.authors[0]}
-                                coverImage={titleSelected.volumeInfo.imageLinks.thumbnail}
-                                isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier}
+                                title={titleSelected.volumeInfo?.title || "Unknown Title"}
+                                description={titleSelected.volumeInfo?.description || "No Description Provided"}
+                                author={titleSelected.volumeInfo?.authors[0] || "Unknown Author"}
+                                coverImage={titleSelected.volumeInfo.imageLinks?.thumbnail}
+                                isbn={titleSelected.volumeInfo.industryIdentifiers.find(industryIdentifiers => industryIdentifiers.type === "ISBN_13")?.identifier || "Unknown ISBN"}
                                 trigger={setSaved}
                             />
                             {saved && (

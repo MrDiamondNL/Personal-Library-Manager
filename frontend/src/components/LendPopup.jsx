@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 
 export const LendPopup = ({ item, closePopup }) => {
@@ -9,8 +10,6 @@ export const LendPopup = ({ item, closePopup }) => {
         const formData = new FormData(e.target);
         formData.append("id", itemToLend);
         const formDataObj = Object.fromEntries(formData.entries());
-        console.log(formDataObj);
-
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/lend", {
                 method: "PUT",

@@ -3,7 +3,6 @@ import { IconFilePlus, IconMenu2, IconSearch, IconBooks, IconX } from '@tabler/i
 import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 import { useAuth } from "../contexts/AuthContext";
-import CardList from "../components/CardList";
 import { LoginHeader } from "../components/LoginHeader";
 
 export default function RootLayout() {
@@ -17,12 +16,9 @@ export default function RootLayout() {
     const location = useLocation();
     const { currentUser, logOut } = useAuth();
 
-
-
     const toggleSearch = () => {
         setOpenSearch(!openSearch);
     }
-
 
     const toggleOpen = () => {
         if (navOpen === null) {
@@ -73,12 +69,6 @@ export default function RootLayout() {
             console.log(error)
         }
     }
-
-    useEffect(() => {
-        if (currentUser) {
-            console.log(currentUser);
-        }
-    }, [currentUser]);
 
     return (
         <div className="root-layout">

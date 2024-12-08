@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState, useRef } from 'react'
 
 export const CardSelectedContext = createContext();

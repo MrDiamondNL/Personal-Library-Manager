@@ -1,10 +1,8 @@
-import { createBrowserRouter, Route, Routes, createRoutesFromElements, RouterProvider, Router, BrowserRouter } from "react-router-dom"
-// import data from "../data/dbtest.json"
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 //Layouts
 import RootLayout from "./layouts/RootLayout"
-
 
 //Pages
 

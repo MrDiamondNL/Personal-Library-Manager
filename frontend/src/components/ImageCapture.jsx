@@ -17,7 +17,6 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
                 video: {
                     width: { exact: isPortrait ? height : width },
                     height: { exact: isPortrait ? width : height },
-                    //aspectRatio: 0.75,
                     facingMode: "environment",
                     frameRate: { ideal: 24 }
                 }

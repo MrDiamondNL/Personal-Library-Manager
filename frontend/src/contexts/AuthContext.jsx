@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext, useState, createContext, useEffect } from 'react';
 import { auth } from "../firebase"
 import {
@@ -22,7 +23,6 @@ export function AuthProvider({ children }) {
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        //return signInWithRedirect(auth, provider);
         return signInWithPopup(auth, provider);
     }
 
@@ -49,7 +49,6 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
-            //console.log("Auth state changed:", user ? user.uid : "No user");
             setLoading(false);
         });
         return unsubscribe

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, getRedirectResult } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import GoogleButton from "react-google-button"
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -32,8 +32,6 @@ export default function SignIn() {
         }
 
     }
-
-
 
     return (
         <div className="sign-in-container">

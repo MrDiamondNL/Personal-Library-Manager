@@ -1,22 +1,12 @@
 import SignIn from "../components/SignIn"
 import SignUp from "../components/SignUp"
-import { useAuth } from "../contexts/AuthContext"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoginHeader } from "../components/LoginHeader";
 import { useNavigate } from "react-router-dom";
 
 export default function LogIn() {
-    const { currentUser } = useAuth()
     const [signUp, setSignUp] = useState(false);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (currentUser) {
-            console.log(currentUser);
-        }
-    }, [currentUser]);
-
-    console.log(signUp);
 
     return (
         <div className="login_container">

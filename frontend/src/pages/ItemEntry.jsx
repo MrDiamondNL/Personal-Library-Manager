@@ -5,7 +5,7 @@ import { Popup } from "../components/Modals/Popup";
 import { useState, useRef } from "react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { getAuth, getIdToken } from "firebase/auth"
+import { getIdToken } from "firebase/auth"
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
@@ -25,26 +25,10 @@ export default function ItemEntry() {
             let coverImageURL = null;
 
             if (capturedImageFile) {
-                const token = await getIdToken(currentUser, true);
-                console.log("ID Token:", token);
 
                 const imageRef = ref(storage, `images/${capturedImageFile.name}`);
 
-                console.log("Upload details:", {
-                    currentUser: currentUser,
-                    imageRef: imageRef,
-                    file: capturedImageFile
-                });
-
-                // const metadata = {
-                //     customMetadata: {
-                //         'firebaseAuthToken': token
-                //     }
-                // };
-
                 try {
-                    console.log(capturedImageFile);
-                    console.log(imageRef);
                     await uploadBytes(imageRef, capturedImageFile);
                     coverImageURL = await getDownloadURL(imageRef);
                     console.log("upload successful");
@@ -86,12 +70,6 @@ export default function ItemEntry() {
 
     const handleImageCapture = (imageFile) => {
         setCapturedImageFile(imageFile);
-
-        // if (fileInputRef.current) {
-        //     const dataTransfer = new DataTransfer();
-        //     dataTransfer.items.add(imageFile);
-        //     fileInputRef.current.files = dataTransfer.files;
-        // }
     }
 
     const closePopup = () => {

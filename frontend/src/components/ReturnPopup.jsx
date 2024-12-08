@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 
 export const ReturnPopup = ({ item, closePopup }) => {
     const [itemReturned, setItemReturned] = useState(false);
-    console.log(item);
 
     const returnItem = async () => {
         const itemToReturn = item._id;

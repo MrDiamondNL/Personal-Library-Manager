@@ -2,18 +2,13 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { useEffect, useState } from "react";
 import CardDetails from "../components/CardDetails"
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 
 export const CameraSearch = () => {
 
-    const [scanResult, setScanResult] = useState(null);
-    //const [isbn, setIsbn] = useState("");
     const [book, setBook] = useState(null);
-    // const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     const { currentUser } = useAuth()
     const [saved, setSaved] = useState(false);
-    const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -31,7 +26,6 @@ export const CameraSearch = () => {
 
         async function success(result) {
             scanner.clear();
-            //setIsbn(result);
             await searchForBook(result);
         }
 
@@ -48,8 +42,6 @@ export const CameraSearch = () => {
         try {
             const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${result}`);
             const data = await response.json();
-            console.log(data);
-
 
             if (data.totalItems > 0) {
                 const book = data.items[0].volumeInfo;
@@ -86,14 +78,10 @@ export const CameraSearch = () => {
             });
 
             if (response.ok) {
-                // Clone the response to handle both JSON and plain text
                 const responseClone = response.clone();
-
-                // Attempt to parse as JSON
                 responseClone.json().then(result => {
                     console.log("Book was saved to Library", result);
                 }).catch(async () => {
-                    // Fallback to text if JSON parsing fails
                     const text = await response.text();
                     console.log("Book was saved to Library", text);
                 });
@@ -106,22 +94,6 @@ export const CameraSearch = () => {
                 console.error("Unable to save to library", response.statusText);
                 setIsSubmitting(false);
             }
-
-            // if (response.ok) {
-            //     const result = await response.json();
-            //     console.log("Book was saved to Library");
-            //     setSaved(true);
-            //     await new Promise(resolve => setTimeout(resolve, 1500));
-            //     window.location.reload();
-            //     // setTimeout(() => {
-            //     //     window.location.reload();
-            //     // }, 1500);
-            //     // await new Promise(resolve => setTimeout(resolve, 2000));
-            //     // navigate("/");
-            // } else {
-            //     console.error("Unable to save to library", response.statusText);
-            //     setIsSubmitting(false);
-            // }
         } catch (error) {
             console.log(error);
         }

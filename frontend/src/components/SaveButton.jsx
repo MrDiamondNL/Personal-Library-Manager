@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useAuth } from "../contexts/AuthContext";
@@ -5,7 +6,6 @@ import { useAuth } from "../contexts/AuthContext";
 
 export const SaveButton = ({ title, description, author, isbn, coverImage, trigger }) => {
 
-    //const [book, setBook] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { currentUser } = useAuth();
 
@@ -20,7 +20,6 @@ export const SaveButton = ({ title, description, author, isbn, coverImage, trigg
             user: currentUser.uid
         });
         setIsSubmitting(true);
-        console.log(dataToSubmit);
 
         try {
             const response = await fetch("https://personal-library-manager.onrender.com/library", {

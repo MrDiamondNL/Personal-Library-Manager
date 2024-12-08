@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import defaultBookImage from "../imgs/stock cover image.jpg";
 
 export default function CardDetails({ title, description, author, isbn, coverImage }) {
