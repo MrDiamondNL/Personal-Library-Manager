@@ -11,7 +11,6 @@ export const PrivateRoute = () => {
             <LoadingSpinner />
         );
     }
-    console.log(currentUser);
 
     return currentUser ? (
         <Outlet />
