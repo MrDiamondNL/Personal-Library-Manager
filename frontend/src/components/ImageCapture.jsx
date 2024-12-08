@@ -54,18 +54,6 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
         }, "image/jpeg", 0.7);
     }
 
-    // const savePhoto = () => {
-    //     if (!hasPhoto) return;
-
-    //     const link = document.createElement("a");
-    //     link.download = `photo-${new Date().getTime()}.jpg`;
-    //     const url = URL.createObjectURL(capturedImage);
-    //     link.href = url;
-    //     link.click();
-
-    //     URL.revokeObjectURL(url);
-    // }
-
     const clearPhoto = () => {
         setHasPhoto(false);
         setCapturedImage(null);

@@ -102,8 +102,8 @@ header {
     display: block;
     text-decoration: none;
     color: white;
-    font-size: 1.1em;
-    font-weight: 600;
+    font-size: 1.0em;
+    font-weight: 500;
     padding: 5px 0;
     }
 
@@ -261,42 +261,53 @@ main {
 }
 
 .card-container {
-  position: relative;
+  // position: relative;
+  // display: flex;
+  // border-top: 1px solid #d3d3d3;
+  // height: 150px;
+  // justify-content: left;
+  // align-items: center;
+  // font-size: 14px;
   display: flex;
-  border-top: 1px solid #d3d3d3;
-  height: 150px;
+  border-top: 1px solid #D3D3D3;
   justify-content: left;
   align-items: center;
   font-size: 14px;
+  gap: 20px;
+  padding-top: 20px;
   
   .cover-img-wrapper {
-    width: 100px;
-    height: 150px;
-    overflow: hidden;
+    // width: 100px;
+    // height: 150px;
+    // overflow: hidden;
     display: block;
-    position: relative;
+    // position: relative;
 }
 
   img {
-    position: absolute;
-    /* height: 150px; */
-    /* max-width: 100px; */
-    /* margin-right: 10px; */
-    width: 105%;
+    // position: absolute;
+    // width: 105%;
+    // display: block;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
     display: block;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
+    width: 100px;
+    height: 150px;
+    object-fit: contain;
   }
 
   .card-container__info {
+    // display: flex;
+    // flex-direction: column;
+    // text-align: start;  
+    // position: absolute;
+    // top: 25px;
+    // left: 125px;
+    // gap: 5px;
     display: flex;
     flex-direction: column;
-    text-align: start;  
-    position: absolute;
-    top: 25px;
-    left: 125px;
+    text-align: start;
     gap: 5px;
   
     h3 {
@@ -309,6 +320,10 @@ main {
   }
 
   
+}
+
+.library__container .card-container:first-of-type {
+  border: none;
 }
 
 .container-expanded {
@@ -608,6 +623,7 @@ header nav a {
   width: 400px;
   max-width: 100vw;
   min-width: 350px;
+  height: 100vh;
 
   svg {
     width: 30px;
@@ -719,4 +735,10 @@ button {
 h3.card-author {
   color: #666262;
   font-size: 0.89em;
+}
+
+button#html5-qrcode-button-camera-permission {
+  margin: 10px;
+  margin-top: 0;
+  width: calc(100% - 20px);
 }
