@@ -1,0 +1,1 @@
+This is a personal library manager app, that was built to help teach myself React, some node.js, as well as built for a friend of mine to manage his haphazard collection of books, manuals, and other assortment of stuff
