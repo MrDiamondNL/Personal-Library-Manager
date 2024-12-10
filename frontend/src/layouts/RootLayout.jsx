@@ -128,6 +128,7 @@ export default function RootLayout() {
 
             <div className={`show-add-item-menu${openAddItem ? " active" : ""}`} onClick={showAddItemMenu}><IconFilePlus stroke={1.25} />
                 <div className={`add-item-menu`}>
+                    <NavLink to="/title_search">Title Search</NavLink>
                     <NavLink className="add_item_navlink" to="item_entry">Add Manually</NavLink>
                     <NavLink className="camera_search_navlink" to="/camera_search">Add by Barcode</NavLink>
                     <NavLink className="manual_isbn_search" to="/manual_isbn_search">Search By ISBN</NavLink>

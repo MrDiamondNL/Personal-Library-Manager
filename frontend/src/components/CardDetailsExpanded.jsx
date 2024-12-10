@@ -55,7 +55,6 @@ export default function CardDetailsExpanded() {
     const toggleDescription = () => {
         setExpandedDescription(!expandedDescription);
     }
-    console.log(item.comments);
 
     return (
         <div className="card-details ">

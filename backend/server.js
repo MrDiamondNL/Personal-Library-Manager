@@ -6,6 +6,8 @@ const cors = require("cors");
 const Item = require("./models/Item.js");
 const connectToDb = require("./db.js");
 
+const NUM_OF_COMMENTS = -3;
+
 const app = express();
 const port = 5000;
 let activeDb = "library"
@@ -138,7 +140,7 @@ app.put("/comment", async (req, res) => {
                 $push: {
                     comments: {
                         $each: [newComment], 
-                        $slice: -3 
+                        $slice: NUM_OF_COMMENTS 
                     }
                 }
             },
