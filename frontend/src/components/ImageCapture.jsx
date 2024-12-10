@@ -83,8 +83,6 @@ export const ImageCapture = ({ onImageCapture, closePopup }) => {
             } else {
                 console.log('No stream found on video element');
             }
-        } else {
-            console.log('Video ref is null');
         }
     }
 
