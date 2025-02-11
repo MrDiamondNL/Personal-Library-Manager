@@ -44,6 +44,6 @@ export default function SearchPage() {
     );
     console.log("Is it working now")
     return searchedData.map((book) => (
-        <CardContainer {...book} key={book._id} />
+        <CardContainer {...book} key={book._id} id={book._id} />
     ))
 }
