@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const serviceAccount = require("./serivceAccountKey.js");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");

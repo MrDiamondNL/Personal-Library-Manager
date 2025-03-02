@@ -46,6 +46,13 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const getFirebaseToken = async () => {
+        const user = auth.currentUser;
+        if (user) {
+            return await user.getIdToken();
+        }
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
@@ -62,7 +69,8 @@ export function AuthProvider({ children }) {
         emailSignUp,
         loading,
         logOut,
-        forgotPassword
+        forgotPassword,
+        getFirebaseToken
     }
 
     return (

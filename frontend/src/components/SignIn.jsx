@@ -12,6 +12,8 @@ export default function SignIn() {
     const navigate = useNavigate();
 
 
+
+
     const emailSignIn = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
