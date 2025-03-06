@@ -6,20 +6,25 @@ import { Popup } from "./Modals/Popup";
 import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { useAuth } from "../contexts/AuthContext"; //this needs to be removed
 
 export default function CardDetailsExpanded() {
 
     const { id } = useParams();
     const [expandedDescription, setExpandedDescription] = useState(false);
+    const { currentUser, getFirebaseToken } = useAuth();//this needs to be removed
 
     const [modalType, setModalType] = useState(null);
 
     const findItem = async () => {
         try {
+            const idToken = await getFirebaseToken();
+            console.log(idToken);
             const response = await fetch(`https://personal-library-manager.onrender.com/details/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${idToken}` //this needs to be removed
                 },
             });
             if (response.ok) {

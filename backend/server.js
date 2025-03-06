@@ -1,17 +1,21 @@
 require("dotenv").config();
 
-const serviceAccount = require("./serivceAccountKey.js");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Item = require("./models/Item.js");
 const connectToDb = require("./db.js");
+const cookieParser = require('cookie-parser');
+const serviceAccount = require("./configs/serivceAccountKey.js");
+const admin = require("firebase-admin");
+const { checkForCustomToken, checkForFirebaseToken } = require("./middleware/authMiddleware.js");
 
 const NUM_OF_COMMENTS = -3;
 
 const app = express();
 const port = 5000;
-let activeDb = "library"
+let activeDb = "library";
+
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +25,12 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
   }));
+app.use(cookieParser());
+
+
+// admin.initializeApp({
+//     creditial: admin.credential.cert(serviceAccount)
+// });
 
 app.use((req, res, next) => {
     console.log(`${req.method} request received at ${req.url}`);
@@ -45,7 +55,7 @@ app.get("/", (req, res) => {
         })
 });
 
-app.get("/details/:id", (req, res) => {
+app.get("/details/:id", checkForFirebaseToken, (req, res) => {
     const id = req.params.id;
     Item.findById(id)
     .then(result => {
@@ -178,4 +188,9 @@ app.delete("/delete", async (req, res) => {
         res.status(500).json({ message: "Error deleting item" });
     }
 });
+
+app.get("/api/auth/authenticate", checkForCustomToken, (req, res) => {
+    res.json({message: "Successfully detected jwt"});
+})
+
 

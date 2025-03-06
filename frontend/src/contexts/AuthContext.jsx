@@ -13,6 +13,7 @@ import {
 // eslint-disable-next-line no-undef
 const AuthContext = createContext();
 
+
 export function useAuth() {
     return useContext(AuthContext);
 }
@@ -20,6 +21,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
+    const [customToken, setCustomToken] = useState();
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
