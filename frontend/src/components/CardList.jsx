@@ -8,8 +8,10 @@ import { LoadingSpinner } from "./LoadingSpinner";
 export default function CardList({ bookType }) {
     const { currentUser } = useAuth();
 
+    const LIBRARY_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL;
+
     const fetchLib = async () => {
-        const res = await fetch(`https://personal-library-manager.onrender.com`);
+        const res = await fetch(LIBRARY_FETCH_URL);
         if (!res.ok) {
             throw new Error("Response was not ok");
         }

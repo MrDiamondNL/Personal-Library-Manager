@@ -10,6 +10,8 @@ import { useAuth } from "../contexts/AuthContext"; //this needs to be removed
 
 export default function CardDetailsExpanded() {
 
+    const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `details/${id}`
+
     const { id } = useParams();
     const [expandedDescription, setExpandedDescription] = useState(false);
     const { currentUser, getFirebaseToken } = useAuth();//this needs to be removed
@@ -20,7 +22,7 @@ export default function CardDetailsExpanded() {
         try {
             const idToken = await getFirebaseToken();
             console.log(idToken);
-            const response = await fetch(`https://personal-library-manager.onrender.com/details/${id}`, {
+            const response = await fetch(CARD_DETAILS_EXPANDED_FETCH_URL, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

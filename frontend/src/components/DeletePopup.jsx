@@ -8,9 +8,10 @@ export const DeletePopup = ({ item, closePopup }) => {
 
     const deleteItem = async () => {
         const itemToDelete = item._id;
+        const LIBRARY_ITEM_DELETE_URL = import.meta.env.VITE_BACKEND_API_URL + "delete";
 
         try {
-            const response = await fetch("https://personal-library-manager.onrender.com/delete", {
+            const response = await fetch(LIBRARY_ITEM_DELETE_URL, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

@@ -16,17 +16,15 @@ const app = express();
 const port = 5000;
 let activeDb = "library";
 
-
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", // Explicitly set the frontend origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors({
-    origin: process.env.ORIGIN_URL, // Allow requests from your frontend's origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
-  }));
-app.use(cookieParser());
-
 
 // admin.initializeApp({
 //     creditial: admin.credential.cert(serviceAccount)
@@ -44,7 +42,7 @@ connectToDb().then(result => {
     });
 });
 
-app.get("/", (req, res) => {
+app.get("/", checkForCustomToken, (req, res) => {
     Item.find()
         .then((result) => {
             res.status(201).send(result);
@@ -189,8 +187,4 @@ app.delete("/delete", async (req, res) => {
     }
 });
 
-app.get("/api/auth/authenticate", checkForCustomToken, (req, res) => {
-    res.json({message: "Successfully detected jwt"});
-})
-
-
+app.get("/api/auth/authenticate", checkForFirebaseToken);

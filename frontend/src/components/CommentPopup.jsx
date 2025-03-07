@@ -12,9 +12,11 @@ export const CommentPopup = ({ item, closePopup }) => {
         const formDataObj = Object.fromEntries(formData.entries());
         console.log(formDataObj);
 
+        const LIBRARY_ITEM_COMMENT_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "comment";
+
 
         try {
-            const response = await fetch("https://personal-library-manager.onrender.com/comment", {
+            const response = await fetch(LIBRARY_ITEM_COMMENT_FETCH_URL, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

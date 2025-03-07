@@ -17,25 +17,29 @@ const createToken = (id) => {
 
 const checkForFirebaseToken = async (req, res, next) => {
     console.log("checking for token");
-    const firebaseToken = req.headers.authorization?.split("Bearer ")[1];
+    //const firebaseToken = req.headers.authorization?.split("Bearer ")[1];
 
-
-    if (!firebaseToken) {
-        console.log("didn't find token")
-        return res.status(401).json({ error: "No Firebase token provided" });
-    }
+    // if (!firebaseToken) {
+    //     console.log("didn't find token")
+    //     return res.status(401).json({ error: "No Firebase token provided" });
+    // }
 
     try {
         console.log("found token, attempting decoding")
-        const decodedFirebaseToken = await admin.auth().verifyIdToken(firebaseToken);
+        //const decodedFirebaseToken = await admin.auth().verifyIdToken(firebaseToken);
         console.log("Attempting to create custom token")
-        const customToken = createToken(decodedFirebaseToken.uid);
-        res.cookie("customToken", customToken, {
-            httpOnly: true,
-            secure: true,
-            maxAge: JWT_EXPIRY * 1000 });
-        res.status(200).json( {user: decodedFirebaseToken.uid});
-        next();
+        // const customToken = createToken(decodedFirebaseToken.uid);
+        // console.log(customToken);
+        res.status(200)
+           .cookie("customToken", JSON.stringify({ id: "sam" }), {
+                httpOnly: true,
+                secure: false,
+                sameSite: "lax",
+                maxAge: JWT_EXPIRY * 1000 
+            })
+           .json({message: "Authentication successful"});
+            
+        console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
     } catch (err) {
         console.log("Error verifying firebase token", err);
@@ -45,6 +49,7 @@ const checkForFirebaseToken = async (req, res, next) => {
 
 const checkForCustomToken = (req, res, next) => {
     const token = req.cookies.customToken;
+    console.log(req.cookies);
     if (!token) {
         return res.status(401).json({ error: "Authentication required" });
     }

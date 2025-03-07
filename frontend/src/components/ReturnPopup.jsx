@@ -6,9 +6,10 @@ export const ReturnPopup = ({ item, closePopup }) => {
 
     const returnItem = async () => {
         const itemToReturn = item._id;
+        const LIBRARY_ITEM_RETURN_URL = import.meta.env.VITE_BACKEND_API_URL + "return";
 
         try {
-            const response = await fetch("https://personal-library-manager.onrender.com/return", {
+            const response = await fetch(LIBRARY_ITEM_RETURN_URL, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
