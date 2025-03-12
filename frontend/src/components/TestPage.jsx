@@ -13,9 +13,7 @@ export default function TestPage() {
     useEffect(() => {
         const fetchData = async () => {
             const idToken = await getFirebaseToken();
-            console.log(idToken);
             try {
-                console.log("it got to 1");
                 const response = await fetch("http://localhost:5000/api/auth/authenticate", {
                     method: "GET",
                     headers: {
@@ -24,12 +22,9 @@ export default function TestPage() {
                     },
                     credentials: 'include'
                 });
-                console.log("it got to 2");
-                console.log(response);
                 if (response.ok) {
                     const result = await response.json();
                     setTestObject(result);
-                    console.log("it got to 3");
                 } else {
                     console.log("No Response received");
                 }

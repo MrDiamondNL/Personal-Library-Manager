@@ -6,28 +6,28 @@ import { Popup } from "./Modals/Popup";
 import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 import { LoadingSpinner } from "./LoadingSpinner";
-import { useAuth } from "../contexts/AuthContext"; //this needs to be removed
+import { useAuth } from "../contexts/AuthContext";
 
 export default function CardDetailsExpanded() {
 
+    const { id } = useParams();
     const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `details/${id}`
 
-    const { id } = useParams();
     const [expandedDescription, setExpandedDescription] = useState(false);
-    const { currentUser, getFirebaseToken } = useAuth();//this needs to be removed
+    const { getFirebaseToken } = useAuth();
 
     const [modalType, setModalType] = useState(null);
 
     const findItem = async () => {
         try {
             const idToken = await getFirebaseToken();
-            console.log(idToken);
             const response = await fetch(CARD_DETAILS_EXPANDED_FETCH_URL, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${idToken}` //this needs to be removed
+                    "Authorization": `Bearer ${idToken}`
                 },
+                credentials: "include"
             });
             if (response.ok) {
                 const result = await response.json();

@@ -8,13 +8,10 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { googleSignIn, } = useAuth();
+    const { googleSignIn, fetchCustomJWT } = useAuth();
     const navigate = useNavigate();
 
-
-
-
-    const emailSignIn = (e) => {
+    const emailSignIn = async (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -22,12 +19,14 @@ export default function SignIn() {
             }).catch((error) => {
                 console.log(error);
             });
+        await fetchCustomJWT();
         navigate("/");
     }
 
     const handleGoogleSignIn = async () => {
         try {
             await googleSignIn();
+            await fetchCustomJWT();
             navigate("/");
         } catch (error) {
             console.log(error);

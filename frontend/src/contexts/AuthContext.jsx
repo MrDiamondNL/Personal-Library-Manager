@@ -12,7 +12,7 @@ import {
 
 // eslint-disable-next-line no-undef
 const AuthContext = createContext();
-
+const AUTHENTICATOR_API_URL = import.meta.env.VITE_BACKEND_API_URL + "api/auth/authenticate";
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -21,7 +21,6 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
-    const [customToken, setCustomToken] = useState();
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
@@ -55,6 +54,27 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const fetchCustomJWT = async () => {
+        const idToken = await getFirebaseToken();
+        try {
+            const response = await fetch(AUTHENTICATOR_API_URL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${idToken}`
+                },
+                credentials: "include"
+            });
+            if (response.ok) {
+                const result = await response.json();
+            } else {
+                console.log("No Response received");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
@@ -72,7 +92,8 @@ export function AuthProvider({ children }) {
         loading,
         logOut,
         forgotPassword,
-        getFirebaseToken
+        getFirebaseToken,
+        fetchCustomJWT
     }
 
     return (
