@@ -6,7 +6,7 @@ export const ReturnPopup = ({ item, closePopup }) => {
 
     const returnItem = async () => {
         const itemToReturn = item._id;
-        const LIBRARY_ITEM_RETURN_URL = import.meta.env.VITE_BACKEND_API_URL + "return";
+        const LIBRARY_ITEM_RETURN_URL = import.meta.env.VITE_BACKEND_API_URL + "api/return";
 
         try {
             const response = await fetch(LIBRARY_ITEM_RETURN_URL, {

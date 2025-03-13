@@ -68,7 +68,7 @@ export const CameraSearch = () => {
         const dataToSubmit = book;
         setIsSubmitting(true);
 
-        const LIBRARY_ITEM_SAVE_URL = import.meta.env.VITE_BACKEND_API_URL + "library"
+        const LIBRARY_ITEM_SAVE_URL = import.meta.env.VITE_BACKEND_API_URL + "api/library"
 
         try {
             const response = await fetch(LIBRARY_ITEM_SAVE_URL, {

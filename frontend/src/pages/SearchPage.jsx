@@ -9,9 +9,10 @@ export default function SearchPage() {
 
     const location = useLocation();
     const { query } = location.state || { query: "" };
+    const url = import.meta.env.VITE_BACKEND_API_URL + "api/";
 
     const fetchLib = async () => {
-        const res = await fetch(import.meta.env.VITE_BACKEND_API_URL);
+        const res = await fetch(url);
         console.log(res);
         if (!res.ok) {
             throw new Error("Response was not ok");

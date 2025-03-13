@@ -6,12 +6,20 @@ import { LoadingSpinner } from "./LoadingSpinner";
 // import libraryData from "../../data/dbtest.json"
 
 export default function CardList({ bookType }) {
-    const { currentUser } = useAuth();
+    const { currentUser, getFirebaseToken } = useAuth();
 
-    const LIBRARY_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL;
+    const LIBRARY_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "api/";
 
     const fetchLib = async () => {
-        const res = await fetch(LIBRARY_FETCH_URL);
+        const idToken = await getFirebaseToken();
+        const res = await fetch(LIBRARY_FETCH_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${idToken}`
+            },
+            credentials: "include"
+        });
         if (!res.ok) {
             throw new Error("Response was not ok");
         }

@@ -63,4 +63,8 @@ const checkForCustomToken = async (req, res, next) => {
     }
 }
 
-module.exports = { checkForCustomToken, checkForFirebaseToken };
+const logoutUserToken = (req, res) => {
+    res.cookie("jwt", "", { maxAge: 1 });
+}
+
+module.exports = { checkForCustomToken, checkForFirebaseToken, logoutUserToken };

@@ -10,7 +10,7 @@ export const LendPopup = ({ item, closePopup }) => {
         const formData = new FormData(e.target);
         formData.append("id", itemToLend);
         const formDataObj = Object.fromEntries(formData.entries());
-        const LIBRARY_ITEM_LEND_URL = import.meta.env.VITE_BACKEND_API_URL + "lend";
+        const LIBRARY_ITEM_LEND_URL = import.meta.env.VITE_BACKEND_API_URL + "api/lend";
         try {
             const response = await fetch(LIBRARY_ITEM_LEND_URL, {
                 method: "PUT",

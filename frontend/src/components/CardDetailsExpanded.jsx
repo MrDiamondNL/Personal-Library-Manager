@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 export default function CardDetailsExpanded() {
 
     const { id } = useParams();
-    const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `details/${id}`
+    const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `api/details/${id}`
 
     const [expandedDescription, setExpandedDescription] = useState(false);
     const { getFirebaseToken } = useAuth();

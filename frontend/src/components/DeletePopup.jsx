@@ -8,7 +8,7 @@ export const DeletePopup = ({ item, closePopup }) => {
 
     const deleteItem = async () => {
         const itemToDelete = item._id;
-        const LIBRARY_ITEM_DELETE_URL = import.meta.env.VITE_BACKEND_API_URL + "delete";
+        const LIBRARY_ITEM_DELETE_URL = import.meta.env.VITE_BACKEND_API_URL + "api/delete";
 
         try {
             const response = await fetch(LIBRARY_ITEM_DELETE_URL, {

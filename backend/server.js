@@ -5,14 +5,14 @@ const cors = require("cors");
 const connectToDb = require("./db.js");
 const cookieParser = require('cookie-parser');
 const { checkForCustomToken, checkForFirebaseToken } = require("./middleware/authMiddleware.js");
-const itemController = require("./controllers/itemController.js");
+const itemRoutes = require("./routes/itemRoutes.js");
 
 const app = express();
 const port = 5000;
 let activeDb = "library";
 
 app.use(cors({
-    origin: process.env.ORIGIN_URL,
+    origin: process.env.ORIGIN_URL || "http://localhost:5173" ,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -34,12 +34,7 @@ connectToDb().then(result => {
     });
 });
 
-app.get("/", itemController.getAllItems);
-app.get("/details/:id", checkForCustomToken, itemController.getItemDetails);
-app.post("/library", itemController.saveItemToLibrary);
-app.put("/lend", itemController.lendItem);
-app.put("/return", itemController.returnItem);
-app.put("/comment", itemController.updateComments);
-app.delete("/delete", itemController.deleteITem);
+//app.use("/api/*", checkForCustomToken)
+app.use(itemRoutes);
 
 app.get("/api/auth/authenticate", checkForFirebaseToken);
