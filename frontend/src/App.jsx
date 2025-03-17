@@ -14,6 +14,7 @@ import ManualISBNSearch from "./pages/ManualISBNSearch";
 import { CameraSearch } from "./pages/CameraSearch";
 import Login from "./pages/LogIn"
 import { AuthProvider } from "./contexts/AuthContext";
+import { CustomFetchProvider } from "./contexts/CustomFetchContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { TitleSearch } from "./pages/TitleSearch";
 import CardDetailsExpanded from "./components/CardDetailsExpanded";

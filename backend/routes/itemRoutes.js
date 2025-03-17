@@ -1,10 +1,8 @@
 const { Router } = require("express");
 const itemController = require("../controllers/itemController");
-const { checkForCustomToken, checkForFirebaseToken } = require("../middleware/authMiddleware");
 
 const router = Router();
 
-router.use("*", checkForCustomToken);
 router.get("/api/", itemController.getAllItems);
 router.get("/api/details/:id", itemController.getItemDetails);
 router.post("/api/library", itemController.saveItemToLibrary);

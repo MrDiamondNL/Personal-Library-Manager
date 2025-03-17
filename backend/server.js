@@ -34,7 +34,10 @@ connectToDb().then(result => {
     });
 });
 
-//app.use("/api/*", checkForCustomToken)
-app.use(itemRoutes);
-
 app.get("/api/auth/authenticate", checkForFirebaseToken);
+
+// Protect all other routes with your custom token middleware
+app.use("/api", checkForCustomToken);
+
+// Apply your item routes after the auth middleware
+app.use(itemRoutes);

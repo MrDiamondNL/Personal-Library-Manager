@@ -21,7 +21,7 @@ const checkForFirebaseToken = async (req, res, next) => {
 
     if (!firebaseToken) {
         console.log("didn't find token")
-        return res.status(401).json({ error: "No Firebase token provided" });
+        return res.status(401).json({ errID: 1, error: "No Firebase token provided" });
     }
 
     try {

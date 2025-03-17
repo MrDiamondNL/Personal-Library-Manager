@@ -13,14 +13,14 @@ export default function SignIn() {
 
     const emailSignIn = async (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-            }).catch((error) => {
-                console.log(error);
-            });
-        await fetchCustomJWT();
-        navigate("/");
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("User signed in:", userCredential);
+            await fetchCustomJWT();
+            navigate("/");
+        } catch (error) {
+            console.log("Sign-in error:", error);
+        }
     }
 
     const handleGoogleSignIn = async () => {

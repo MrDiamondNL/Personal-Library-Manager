@@ -49,13 +49,24 @@ export function AuthProvider({ children }) {
 
     const getFirebaseToken = async () => {
         const user = auth.currentUser;
-        if (user) {
-            return await user.getIdToken();
+        if (!user) {
+            console.log("No current user found");
+            return null;
+        }
+        try {
+            const token = await user.getIdToken(true);
+            console.log("Token retrieved successfully");
+            return token;
+        } catch (error) {
+            console.log("Error getting token:", error);
+            return null;
         }
     }
 
     const fetchCustomJWT = async () => {
         const idToken = await getFirebaseToken();
+        console.log(idToken);
+        console.log(AUTHENTICATOR_API_URL);
         try {
             const response = await fetch(AUTHENTICATOR_API_URL, {
                 method: "GET",

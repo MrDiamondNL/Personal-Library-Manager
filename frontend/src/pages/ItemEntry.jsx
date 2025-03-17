@@ -4,8 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Popup } from "../components/Modals/Popup";
 import { useState, useRef } from "react";
 import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { getIdToken } from "firebase/auth"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
