@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export const CommentPopup = ({ item, closePopup }) => {
     const [commentAdded, setCommentAdded] = useState(false);
+    const { customFetch } = useContext(CustomFetchContext);
 
     const submitComment = async (e) => {
         e.preventDefault();
@@ -15,24 +17,13 @@ export const CommentPopup = ({ item, closePopup }) => {
         const LIBRARY_ITEM_COMMENT_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "api/comment";
 
 
+
         try {
-            const response = await fetch(LIBRARY_ITEM_COMMENT_FETCH_URL, {
+            const response = await customFetch(LIBRARY_ITEM_COMMENT_FETCH_URL, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify(formDataObj),
             });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Entry was successfully updated");
-                setCommentAdded(true);
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                closePopup();
-            } else {
-                console.error("Unable to update entry", response.statusText);
-            }
+            return response;
         } catch (error) {
             console.log(error);
         }

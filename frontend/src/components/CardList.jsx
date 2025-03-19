@@ -3,27 +3,18 @@ import { GuideCard } from "./GuideCard";
 import { useQuery } from "react-query"
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingSpinner } from "./LoadingSpinner";
-// import libraryData from "../../data/dbtest.json"
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
+import { useContext } from "react";
 
 export default function CardList({ bookType }) {
-    const { currentUser, getFirebaseToken } = useAuth();
+    const { currentUser } = useAuth();
 
     const LIBRARY_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "api/";
+    const { customFetch } = useContext(CustomFetchContext);
 
     const fetchLib = async () => {
-        const idToken = await getFirebaseToken();
-        const res = await fetch(LIBRARY_FETCH_URL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${idToken}`
-            },
-            credentials: "include"
-        });
-        if (!res.ok) {
-            throw new Error("Response was not ok");
-        }
-        return res.json();
+        const res = await customFetch(LIBRARY_FETCH_URL);
+        return res;
     }
     const { data, refetch } = useQuery(
         "lib",

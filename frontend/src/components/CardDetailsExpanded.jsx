@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useParams } from "react-router-dom";
 import { LendToken } from "./LendToken";
@@ -7,35 +7,22 @@ import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons
 import { useQuery } from "react-query";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { useAuth } from "../contexts/AuthContext";
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export default function CardDetailsExpanded() {
 
     const { id } = useParams();
     const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `api/details/${id}`
+    const { customFetch } = useContext(CustomFetchContext);
 
     const [expandedDescription, setExpandedDescription] = useState(false);
-    const { getFirebaseToken } = useAuth();
 
     const [modalType, setModalType] = useState(null);
 
     const findItem = async () => {
         try {
-            const idToken = await getFirebaseToken();
-            const response = await fetch(CARD_DETAILS_EXPANDED_FETCH_URL, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${idToken}`
-                },
-                credentials: "include"
-            });
-            if (response.ok) {
-                const result = await response.json();
-                return result;
-            } else {
-                console.log("item could not be found");
-                return null;
-            }
+            const response = await customFetch(CARD_DETAILS_EXPANDED_FETCH_URL);
+            return response;
         } catch (error) {
             console.log(error);
         }

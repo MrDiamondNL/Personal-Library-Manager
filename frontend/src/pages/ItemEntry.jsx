@@ -2,9 +2,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Popup } from "../components/Modals/Popup";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export default function ItemEntry() {
     const { currentUser } = useAuth();
@@ -13,6 +14,7 @@ export default function ItemEntry() {
     const fileInputRef = useRef(null);
     const [capturedImageFile, setCapturedImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { customFetch } = useContext(CustomFetchContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,11 +51,8 @@ export default function ItemEntry() {
 
             const LIBRARY_ITEM_SAVE_URL = import.meta.env.VITE_BACKEND_API_URL + "api/library"
 
-            const response = await fetch(LIBRARY_ITEM_SAVE_URL, {
+            const response = await customFetch(LIBRARY_ITEM_SAVE_URL, {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify(formDataObj),
             });
 

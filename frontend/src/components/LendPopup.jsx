@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export const LendPopup = ({ item, closePopup }) => {
     const [itemLent, setItemLent] = useState(false);
+    const { customFetch } = useContext(CustomFetchContext);
 
     const lendItem = async (e) => {
         e.preventDefault();
@@ -12,23 +14,15 @@ export const LendPopup = ({ item, closePopup }) => {
         const formDataObj = Object.fromEntries(formData.entries());
         const LIBRARY_ITEM_LEND_URL = import.meta.env.VITE_BACKEND_API_URL + "api/lend";
         try {
-            const response = await fetch(LIBRARY_ITEM_LEND_URL, {
+            const response = await customFetch(LIBRARY_ITEM_LEND_URL, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify(formDataObj),
             });
+            console.log("Entry was successfully updated");
+            setItemLent(!itemLent);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            closePopup();
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Entry was successfully updated");
-                setItemLent(!itemLent);
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                closePopup();
-            } else {
-                console.error("Unable to update entry", response.statusText);
-            }
         } catch (error) {
             console.log(error);
         }
