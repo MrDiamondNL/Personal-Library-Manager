@@ -6,6 +6,7 @@ const connectToDb = require("./db.js");
 const cookieParser = require('cookie-parser');
 const { checkForCustomToken, checkForFirebaseToken } = require("./middleware/authMiddleware.js");
 const itemRoutes = require("./routes/itemRoutes.js");
+const itemValidators = require("./validation/itemValidators.js");
 
 const app = express();
 const port = 5000;
@@ -36,8 +37,18 @@ connectToDb().then(result => {
 
 app.get("/api/auth/authenticate", checkForFirebaseToken);
 
-// Protect all other routes with your custom token middleware
+
 app.use("/api", checkForCustomToken);
 
-// Apply your item routes after the auth middleware
 app.use(itemRoutes);
+
+// Test endpoints for stuff
+
+// app.get("/test/body", (req, res) => {
+//     const {error, value} = itemValidators.addingItemValidator(req.body);
+//     if (error) {
+//         console.log(error);
+//         return res.send(error.details);
+//     }
+//     res.send("Successfully passed check");
+// })

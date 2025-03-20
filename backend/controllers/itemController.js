@@ -90,7 +90,7 @@ module.exports.returnItem = async (req, res) => {
     }
 }
 
-module.exports.deleteITem = async (req, res) => {
+module.exports.deleteItem = async (req, res) => {
     try {
         let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
         console.log(`Attempting to delete item with ID: ${deleteItemID}`);

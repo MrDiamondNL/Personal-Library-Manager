@@ -9,7 +9,7 @@ router.post("/api/library", itemController.saveItemToLibrary);
 router.put("/api/lend", itemController.lendItem);
 router.put("/api/return", itemController.returnItem);
 router.put("/api/comment", itemController.updateComments);
-router.delete("/api/delete", itemController.deleteITem);
+router.delete("/api/delete", itemController.deleteItem);
 
 
 module.exports = router;
