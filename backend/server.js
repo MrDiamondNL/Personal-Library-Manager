@@ -6,7 +6,6 @@ const connectToDb = require("./db.js");
 const cookieParser = require('cookie-parser');
 const { checkForCustomToken, checkForFirebaseToken } = require("./middleware/authMiddleware.js");
 const itemRoutes = require("./routes/itemRoutes.js");
-const itemValidators = require("./validation/itemValidators.js");
 
 const app = express();
 const port = 5000;

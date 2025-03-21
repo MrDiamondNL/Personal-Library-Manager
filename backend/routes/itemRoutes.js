@@ -1,10 +1,12 @@
 const { Router } = require("express");
 const itemController = require("../controllers/itemController");
+const itemValidators = require("../middleware/validationMiddleware")
+
 
 const router = Router();
 
 router.get("/api/", itemController.getAllItems);
-router.get("/api/details/:id", itemController.getItemDetails);
+router.get("/api/details/:id", itemValidators.findItemValidator, itemController.getItemDetails);
 router.post("/api/library", itemController.saveItemToLibrary);
 router.put("/api/lend", itemController.lendItem);
 router.put("/api/return", itemController.returnItem);

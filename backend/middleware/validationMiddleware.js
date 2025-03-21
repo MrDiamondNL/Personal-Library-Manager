@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const schemas = {
     addingItem: Joi.object({
-        title: Joi.string().required(),
+        title: Joi.string().required().min(1),
         category: Joi.string().required(),
         description: Joi.string(),
         author: Joi.string(),
@@ -12,12 +12,17 @@ const schemas = {
     }),
 
     lendItem: Joi.object({
-        email: Joi.string().max(50).required(),
+        email: Joi.string().max(100).required(),
         id: Joi.string().required(),
     }),
 
     findItem: Joi.object({
         id: Joi.string().required(),
+
+    }),
+
+    addComment: Joi.object({
+
     })
 }
 
