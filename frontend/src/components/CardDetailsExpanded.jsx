@@ -6,7 +6,6 @@ import { Popup } from "./Modals/Popup";
 import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 import { LoadingSpinner } from "./LoadingSpinner";
-import { useAuth } from "../contexts/AuthContext";
 import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export default function CardDetailsExpanded() {
@@ -93,7 +92,7 @@ export default function CardDetailsExpanded() {
                 )}
                 <h4>Comment Section</h4>
                 <div className="comments-section">
-                    {item.comments.length === 0 ? (
+                    {item.comments?.length === 0 ? (
                         <p>No Comments Added</p>
                     ) : (
                         item.comments.toReversed().map((comment, index) => (

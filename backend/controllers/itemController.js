@@ -5,11 +5,10 @@ const NUM_OF_COMMENTS = -3;
 module.exports.getAllItems = (req, res) => {
     Item.find()
         .then((result) => {
-            res.status(201).send(result);
+            res.status(200).send(result);
         })
         .catch((err) => {
-            console.log(err);
-            res.status(500).send("Could not fetch collection");
+            throw CustomError.notFound("Could not fetch collection");
         })
 }
 
@@ -20,30 +19,32 @@ module.exports.getItemDetails = (req, res) => {
         res.status(201).send(result);
     })
     .catch(err => {
-        console.log(err);
-        res.status(500).send("Could not find item");
+        throw CustomError.notFound("Could not find item");
     })
 }
 
 module.exports.saveItemToLibrary = (req, res) => {
     let newItem = new Item(req.body);
-    console.log(req.body);
-    newItem.save()
+    try {
+        newItem.save()
         .then(() => {
-            console.log("item added succesfully");
             res.status(201).send("Item added successfully");
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).send("error adding item");
-        });    
+            throw CustomError.internalServer("Failed to save item");
+        }); 
+    } catch (err) {
+
+    }
+       
 }
 
 module.exports.lendItem = async (req, res) => {
+    
     try {
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
         const email = req.body.email;
-    
+        throw new Error();
         console.log(`Attempting to find item with ID:${updateItemID} in database`);
 
         const result = await Item.findByIdAndUpdate(
@@ -54,22 +55,18 @@ module.exports.lendItem = async (req, res) => {
             });
 
         if(result) {
-            console.log("Item was successfully updated", result);
             res.status(200).json({message: "Item was successfully updated"});            
         } else {
-            res.status(404).json({ message: "Item was not found"});
+            throw CustomError.notFound("Could not find item");
         }
     } catch (err) {
-        console.error("Error updating item:", err);
-        res.status(500).json({ message: "Error updating item" });
+        throw CustomError.internalServer("Failed to update");
     }
 }
 
 module.exports.returnItem = async (req, res) => {
     try {
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
-    
-        console.log(`Attempting to find item with ID:${updateItemID} in database`);
 
         const result = await Item.findByIdAndUpdate(
             updateItemID, 
@@ -79,21 +76,18 @@ module.exports.returnItem = async (req, res) => {
             });
 
         if(result) {
-            console.log("Item was successfully returned", result);
             res.status(200).json({message: "Item was successfully returned"});            
         } else {
-            res.status(404).json({ message: "Item was not found"});
+            throw CustomError.notFound("Could not find item");
         }
     } catch (err) {
-        console.error("Error updating item:", err);
-        res.status(500).json({ message: "Error updating item" });
+        throw CustomError.internalServer("Failed to save");
     }
 }
 
 module.exports.deleteItem = async (req, res) => {
     try {
         let deleteItemID = new mongoose.Types.ObjectId(req.body.id);
-        console.log(`Attempting to delete item with ID: ${deleteItemID}`);
 
         const result = await Item.findByIdAndDelete(deleteItemID);
 
@@ -101,11 +95,10 @@ module.exports.deleteItem = async (req, res) => {
             console.log("Item successfully deleted:", result);
             res.status(200).json({ message: "Entry was successfully deleted" });
         } else {
-            res.status(404).json({ message: "Item not found" });
+            throw CustomError.notFound("Could not find item");
         }
     } catch (err) {
-        console.error("Error deleting item:", err);
-        res.status(500).json({ message: "Error deleting item" });
+        throw CustomError.internalServer("Failed to save");
     }
 }
 
@@ -113,14 +106,11 @@ module.exports.updateComments = async (req, res) => {
     try {
         const commentItemID = new mongoose.Types.ObjectId(req.body.id);
         const itemComment = req.body.comment;
-        console.log(`Attempting to add comment to Item with ID: ${commentItemID}`);
 
         const newComment = {
             text: itemComment,
             date: Date.now(),
         };
-
-        console.log(newComment);
 
         const result = await Item.findByIdAndUpdate(
             commentItemID,
@@ -136,14 +126,12 @@ module.exports.updateComments = async (req, res) => {
         );
 
         if (result) {
-            console.log("Item successfully updated", result);
             res.status(200).json({ message: "Entry was successfully commented" });
         } else {
-            res.status(404).json({ message: "Item not found" });
+            throw CustomError.notFound("Could not find item");
         }
     } catch (error) {
-        console.error("Error commenting Item: ", error);
-        res.status(500).json({message: "Item not commented"});
+        throw CustomError.internalServer("Failed to save");
     }
 }
 

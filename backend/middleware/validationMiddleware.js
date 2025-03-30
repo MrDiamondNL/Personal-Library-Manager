@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { schema } = require("../models/Item");
 
 const schemas = {
     addingItem: Joi.object({
@@ -22,11 +23,12 @@ const schemas = {
     }),
 
     addComment: Joi.object({
-
+        id: Joi.string().required(),
+        comment: Joi.string().min(1).max(200).required()
     })
 }
 
-const validateRequest = (schema) => {
+const validateRequestBody = (schema) => {
     return (req, res, next) => {
         const {error, value} = schema.validate(req.body); 
         if (error) {
@@ -34,12 +36,23 @@ const validateRequest = (schema) => {
             return res.send(error.details);
         }
         next();
-    }
-    
+    }    
+}
+
+const validateRequestParams = (schema) => {
+    return (req, res, next) => {
+        const {error, value} = schema.validate(req.params); 
+        if (error) {
+            console.log(error);
+            return res.send(error.details);
+        }
+        next();
+    }    
 }
 
 module.exports = {
-    addingItemValidator: validateRequest(schemas.addingItem),
-    lendItemValidator: validateRequest(schemas.lendItem),
-    findItemValidator: validateRequest(schemas.findItem),
+    addingItemValidator: validateRequestBody(schemas.addingItem),
+    lendItemValidator: validateRequestBody(schemas.lendItem),
+    findItemValidator: validateRequestParams(schemas.findItem),
+    addCommentValidator: validateRequestBody(schemas.addComment)
 };

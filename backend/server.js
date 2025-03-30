@@ -6,6 +6,7 @@ const connectToDb = require("./db.js");
 const cookieParser = require('cookie-parser');
 const { checkForCustomToken, checkForFirebaseToken } = require("./middleware/authMiddleware.js");
 const itemRoutes = require("./routes/itemRoutes.js");
+const { errorHandler } = require("./middleware/errorHandler.js");
 
 const app = express();
 const port = 5000;
@@ -40,6 +41,7 @@ app.get("/api/auth/authenticate", checkForFirebaseToken);
 app.use("/api", checkForCustomToken);
 
 app.use(itemRoutes);
+app.use(errorHandler);
 
 // Test endpoints for stuff
 

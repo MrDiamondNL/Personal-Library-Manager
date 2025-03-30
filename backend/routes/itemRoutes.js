@@ -7,11 +7,11 @@ const router = Router();
 
 router.get("/api/", itemController.getAllItems);
 router.get("/api/details/:id", itemValidators.findItemValidator, itemController.getItemDetails);
-router.post("/api/library", itemController.saveItemToLibrary);
-router.put("/api/lend", itemController.lendItem);
-router.put("/api/return", itemController.returnItem);
-router.put("/api/comment", itemController.updateComments);
-router.delete("/api/delete", itemController.deleteItem);
+router.post("/api/library", itemValidators.addingItemValidator, itemController.saveItemToLibrary);
+router.put("/api/lend", itemValidators.lendItemValidator, itemController.lendItem);
+router.put("/api/return", itemValidators.findItemValidator, itemController.returnItem);
+router.put("/api/comment", itemValidators.addCommentValidator, itemController.updateComments);
+router.delete("/api/delete", itemValidators.findItemValidator, itemController.deleteItem);
 
 
 module.exports = router;
