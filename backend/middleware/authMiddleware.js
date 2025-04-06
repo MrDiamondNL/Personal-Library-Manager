@@ -55,7 +55,7 @@ const checkForCustomToken = async (req, res, next) => {
     }
     try {
         const decoded = await jwt.verify(token, SECRET_KEY);
-        req.user = decoded;
+        res.user = decoded;
         next();
     } catch (err) {
         console.log(err.message);
@@ -64,7 +64,17 @@ const checkForCustomToken = async (req, res, next) => {
 }
 
 const logoutUserToken = (req, res) => {
-    res.cookie("jwt", "", { maxAge: 1 });
+    res.cookie("customToken", "", { maxAge: 1 });
+}
+
+getUserFromToken = async (req, res) => {
+    const token = req.cookies.customToken;
+    try {
+        const decoded = await jwt.verify(token, SECRET_KEY);
+        req.user = decoded;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = { checkForCustomToken, checkForFirebaseToken, logoutUserToken };

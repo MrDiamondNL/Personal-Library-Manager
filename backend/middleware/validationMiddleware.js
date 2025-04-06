@@ -53,6 +53,7 @@ const validateRequestParams = (schema) => {
 module.exports = {
     addingItemValidator: validateRequestBody(schemas.addingItem),
     lendItemValidator: validateRequestBody(schemas.lendItem),
-    findItemValidator: validateRequestParams(schemas.findItem),
-    addCommentValidator: validateRequestBody(schemas.addComment)
+    findItemParamsValidator: validateRequestParams(schemas.findItem),
+    addCommentValidator: validateRequestBody(schemas.addComment),
+    findItemBodyValidator: validateRequestBody(schemas.findItem)
 };

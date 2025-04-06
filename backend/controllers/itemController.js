@@ -1,6 +1,7 @@
 const Item = require("../models/Item");
 const mongoose = require("mongoose");
 const NUM_OF_COMMENTS = -3;
+const CustomError = require("../utils/customError")
 
 module.exports.getAllItems = (req, res) => {
     Item.find()
@@ -44,7 +45,6 @@ module.exports.lendItem = async (req, res) => {
     try {
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
         const email = req.body.email;
-        throw new Error();
         console.log(`Attempting to find item with ID:${updateItemID} in database`);
 
         const result = await Item.findByIdAndUpdate(

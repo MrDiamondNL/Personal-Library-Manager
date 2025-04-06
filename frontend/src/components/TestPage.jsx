@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-//import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AuthContext";
 import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 
 export default function TestPage() {
 
-    //const { getFirebaseToken } = useAuth();
+    // const { currentUser } = useAuth();
     const { customFetch } = useContext(CustomFetchContext);
     const [testObject, setTestObject] = useState(null);
 

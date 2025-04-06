@@ -26,3 +26,5 @@ class CustomError extends Error {
         return new CustomError(500, msg);
     }
 }
+
+module.exports = CustomError;
