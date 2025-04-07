@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const { schema } = require("../models/Item");
+const CustomError = require("../utils/customError")
 
 const schemas = {
     addingItem: Joi.object({
@@ -33,7 +34,7 @@ const validateRequestBody = (schema) => {
         const {error, value} = schema.validate(req.body); 
         if (error) {
             console.log(error);
-            return res.send(error.details);
+            return next(CustomError.badRequest("Validation error", error.details));
         }
         next();
     }    
@@ -44,7 +45,7 @@ const validateRequestParams = (schema) => {
         const {error, value} = schema.validate(req.params); 
         if (error) {
             console.log(error);
-            return res.send(error.details);
+            return next(CustomError.badRequest("Validation error", error.details));
         }
         next();
     }    

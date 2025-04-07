@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const serviceAccount = require("../configs/serivceAccountKey");
 const admin = require("firebase-admin");
+const CustomError = require("../utils/customError");
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 const JWT_EXPIRY = 60 * 60 * 24 * 7;
@@ -20,8 +21,8 @@ const checkForFirebaseToken = async (req, res, next) => {
     const firebaseToken = req.headers.authorization?.split("Bearer ")[1];
 
     if (!firebaseToken) {
-        console.log("didn't find token")
-        return res.status(401).json({ errID: 1, error: "No Firebase token provided" });
+        console.log("didn't find token");
+        return next(CustomError.unauthorized("No Firebase token provided"));
     }
 
     try {
@@ -43,7 +44,7 @@ const checkForFirebaseToken = async (req, res, next) => {
 
     } catch (err) {
         console.log("Error verifying firebase token", err);
-        res.status(401).json({ error: "Invalid Firebase Token" });
+        return next(CustomError.unauthorized("Invalid Firebase Token"));
     }
 }
 
@@ -51,15 +52,15 @@ const checkForCustomToken = async (req, res, next) => {
     const token = req.cookies.customToken;
     console.log(req.cookies);
     if (!token) {
-        return res.status(401).json({ error: "Authentication required" });
+        return next(CustomError.unauthorized("Authentication required"));
     }
     try {
         const decoded = await jwt.verify(token, SECRET_KEY);
-        res.user = decoded;
+        req.user = decoded;
         next();
     } catch (err) {
         console.log(err.message);
-        return res.status(401).json({ error: "Invalid or expired token" });
+        return next(CustomError.unauthorized("Invalid or expired token" ));
     }
 }
 
