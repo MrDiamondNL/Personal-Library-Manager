@@ -15,12 +15,21 @@ export default function ItemEntry() {
     const [capturedImageFile, setCapturedImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { customFetch } = useContext(CustomFetchContext);
+    const [showTitleError, setShowTitleError] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         formData.append("user", currentUser.uid);
         setIsSubmitting(true);
+
+        if (!formData.get("title")) {
+            setShowTitleError(true);
+            setIsSubmitting(false);
+            return
+        } else {
+            setShowTitleError(false);
+        }
 
         try {
             let coverImageURL = null;
@@ -55,10 +64,16 @@ export default function ItemEntry() {
                 method: 'POST',
                 body: JSON.stringify(formDataObj),
             });
+            console.log("Did it hit here?");
+            console.log(response);
 
             if (response.ok) {
                 console.log("Item entered successfully");
-                navigate("/");
+                console.log(response);
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+                //navigate("/");
             } else {
                 console.log("Could not enter Item");
             }
@@ -92,7 +107,10 @@ export default function ItemEntry() {
             <br />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label>
-                <input type="text" id="title" name="title" required></input>
+                <input type="text" id="title" name="title"></input>
+                {showTitleError && (
+                    <span className="error-span">Title is required</span>
+                )}
                 <br />
                 <label htmlFor="author">Author</label>
                 <input type="text" id="author" name="author"></input>

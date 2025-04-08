@@ -22,7 +22,7 @@ class CustomError extends Error {
         return new CustomError(404, msg);
     }
     
-      static internalServer(msg = 'Something Went Wrong') {
+    static internalServer(msg = 'Something Went Wrong') {
         return new CustomError(500, msg);
     }
 }

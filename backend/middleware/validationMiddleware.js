@@ -6,10 +6,10 @@ const schemas = {
     addingItem: Joi.object({
         title: Joi.string().required().min(1),
         category: Joi.string().required(),
-        description: Joi.string(),
-        author: Joi.string(),
-        isbn: Joi.string(),
-        coverImage: Joi.string(),
+        description: Joi.string().allow(''),
+        author: Joi.string().allow(''),
+        isbn: Joi.string().allow(''),
+        coverImage: Joi.string().allow(''),
         user: Joi.string().required(),
     }),
 
