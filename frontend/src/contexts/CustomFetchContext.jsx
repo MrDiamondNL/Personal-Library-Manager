@@ -30,7 +30,8 @@ export const CustomFetchProvider = ({ children }) => {
             const response = await fetch(url, fetchOptions);
             if (response.ok) {
                 const result = await response.json();
-                return result;
+                //console.log(response);
+                return result.data;
             } else {
                 //console.log("No Response received");
                 if (response.status === 401) {

@@ -67,9 +67,8 @@ export default function ItemEntry() {
             console.log("Did it hit here?");
             console.log(response);
 
-            if (response.ok) {
+            if (response) {
                 console.log("Item entered successfully");
-                console.log(response);
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);

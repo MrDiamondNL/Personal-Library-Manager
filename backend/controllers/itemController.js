@@ -2,6 +2,7 @@ const Item = require("../models/Item");
 const mongoose = require("mongoose");
 const NUM_OF_COMMENTS = -3;
 const CustomError = require("../utils/customError");
+const CustomSuccess = require("../utils/customSuccess")
 
 module.exports.getAllItems = (req, res, next) => {
     if (!req.user) {
@@ -13,7 +14,8 @@ module.exports.getAllItems = (req, res, next) => {
     const user = req.user.id;
     Item.find({ user: user })
         .then((result) => {
-            res.status(200).send(result);
+            const response = new CustomSuccess("Library found", 200, result);
+            res.status(response.statusCode).json(response);
         })
         .catch((err) => {
             next(CustomError.notFound("Could not fetch collection"));
@@ -24,7 +26,8 @@ module.exports.getItemDetails = (req, res, next) => {
     const id = req.params.id;
     Item.findById(id)
     .then(result => {
-        res.status(201).send(result);
+        const response = new CustomSuccess("Item Details found", 200, result);
+        res.status(response.statusCode).json(response);
     })
     .catch(err => {
         next(CustomError.notFound("Could not find item"));
@@ -35,7 +38,8 @@ module.exports.saveItemToLibrary = (req, res, next) => {
     let newItem = new Item(req.body);
     newItem.save()
         .then(() => {
-            res.status(201).send("Item added successfully");
+            const response = new CustomSuccess("Item Details found", 201);
+            res.status(response.statusCode).json(response);
         })
         .catch(err => {
             next(CustomError.internalServer("Failed to save item"));
@@ -56,7 +60,8 @@ module.exports.lendItem = async (req, res, next) => {
             });
 
         if(result) {
-            res.status(200).json({message: "Item was successfully updated"});            
+            const response = new CustomSuccess("Item Updated", 200);
+            res.status(response.statusCode).json(response);         
         } else {
             next(CustomError.notFound("Could not find item"));
         }
@@ -77,7 +82,8 @@ module.exports.returnItem = async (req, res, next) => {
             });
 
         if(result) {
-            res.status(200).json({message: "Item was successfully returned"});            
+            const response = new CustomSuccess("Item Returned", 200);
+            res.status(response.statusCode).json(response);           
         } else {
             next(CustomError.notFound("Could not find item"));
         }
@@ -93,7 +99,8 @@ module.exports.deleteItem = async (req, res, next) => {
         const result = await Item.findByIdAndDelete(deleteItemID);
 
         if (result) {
-            res.status(200).json({ message: "Entry was successfully deleted" });
+            const response = new CustomSuccess("Item Deleted", 200);
+            res.status(response.statusCode).json(response);  
         } else {
             next(CustomError.notFound("Could not find item"));
         }
@@ -126,7 +133,8 @@ module.exports.updateComments = async (req, res, next) => {
         );
 
         if (result) {
-            res.status(200).json({ message: "Entry was successfully commented" });
+            const response = new CustomSuccess("Comments Updated", 200);
+            res.status(response.statusCode).json(response);  
         } else {
             next(CustomError.notFound("Could not find item"));
         }
