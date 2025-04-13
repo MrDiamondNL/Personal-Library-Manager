@@ -1,0 +1,34 @@
+{
+    "version": "tough-cookie@4.1.3",
+    "storeType": "MemoryCookieStore",
+    "rejectPublicSuffixes": true,
+    "cookies": [
+      {
+        "key": "sessionId",
+        "value": "abc123",
+        "domain": "example.com",
+        "path": "/",
+        "expires": "2025-04-17T23:52:22.214Z",
+        "httpOnly": true,
+        "secure": true
+      },
+      {
+        "key": "userId",
+        "value": "12345",
+        "domain": "example.com",
+        "path": "/",
+        "expires": "2025-04-17T23:52:22.214Z",
+        "httpOnly": true,
+        "secure": true
+      },
+      {
+        "key": "auth",
+        "value": "token789",
+        "domain": "api.example.com",
+        "path": "/",
+        "expires": "2025-04-17T23:52:22.214Z",
+        "httpOnly": true,
+        "secure": true
+      }
+    ]
+  }

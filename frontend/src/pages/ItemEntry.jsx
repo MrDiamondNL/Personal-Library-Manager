@@ -64,11 +64,8 @@ export default function ItemEntry() {
                 method: 'POST',
                 body: JSON.stringify(formDataObj),
             });
-            console.log("Did it hit here?");
-            console.log(response);
 
             if (response) {
-                console.log("Item entered successfully");
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
