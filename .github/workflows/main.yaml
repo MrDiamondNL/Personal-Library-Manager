@@ -1,0 +1,38 @@
+ name: Lint & Build Project
+
+on:
+  push:
+    branches:
+      - Back-End-fixing
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+ 
+    - name: Install Postman CLI
+      run: |
+        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+
+    - name: Sleep for 3 minutes
+      run: sleep 180
+
+    - name: Run Postman Tests
+      run: |
+        postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+        postman collection run ${{ secrets.POSTMAN_COLLECTION }} \
+          --environment ${{ secrets.POSTMAN_ENVIRONMENT }}
