@@ -42,14 +42,3 @@ app.use("/api", checkForCustomToken);
 
 app.use(itemRoutes);
 app.use(errorHandler);
-
-// Test endpoints for stuff
-
-// app.get("/test/body", (req, res) => {
-//     const {error, value} = itemValidators.addingItemValidator(req.body);
-//     if (error) {
-//         console.log(error);
-//         return res.send(error.details);
-//     }
-//     res.send("Successfully passed check");
-// })
