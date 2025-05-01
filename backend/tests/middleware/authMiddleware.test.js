@@ -148,7 +148,7 @@ describe("Authorization Middleware Testing", () => {
             expect(next).toHaveBeenCalledWith(mockError);
         });
 
-        test("Should return invalid token if token is invalid",async () => {
+        test("Should return invalid token if token is invalid", async () => {
             const req = {
                 cookies: {
                     customToken: {}
