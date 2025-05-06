@@ -14,7 +14,7 @@ jest.mock("../../configs/serviceAccountJWTSettings", () => ({
 jest.mock("../../utils/customError", () => ({
     unauthorized: jest.fn()
 }));
-jest.mock('../../configs/serivceAccountKey', () => {
+jest.mock("../../configs/serivceAccountKey", () => {
     return {};
   });
 
@@ -195,8 +195,8 @@ describe("Authorization Middleware Testing", () => {
         });
 
         test("should replace existing token with expiring new token", () => {
-            req = {}
-            res = {
+            const req = {}
+            const res = {
                 cookie: jest.fn()
             }
 
