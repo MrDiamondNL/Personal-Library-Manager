@@ -12,19 +12,19 @@ module.exports.getAllItems = (req, res, next) => {
     console.log(req.user.id);
     
     const user = req.user.id;
-    Item.find({ user: user })
+    return Item.find({ user: user })
         .then((result) => {
             const response = new CustomSuccess("Library found", 200, result);
             res.status(response.statusCode).json(response);
         })
         .catch((err) => {
             next(CustomError.notFound("Could not fetch collection"));
-        })
+        });
 }
 
 module.exports.getItemDetails = (req, res, next) => {
     const id = req.params.id;
-    Item.findById(id)
+    return Item.findById(id)
     .then(result => {
         const response = new CustomSuccess("Item Details found", 200, result);
         res.status(response.statusCode).json(response);
