@@ -36,7 +36,7 @@ module.exports.getItemDetails = (req, res, next) => {
 
 module.exports.saveItemToLibrary = (req, res, next) => {
     let newItem = new Item(req.body);
-    newItem.save()
+    return newItem.save()
         .then(() => {
             const response = new CustomSuccess("Item Details found", 201);
             res.status(response.statusCode).json(response);
@@ -63,6 +63,7 @@ module.exports.lendItem = async (req, res, next) => {
             const response = new CustomSuccess("Item Updated", 200);
             res.status(response.statusCode).json(response);         
         } else {
+            console.log("Item not found, calling CustomError.notFound");
             next(CustomError.notFound("Could not find item"));
         }
     } catch (err) {
@@ -72,6 +73,7 @@ module.exports.lendItem = async (req, res, next) => {
 
 module.exports.returnItem = async (req, res, next) => {
     try {
+        
         const updateItemID = new mongoose.Types.ObjectId(req.body.id);
 
         const result = await Item.findByIdAndUpdate(
@@ -105,7 +107,7 @@ module.exports.deleteItem = async (req, res, next) => {
             next(CustomError.notFound("Could not find item"));
         }
     } catch (err) {
-        next(CustomError.internalServer("Failed to save"));
+        next(CustomError.internalServer("Failed to Delete"));
     }
 }
 
