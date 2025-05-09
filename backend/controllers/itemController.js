@@ -34,16 +34,21 @@ module.exports.getItemDetails = (req, res, next) => {
     })
 }
 
-module.exports.saveItemToLibrary = (req, res, next) => {
-    let newItem = new Item(req.body);
-    return newItem.save()
+module.exports.saveItemToLibrary = async (req, res, next) => {
+    try {
+        let newItem = new Item(req.body);
+        await newItem.save()
         .then(() => {
-            const response = new CustomSuccess("Item Details found", 201);
+            const response = new CustomSuccess("Item saved to", 201);
             res.status(response.statusCode).json(response);
         })
         .catch(err => {
             next(CustomError.internalServer("Failed to save item"));
         });
+    }
+    catch (err) {
+        next(CustomError.internalServer("Congrats, you broke it all"));
+    }
 }
 
 module.exports.lendItem = async (req, res, next) => {    

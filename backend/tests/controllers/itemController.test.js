@@ -9,12 +9,15 @@ jest.mock("../../utils/customError", () => ({
     internalServer: jest.fn()
 }));
 jest.mock("../../utils/customSuccess");
-jest.mock("../../models/Item", () => ({
-    find: jest.fn(),
-    findById: jest.fn(),
-    findByIdAndUpdate: jest.fn(),
-    save: jest.fn()
-}));
+jest.mock("../../models/Item");
+
+// jest.mock("../../models/Item", () => ({
+//     find: jest.fn(),
+//     findById: jest.fn(),
+//     findByIdAndUpdate: jest.fn(),
+//     save: jest.fn(),
+    
+// }));
 
 describe("itemController", () => {
     describe("getAllItems", () => {
@@ -145,32 +148,86 @@ describe("itemController", () => {
         });
     });
 
-    // describe("saveItemToLibrary", () => {
-    //     beforeEach(() => {
-    //         jest.clearAllMocks();
-    //     });
+    describe("saveItemToLibrary", () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
 
-    //     test("Should return interanl server if item save fails", () => {
-    //         const req = {
-    //             body: { title: "Test Book" }
-    //         }
-    //         const res = {}
-    //         const next = jest.fn();
-    //         const mockError = {
-    //             statusCode: 500,
-    //             message: "Failed to save item"
-    //         }
-    //         CustomError.internalServer.mockReturnValue(mockError);
-    //         Item.mockImplementationOnce(() => ({
-    //             save: jest.fn().mockRejectedValue(new Error("Save failed"))
-    //         }));
+        test("Should return interanl server if something fails", async () => {
+            const req = {
+                body: { title: "Test Book" }
+            }
+            const res = {}
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 500,
+                message: "Congrats, you broke it all"
+            }
+            CustomError.internalServer.mockReturnValue(mockError);
+            Item.mockImplementationOnce(() => {
+                throw CustomError.internalServer("Congrats, you broke it all");
+            });
 
-    //         return itemController.saveItemToLibrary(req, res, next).then(() => {
-    //             expect(next).toHaveBeenCalledWith(mockError);
-    //             expect(CustomError.internalServer).toHaveBeenCalledWith("Failed to save item");
-    //         });            
-    //     })
-    // });
+            await itemController.saveItemToLibrary(req, res, next);
+            
+            expect(next).toHaveBeenCalledWith(mockError);
+            expect(CustomError.internalServer).toHaveBeenCalledWith("Congrats, you broke it all");
+        });
+
+        test("Should return item failed to save if save fails", async () => {
+            const req = {
+                body: { title: "Test Book" }
+            }
+            const res = {}
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 500,
+                message: "Failed to save item"
+            }
+            CustomError.internalServer.mockReturnValue(mockError);
+            Item.mockImplementationOnce(() => ({
+                save: jest.fn().mockReturnValue(Promise.reject(new Error()))
+            }));
+
+            await itemController.saveItemToLibrary(req, res, next);
+
+            expect(next).toHaveBeenCalledWith(mockError);
+            expect(CustomError.internalServer).toHaveBeenCalledWith("Failed to save item");
+        });
+
+        test("Should return 201 when item successfully saved", async () => {
+            const req = {
+                body: { title: "Test Book" }
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                message: "Item saved to library",
+                json: jest.fn()
+            }
+            const next = jest.fn();
+            const mockSuccess = {
+                statusCode: 201,
+                message: "Item saved to library"
+            }
+            const book = { title: "New book" };
+            CustomSuccess.mockImplementation(function(message, statusCode) {
+                this.message = message;
+                this.statusCode = statusCode;
+                return this;
+            });
+            Item.mockImplementationOnce(() => ({
+                save: jest.fn().mockReturnValue(book)
+            }));
+            
+
+            await itemController.saveItemToLibrary(req, res, next);
+
+            expect(CustomSuccess).toHaveBeenCalledWith("Item saved to library", 201);
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.json).toHaveBeenCalledWith(mockSuccess);
+            expect(next).not.toHaveBeenCalled();
+        });
+    });
 
     describe("lendItem", () => {
         beforeEach(() => {
@@ -255,11 +312,11 @@ describe("itemController", () => {
         });
     });
 
-    describe("returnItem", () => {
-        beforeEach(() => {
-            jest.clearAllMocks();
-        });
+    // describe("returnItem", () => {
+    //     beforeEach(() => {
+    //         jest.clearAllMocks();
+    //     });
 
-        test("")
-    })
+        
+    // })
 })
