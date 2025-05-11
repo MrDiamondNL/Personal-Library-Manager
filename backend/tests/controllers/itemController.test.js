@@ -11,14 +11,6 @@ jest.mock("../../utils/customError", () => ({
 jest.mock("../../utils/customSuccess");
 jest.mock("../../models/Item");
 
-// jest.mock("../../models/Item", () => ({
-//     find: jest.fn(),
-//     findById: jest.fn(),
-//     findByIdAndUpdate: jest.fn(),
-//     save: jest.fn(),
-    
-// }));
-
 describe("itemController", () => {
     describe("getAllItems", () => {
         beforeEach(() => {
@@ -207,7 +199,7 @@ describe("itemController", () => {
             const next = jest.fn();
             const mockSuccess = {
                 statusCode: 201,
-                message: "Item saved to library"
+                message: "Item saved to Library"
             }
             const book = { title: "New book" };
             CustomSuccess.mockImplementation(function(message, statusCode) {
@@ -216,13 +208,13 @@ describe("itemController", () => {
                 return this;
             });
             Item.mockImplementationOnce(() => ({
-                save: jest.fn().mockReturnValue(book)
+                save: jest.fn().mockResolvedValue(book)
             }));
             
 
             await itemController.saveItemToLibrary(req, res, next);
 
-            expect(CustomSuccess).toHaveBeenCalledWith("Item saved to library", 201);
+            expect(CustomSuccess).toHaveBeenCalledWith("Item saved to Library", 201);
             expect(res.status).toHaveBeenCalledWith(201);
             expect(res.json).toHaveBeenCalledWith(mockSuccess);
             expect(next).not.toHaveBeenCalled();
@@ -312,11 +304,247 @@ describe("itemController", () => {
         });
     });
 
-    // describe("returnItem", () => {
-    //     beforeEach(() => {
-    //         jest.clearAllMocks();
-    //     });
+    describe("returnItem", () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
 
-        
-    // })
-})
+        test("Should return failed to update on failure to update", async () => {
+            const req = {
+                body: {
+                    id: "12345"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 500,
+                message: "Failed to update"
+            }
+            Item.findByIdAndUpdate.mockReturnValue(new Error());
+            CustomError.internalServer.mockReturnValue(mockError);
+
+            await itemController.returnItem(req, res, next);
+
+            expect(CustomError.internalServer).toHaveBeenCalledWith("Failed to update");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return could not find item if unable to find item", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 404,
+                message: "Could not find item"
+            }
+            Item.findByIdAndUpdate.mockResolvedValue(false);
+            CustomError.notFound.mockReturnValue(mockError);
+
+            await itemController.returnItem(req, res, next);
+
+            expect(CustomError.notFound).toHaveBeenCalledWith("Could not find item");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return status 200 when item successfully updated", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockSuccess = {
+                statusCode: 200,
+                message: "Item Updated"
+            }
+            Item.findByIdAndUpdate.mockResolvedValue(true);
+            CustomSuccess.mockReturnValue(mockSuccess);
+
+            await itemController.returnItem(req, res, next);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockSuccess);
+            expect(CustomSuccess).toHaveBeenCalled();
+            expect(next).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("deleteItem", () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
+
+        test("Should return failed to delete if failure to run function", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 500,
+                message: "Failed to Delete"
+            }
+            Item.findByIdAndDelete.mockRejectedValue(new Error());
+            CustomError.internalServer.mockReturnValue(mockError);
+
+            await itemController.deleteItem(req, res, next);
+
+            expect(CustomError.internalServer).toHaveBeenCalledWith("Failed to Delete");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return could not find item if the item isn't foound", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 404,
+                message: "Could not find item"
+            }
+            Item.findByIdAndDelete.mockResolvedValue(false);
+            CustomError.notFound.mockReturnValue(mockError);
+
+            await itemController.deleteItem(req, res, next);
+
+            expect(CustomError.notFound).toHaveBeenCalledWith("Could not find item");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return 200 if item is found and deleted", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockSuccess = {
+                statusCode: 200,
+                message: "Item Deleted"
+            }
+            Item.findByIdAndDelete.mockResolvedValue(true);
+            CustomSuccess.mockReturnValue(mockSuccess);
+
+            await itemController.deleteItem(req, res, next);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockSuccess);
+            expect(CustomSuccess).toHaveBeenCalled();
+            expect(next).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("updateComments", () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
+
+        test("Should return failed to save if function fails", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011",
+                    comment: "Test Comment"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 500,
+                message: "Failed to save"
+            }
+            Item.findByIdAndUpdate.mockRejectedValue(new Error());
+            CustomError.internalServer.mockReturnValue(mockError);
+
+            await itemController.updateComments(req, res, next);
+
+            expect(CustomError.internalServer).toHaveBeenCalledWith("Failed to save");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return could not find item if item not found", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011",
+                    comment: "Test Comment"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockError = {
+                statusCode: 404,
+                message: "Could not find item"
+            }
+            Item.findByIdAndUpdate.mockResolvedValue(false);
+            CustomError.notFound.mockReturnValue(mockError);
+
+            await itemController.updateComments(req, res, next);
+
+            expect(CustomError.notFound).toHaveBeenCalledWith("Could not find item");
+            expect(next).toHaveBeenCalledWith(mockError);
+        });
+
+        test("Should return 200 if Item found and comments updated", async () => {
+            const req = {
+                body: {
+                    id: "507f1f77bcf86cd799439011",
+                    comment: "Test Comment"
+                }
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            const next = jest.fn();
+            const mockSuccess = {
+                statusCode: 200,
+                message: "Comments Updated"
+            }
+
+            Item.findByIdAndUpdate.mockResolvedValue(true);
+            CustomSuccess.mockReturnValue(mockSuccess);
+
+            await itemController.updateComments(req, res, next);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockSuccess);
+            expect(CustomSuccess).toHaveBeenCalled();
+            expect(next).not.toHaveBeenCalled();
+        })
+    });
+});

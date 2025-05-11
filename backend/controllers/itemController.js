@@ -39,7 +39,7 @@ module.exports.saveItemToLibrary = async (req, res, next) => {
         let newItem = new Item(req.body);
         await newItem.save()
         .then(() => {
-            const response = new CustomSuccess("Item saved to", 201);
+            const response = new CustomSuccess("Item saved to Library", 201);
             res.status(response.statusCode).json(response);
         })
         .catch(err => {
@@ -95,7 +95,7 @@ module.exports.returnItem = async (req, res, next) => {
             next(CustomError.notFound("Could not find item"));
         }
     } catch (err) {
-        next(CustomError.internalServer("Failed to save"));
+        next(CustomError.internalServer("Failed to update"));
     }
 }
 
