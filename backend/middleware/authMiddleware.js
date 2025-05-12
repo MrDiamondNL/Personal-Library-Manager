@@ -34,7 +34,7 @@ const checkForFirebaseToken = async (req, res, next) => {
            .cookie("customToken", customToken, {
                 httpOnly: true,
                 secure: true,
-                sameSite: "lax",
+                sameSite: "none",
                 maxAge: jwtConfig().JWT_EXPIRY * 1000 
             })
            .json({message: "Authentication successful"});
