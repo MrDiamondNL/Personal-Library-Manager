@@ -49,7 +49,7 @@ const checkForFirebaseToken = async (req, res, next) => {
 
 const checkForCustomToken = async (req, res, next) => {
     const token = req.cookies.customToken;
-    console.log(req.cookies);
+    console.log(req);
     console.log("did it get here");
     if (!token) {
         return next(CustomError.unauthorized("Authentication Required"));
