@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useAuth } from "../contexts/AuthContext";
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 
 export const SaveButton = ({ title, description, author, isbn, coverImage, trigger }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { currentUser } = useAuth();
+    const { customFetch } = useContext(CustomFetchContext);
 
     const submitData = async () => {
 
@@ -21,36 +23,20 @@ export const SaveButton = ({ title, description, author, isbn, coverImage, trigg
         });
         setIsSubmitting(true);
 
+        const LIBRARY_ITEM_SAVE_URL = import.meta.env.VITE_BACKEND_API_URL + "api/library";
+
         try {
-            const response = await fetch("https://personal-library-manager.onrender.com/library", {
+            const response = await customFetch(LIBRARY_ITEM_SAVE_URL, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify(dataToSubmit),
             });
 
-            if (response.ok) {
-
-                const responseClone = response.clone();
-
-                responseClone.json().then(result => {
-                    console.log("Book was saved to Library", result);
-                }).catch(async () => {
-                    const text = await response.text();
-                    console.log("Book was saved to Library", text);
-                });
-
-                trigger(true);
-
-            } else {
-                console.error("Unable to save to library", response.statusText);
-                setIsSubmitting(false);
-            }
-
+            console.log("Book was saved to Library", response);
+            trigger(true);
 
         } catch (error) {
             console.log(error);
+            setIsSubmitting(false);
         }
 
     }

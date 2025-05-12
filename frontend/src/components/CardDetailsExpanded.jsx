@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import defaultBookImage from "../imgs/stock cover image.jpg";
 import { useParams } from "react-router-dom";
 import { LendToken } from "./LendToken";
@@ -6,29 +6,22 @@ import { Popup } from "./Modals/Popup";
 import { IconPlus, IconTrash, IconCornerUpLeft, IconShare3 } from '@tabler/icons-react';
 import { useQuery } from "react-query";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export default function CardDetailsExpanded() {
 
     const { id } = useParams();
+    const CARD_DETAILS_EXPANDED_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + `api/details/${id}`
+    const { customFetch } = useContext(CustomFetchContext);
+
     const [expandedDescription, setExpandedDescription] = useState(false);
 
     const [modalType, setModalType] = useState(null);
 
     const findItem = async () => {
         try {
-            const response = await fetch(`https://personal-library-manager.onrender.com/details/${id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            if (response.ok) {
-                const result = await response.json();
-                return result;
-            } else {
-                console.log("item could not be found");
-                return null;
-            }
+            const response = await customFetch(CARD_DETAILS_EXPANDED_FETCH_URL);
+            return response;
         } catch (error) {
             console.log(error);
         }
@@ -99,7 +92,7 @@ export default function CardDetailsExpanded() {
                 )}
                 <h4>Comment Section</h4>
                 <div className="comments-section">
-                    {item.comments.length === 0 ? (
+                    {item.comments?.length === 0 ? (
                         <p>No Comments Added</p>
                     ) : (
                         item.comments.toReversed().map((comment, index) => (

@@ -12,6 +12,7 @@ import {
 
 // eslint-disable-next-line no-undef
 const AuthContext = createContext();
+const AUTHENTICATOR_API_URL = import.meta.env.VITE_BACKEND_API_URL + "api/auth/authenticate";
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -46,6 +47,45 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const getFirebaseToken = async () => {
+        const user = auth.currentUser;
+        if (!user) {
+            console.log("No current user found");
+            return null;
+        }
+        try {
+            const token = await user.getIdToken(true);
+            console.log("Token retrieved successfully");
+            return token;
+        } catch (error) {
+            console.log("Error getting token:", error);
+            return null;
+        }
+    }
+
+    const fetchCustomJWT = async () => {
+        const idToken = await getFirebaseToken();
+        console.log(idToken);
+        console.log(AUTHENTICATOR_API_URL);
+        try {
+            const response = await fetch(AUTHENTICATOR_API_URL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${idToken}`
+                },
+                credentials: "include"
+            });
+            if (response.ok) {
+                const result = await response.json();
+            } else {
+                console.log("No Response received");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
@@ -62,7 +102,9 @@ export function AuthProvider({ children }) {
         emailSignUp,
         loading,
         logOut,
-        forgotPassword
+        forgotPassword,
+        getFirebaseToken,
+        fetchCustomJWT
     }
 
     return (

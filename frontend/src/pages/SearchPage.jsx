@@ -1,22 +1,22 @@
 import { useLocation } from "react-router-dom"
+import { useContext } from "react";
 import CardContainer from "../components/CardContainer"
 import { useQuery } from "react-query"
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingSpinner } from "../components/LoadingSpinner";
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 export default function SearchPage() {
     const { currentUser } = useAuth();
+    const { customFetch } = useContext(CustomFetchContext);
 
     const location = useLocation();
     const { query } = location.state || { query: "" };
+    const url = import.meta.env.VITE_BACKEND_API_URL + "api/";
 
     const fetchLib = async () => {
-        const res = await fetch(`https://personal-library-manager.onrender.com/`);
-        console.log(res);
-        if (!res.ok) {
-            throw new Error("Response was not ok");
-        }
-        return res.json();
+        const res = await customFetch(url);
+        return res;
     }
     const { data } = useQuery(
         "lib",

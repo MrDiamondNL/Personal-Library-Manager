@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { CardSelectedProvider } from "../contexts/CardSelectedContext";
 import { useAuth } from "../contexts/AuthContext";
 import { LoginHeader } from "../components/LoginHeader";
+import { CustomFetchProvider } from "../contexts/CustomFetchContext";
 
 export default function RootLayout() {
     const [openSearch, setOpenSearch] = useState(false);
@@ -119,7 +120,9 @@ export default function RootLayout() {
                 <div className="content_container">
                     <div className="library__container">
                         <CardSelectedProvider>
-                            <Outlet />
+                            <CustomFetchProvider>
+                                <Outlet />
+                            </CustomFetchProvider>
                         </CardSelectedProvider>
                     </div>
                 </div>

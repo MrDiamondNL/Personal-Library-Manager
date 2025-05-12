@@ -3,17 +3,18 @@ import { GuideCard } from "./GuideCard";
 import { useQuery } from "react-query"
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingSpinner } from "./LoadingSpinner";
-// import libraryData from "../../data/dbtest.json"
+import { CustomFetchContext } from "../contexts/CustomFetchContext";
+import { useContext } from "react";
 
 export default function CardList({ bookType }) {
     const { currentUser } = useAuth();
 
+    const LIBRARY_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "api/";
+    const { customFetch } = useContext(CustomFetchContext);
+
     const fetchLib = async () => {
-        const res = await fetch(`https://personal-library-manager.onrender.com`);
-        if (!res.ok) {
-            throw new Error("Response was not ok");
-        }
-        return res.json();
+        const res = await customFetch(LIBRARY_FETCH_URL);
+        return res;
     }
     const { data, refetch } = useQuery(
         "lib",

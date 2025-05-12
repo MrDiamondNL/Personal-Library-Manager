@@ -8,24 +8,25 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { googleSignIn, } = useAuth();
+    const { googleSignIn, fetchCustomJWT } = useAuth();
     const navigate = useNavigate();
 
-
-    const emailSignIn = (e) => {
+    const emailSignIn = async (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-            }).catch((error) => {
-                console.log(error);
-            });
-        navigate("/");
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("User signed in:", userCredential);
+            await fetchCustomJWT();
+            navigate("/");
+        } catch (error) {
+            console.log("Sign-in error:", error);
+        }
     }
 
     const handleGoogleSignIn = async () => {
         try {
             await googleSignIn();
+            await fetchCustomJWT();
             navigate("/");
         } catch (error) {
             console.log(error);

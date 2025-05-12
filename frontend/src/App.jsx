@@ -14,11 +14,13 @@ import ManualISBNSearch from "./pages/ManualISBNSearch";
 import { CameraSearch } from "./pages/CameraSearch";
 import Login from "./pages/LogIn"
 import { AuthProvider } from "./contexts/AuthContext";
+import { CustomFetchProvider } from "./contexts/CustomFetchContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { TitleSearch } from "./pages/TitleSearch";
 import CardDetailsExpanded from "./components/CardDetailsExpanded";
 import { ResetPassword } from "./pages/ResetPassword";
 import { ExampleEntry } from "./pages/ExampleEntry";
+import TestPage from "./components/TestPage";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -36,6 +38,7 @@ const router = createBrowserRouter(
 					<Route path="/camera_search" element={<CameraSearch />} />
 					<Route path="/details/:id" element={<CardDetailsExpanded />} />
 					<Route path="/title_search" element={<TitleSearch />} />
+					<Route path="/test_page" element={<TestPage />} />
 				</Route>
 			</Route>
 			<Route path="/login" element={<Login />} />
