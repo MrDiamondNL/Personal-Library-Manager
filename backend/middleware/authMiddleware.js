@@ -18,6 +18,7 @@ const createToken = (id) => {
 const checkForFirebaseToken = async (req, res, next) => {
     console.log("checking for token");
     const firebaseToken = req.headers.authorization?.split("Bearer ")[1];
+    console.log(firebaseToken);
 
     if (!firebaseToken) {
         console.log("didn't find token");
