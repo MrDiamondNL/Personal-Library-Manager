@@ -115,7 +115,7 @@ describe("Authorization Middleware Testing", () => {
                 expect.objectContaining({
                     httpOnly: true,
                     secure: true,
-                    sameSite: "lax"
+                    sameSite: "none"
                 })
             );
             expect(mockVerifyIdToken).toHaveBeenCalledWith("properToken");
