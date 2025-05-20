@@ -12,7 +12,6 @@ export const CommentPopup = ({ item, closePopup }) => {
         const formData = new FormData(e.target);
         formData.append("id", itemToComment);
         const formDataObj = Object.fromEntries(formData.entries());
-        console.log(formDataObj);
 
         const LIBRARY_ITEM_COMMENT_FETCH_URL = import.meta.env.VITE_BACKEND_API_URL + "api/comment";
 

@@ -30,7 +30,6 @@ const checkForFirebaseToken = async (req, res, next) => {
         const decodedFirebaseToken = await admin.auth().verifyIdToken(firebaseToken);
         console.log("Attempting to create custom token")
         const customToken = createToken(decodedFirebaseToken.uid);
-        console.log(customToken);
         res.status(200)
            .cookie("customToken", customToken, {
                 httpOnly: true,
