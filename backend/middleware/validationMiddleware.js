@@ -5,7 +5,7 @@ const CustomError = require("../utils/customError")
 const schemas = {
     addingItem: Joi.object({
         title: Joi.string().required().min(1),
-        category: Joi.string().required(),
+        category: Joi.string(),
         description: Joi.string().allow(''),
         author: Joi.string().allow(''),
         isbn: Joi.string().allow(''),
