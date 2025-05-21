@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { CustomFetchContext } from "../contexts/CustomFetchContext";
 
 
-export const SaveButton = ({ title, description, author, isbn, coverImage, trigger }) => {
+export const SaveButton = ({ title, description, author, isbn, coverImage, category, trigger }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { currentUser } = useAuth();
@@ -19,7 +19,8 @@ export const SaveButton = ({ title, description, author, isbn, coverImage, trigg
             description: description,
             isbn: isbn,
             coverImage: coverImage ?? defaultBookImage,
-            user: currentUser.uid
+            user: currentUser.uid,
+            category: category ?? "Book"
         });
         setIsSubmitting(true);
 
