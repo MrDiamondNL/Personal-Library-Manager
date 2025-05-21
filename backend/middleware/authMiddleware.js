@@ -35,7 +35,8 @@ const checkForFirebaseToken = async (req, res, next) => {
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
-                maxAge: jwtConfig().JWT_EXPIRY * 1000 
+                maxAge: jwtConfig().JWT_EXPIRY * 1000,
+                partitioned: true
             })
            .json({message: "Authentication successful"});
             
