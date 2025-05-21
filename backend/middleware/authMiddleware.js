@@ -18,6 +18,7 @@ const createToken = (id) => {
 const checkForFirebaseToken = async (req, res, next) => {
     console.log("checking for token");
     const firebaseToken = req.headers.authorization?.split("Bearer ")[1];
+    console.log(firebaseToken);
 
     if (!firebaseToken) {
         console.log("didn't find token");
@@ -29,7 +30,6 @@ const checkForFirebaseToken = async (req, res, next) => {
         const decodedFirebaseToken = await admin.auth().verifyIdToken(firebaseToken);
         console.log("Attempting to create custom token")
         const customToken = createToken(decodedFirebaseToken.uid);
-        console.log(customToken);
         res.status(200)
            .cookie("customToken", customToken, {
                 httpOnly: true,
@@ -49,8 +49,6 @@ const checkForFirebaseToken = async (req, res, next) => {
 
 const checkForCustomToken = async (req, res, next) => {
     const token = req.cookies.customToken;
-    console.log(req.cookies);
-    console.log("did it get here");
     if (!token) {
         return next(CustomError.unauthorized("Authentication Required"));
     }

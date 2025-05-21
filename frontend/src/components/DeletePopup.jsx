@@ -18,7 +18,6 @@ export const DeletePopup = ({ item, closePopup }) => {
                 method: "DELETE",
                 body: JSON.stringify({ id: itemToDelete }),
             });
-            console.log("Entry was successfully deleted");
             setEntryDeleted(!entryDeleted);
             await new Promise(resolve => setTimeout(resolve, 2000));
             navigate("/");

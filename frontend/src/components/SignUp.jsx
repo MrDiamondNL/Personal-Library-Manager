@@ -18,7 +18,6 @@ export default function SignUp() {
             return;
         }
         emailSignUp(email, password).then((userCredential) => {
-            console.log(userCredential);
             navigate("/");
         }).catch((error) => {
             console.log(error);

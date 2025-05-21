@@ -18,7 +18,6 @@ export const LendPopup = ({ item, closePopup }) => {
                 method: "PUT",
                 body: JSON.stringify(formDataObj),
             });
-            console.log("Entry was successfully updated");
             setItemLent(!itemLent);
             await new Promise(resolve => setTimeout(resolve, 2000));
             closePopup();

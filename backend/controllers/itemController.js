@@ -8,8 +8,6 @@ module.exports.getAllItems = (req, res, next) => {
     if (!req.user) {
         return next(CustomError.unauthorized("User not authenticated"));
     }
-
-    console.log(req.user.id);
     
     const user = req.user.id;
     return Item.find({ user: user })

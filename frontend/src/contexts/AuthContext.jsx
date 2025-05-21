@@ -55,7 +55,6 @@ export function AuthProvider({ children }) {
         }
         try {
             const token = await user.getIdToken(true);
-            console.log("Token retrieved successfully");
             return token;
         } catch (error) {
             console.log("Error getting token:", error);
@@ -65,8 +64,6 @@ export function AuthProvider({ children }) {
 
     const fetchCustomJWT = async () => {
         const idToken = await getFirebaseToken();
-        console.log(idToken);
-        console.log(AUTHENTICATOR_API_URL);
         try {
             const response = await fetch(AUTHENTICATOR_API_URL, {
                 method: "GET",
