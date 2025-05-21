@@ -10,6 +10,7 @@ export default function SignIn() {
     const [password, setPassword] = useState("");
     const { googleSignIn, fetchCustomJWT } = useAuth();
     const navigate = useNavigate();
+    const [showSignInError, setShowSignInError] = useState(false);
 
     const emailSignIn = async (e) => {
         e.preventDefault();
@@ -20,6 +21,7 @@ export default function SignIn() {
             navigate("/");
         } catch (error) {
             console.log("Sign-in error:", error);
+            setShowSignInError(true);
         }
     }
 
@@ -30,6 +32,7 @@ export default function SignIn() {
             navigate("/");
         } catch (error) {
             console.log(error);
+            setShowSignInError(true);
         }
 
     }
@@ -43,6 +46,9 @@ export default function SignIn() {
                     <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                     <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                     <button type="submit">Sign In</button>
+                    {showSignInError && (
+                        <span className="error-span">Log in failed. Please try again</span>
+                    )}
                 </div>
 
 
