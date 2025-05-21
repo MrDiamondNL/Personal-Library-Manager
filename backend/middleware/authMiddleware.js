@@ -38,7 +38,10 @@ const checkForFirebaseToken = async (req, res, next) => {
                 maxAge: jwtConfig().JWT_EXPIRY * 1000,
                 partitioned: true
             })
-           .json({message: "Authentication successful"});
+           .json({
+                message: "Authentication successful",
+                token: customToken
+            });
             
         console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
@@ -49,7 +52,19 @@ const checkForFirebaseToken = async (req, res, next) => {
 }
 
 const checkForCustomToken = async (req, res, next) => {
-    const token = req.cookies.customToken;
+
+    let token;
+    
+    // Check custom header first (Safari with session storage)
+    if (req.headers['x-custom-token']) {
+        token = req.headers['x-custom-token'];
+    }
+    
+    // Fallback to cookie (other browsers)
+    if (!token && req.cookies.customToken) {
+        token = req.cookies.customToken;
+    }
+
     if (!token) {
         return next(CustomError.unauthorized("Authentication Required"));
     }

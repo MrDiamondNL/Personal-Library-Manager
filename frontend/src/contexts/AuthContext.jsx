@@ -75,6 +75,7 @@ export function AuthProvider({ children }) {
             });
             if (response.ok) {
                 const result = await response.json();
+                sessionStorage.setItem('customToken', result.token);
             } else {
                 console.log("No Response received");
             }
