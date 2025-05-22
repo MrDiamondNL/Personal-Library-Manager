@@ -119,7 +119,7 @@ describe("Authorization Middleware Testing", () => {
                 })
             );
             expect(mockVerifyIdToken).toHaveBeenCalledWith("properToken");
-            expect(res.json).toHaveBeenCalledWith({message: "Authentication successful"});
+            expect(res.json).toHaveBeenCalledWith({message: "Authentication successful", token: customToken});
             expect(next).not.toHaveBeenCalled();
         });
 
@@ -132,6 +132,7 @@ describe("Authorization Middleware Testing", () => {
 
         test("should return Authentication Required if no token in headers", async ()=> {
             const req = {
+                headers: {},
                 cookies: {}
             }
             const res = {};
@@ -150,6 +151,7 @@ describe("Authorization Middleware Testing", () => {
 
         test("Should return invalid token if token is invalid", async () => {
             const req = {
+                headers: {},
                 cookies: {
                     customToken: {}
                 }
@@ -173,6 +175,7 @@ describe("Authorization Middleware Testing", () => {
 
         test("Should assign user value to req from decoded customToken", async () => {
             const req = {
+                headers: {},
                 cookies: {
                     customToken: "valid token"
                 },
@@ -213,6 +216,7 @@ describe("Authorization Middleware Testing", () => {
 
         test("Should assign user value to req from decoded customToken", async () => {
             const req = {
+                headers: {},
                 cookies: {
                     customToken: "valid token"
                 },
