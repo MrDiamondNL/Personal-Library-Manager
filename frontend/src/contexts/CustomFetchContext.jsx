@@ -12,6 +12,7 @@ export const CustomFetchProvider = ({ children }) => {
 
     const customFetch = async (url, options = {}) => {
         const idToken = await getFirebaseToken();
+
         const defaultOptions = {
             method: "GET",
             headers: {
@@ -20,6 +21,13 @@ export const CustomFetchProvider = ({ children }) => {
             },
             credentials: 'include'
         };
+
+        // Check for session storage token (Safari fallback)
+        const sessionToken = sessionStorage.getItem('customToken');
+        if (sessionToken) {
+            // Add the session token as a custom header
+            defaultOptions.headers['X-Custom-Token'] = sessionToken;
+        }
 
         const fetchOptions = {
             ...defaultOptions,

@@ -497,12 +497,6 @@ header nav a {
   }
 }
 
-
-  span.error-span {
-    color: #D62700;
-    font-size: 12px;
-  }
-
 .item_entry_container {
   display: flex;
   flex-direction: column;
@@ -516,6 +510,11 @@ header nav a {
   }
   input {
     margin: 10px 0px;
+  }
+
+  span.error-span {
+    color: #D62700;
+    font-size: 12px;
   }
 
   button {
@@ -676,6 +675,11 @@ header nav a {
     h4 {
       flex-basis: 100%;
       margin: 20px 0;
+    }
+
+    span.error-span {
+      color: #D62700;
+      font-size: 12px;
     }
 
     .detail_entry_container {
