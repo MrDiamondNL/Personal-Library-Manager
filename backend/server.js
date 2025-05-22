@@ -15,7 +15,7 @@ let activeDb = "library";
 app.use(cors({
     origin: process.env.ORIGIN_URL || "http://localhost:5173" ,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-custom-token'],
     credentials: true
 }));
 app.use(cookieParser());
