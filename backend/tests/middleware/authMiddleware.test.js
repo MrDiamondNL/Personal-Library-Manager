@@ -119,7 +119,7 @@ describe("Authorization Middleware Testing", () => {
                 })
             );
             expect(mockVerifyIdToken).toHaveBeenCalledWith("properToken");
-            expect(res.json).toHaveBeenCalledWith({message: "Authentication successful", token: customToken});
+            expect(res.json).toHaveBeenCalledWith({message: "Authentication successful", token: "fake.jwt.token"});
             expect(next).not.toHaveBeenCalled();
         });
 
