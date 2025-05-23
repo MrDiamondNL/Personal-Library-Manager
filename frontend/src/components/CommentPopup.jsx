@@ -24,7 +24,7 @@ export const CommentPopup = ({ item, closePopup }) => {
             if (response) {
                 setCommentAdded(true);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                navigate("/");
+                closePopup();
             }
             return response;
         } catch (error) {
