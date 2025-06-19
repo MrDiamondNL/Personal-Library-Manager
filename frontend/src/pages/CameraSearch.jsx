@@ -7,10 +7,10 @@ import defaultBookImage from "../imgs/stock cover image.jpg";
 export const CameraSearch = () => {
 
     const [book, setBook] = useState(null);
-    const { currentUser } = useAuth()
+    const { currentUser } = useAuth();
     const [saved, setSaved] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+    const { getFirebaseToken } = useAuth();
 
     useEffect(() => {
         const scanner = new Html5QrcodeScanner("reader", {
@@ -67,6 +67,7 @@ export const CameraSearch = () => {
     const submitData = async () => {
         const dataToSubmit = book;
         setIsSubmitting(true);
+        const idToken = await getFirebaseToken();
 
         const LIBRARY_ITEM_SAVE_URL = import.meta.env.VITE_BACKEND_API_URL + "api/library"
 
@@ -75,7 +76,9 @@ export const CameraSearch = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${idToken}`
                 },
+                credentials: 'include',
                 body: JSON.stringify(dataToSubmit),
             });
 
